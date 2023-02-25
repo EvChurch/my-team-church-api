@@ -1,0 +1,6 @@
+AllCops:
+  NewCops: enable
+require:
+  - rubocop-rails
+Style/Documentation:
+  Enabled: false
