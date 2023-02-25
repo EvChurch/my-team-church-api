@@ -1,6 +1,8 @@
 AllCops:
   NewCops: enable
 require:
+  - rubocop-graphql
   - rubocop-rails
+  - rubocop-rspec
 Style/Documentation:
   Enabled: false
