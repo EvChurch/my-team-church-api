@@ -54,6 +54,8 @@ GEM
     activerecord (7.0.4.2)
       activemodel (= 7.0.4.2)
       activesupport (= 7.0.4.2)
+    activerecord-multi-tenant (2.2.0)
+      rails (>= 6)
     activestorage (7.0.4.2)
       actionpack (= 7.0.4.2)
       activejob (= 7.0.4.2)
@@ -66,28 +68,23 @@ GEM
       i18n (>= 1.6, < 2)
       minitest (>= 5.1)
       tzinfo (~> 2.0)
-    addressable (2.8.1)
-      public_suffix (>= 2.0.2, < 6.0)
+    ancestry (4.2.0)
+      activerecord (>= 5.2.6)
     ast (2.4.2)
     bindex (0.8.1)
     bootsnap (1.16.0)
       msgpack (~> 1.2)
     builder (3.2.4)
-    capybara (3.38.0)
-      addressable
-      matrix
-      mini_mime (>= 0.1.3)
-      nokogiri (~> 1.8)
-      rack (>= 1.6.0)
-      rack-test (>= 0.6.3)
-      regexp_parser (>= 1.5, < 3.0)
-      xpath (~> 3.2)
     concurrent-ruby (1.2.2)
     crass (1.0.6)
     date (3.3.3)
-    debug (1.7.1)
     diff-lcs (1.5.0)
     erubi (1.12.0)
+    factory_bot (6.2.1)
+      activesupport (>= 5.0.0)
+    factory_bot_rails (6.2.0)
+      factory_bot (~> 6.2.0)
+      railties (>= 5.0.0)
     globalid (1.1.0)
       activesupport (>= 5.0)
     graphiql-rails (1.8.0)
@@ -106,7 +103,6 @@ GEM
       net-pop
       net-smtp
     marcel (1.0.2)
-    matrix (0.4.2)
     method_source (1.0.0)
     mini_mime (1.1.2)
     mini_portile2 (2.8.1)
@@ -129,7 +125,6 @@ GEM
     parser (3.2.1.0)
       ast (~> 2.4.1)
     pg (1.4.5)
-    public_suffix (5.0.1)
     puma (6.1.0)
       nio4r (~> 2.0)
     racc (1.6.2)
@@ -208,12 +203,11 @@ GEM
       rubocop (~> 1.33)
       rubocop-capybara (~> 2.17)
     ruby-progressbar (1.11.0)
-    rubyzip (2.3.2)
-    selenium-webdriver (4.8.1)
-      rexml (~> 3.2, >= 3.2.5)
-      rubyzip (>= 1.2.2, < 3.0)
-      websocket (~> 1.0)
+    shoulda-matchers (5.3.0)
+      activesupport (>= 5.2.0)
     spring (4.1.1)
+    spring-commands-rspec (1.0.4)
+      spring (>= 0.9.1)
     sprockets (4.2.0)
       concurrent-ruby (~> 1.0)
       rack (>= 2.2.4, < 4)
@@ -231,25 +225,19 @@ GEM
       activemodel (>= 6.0.0)
       bindex (>= 0.4.0)
       railties (>= 6.0.0)
-    webdrivers (5.2.0)
-      nokogiri (~> 1.6)
-      rubyzip (>= 1.3.0)
-      selenium-webdriver (~> 4.0)
-    websocket (1.2.9)
     websocket-driver (0.7.5)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.5)
-    xpath (3.2.0)
-      nokogiri (~> 1.8)
     zeitwerk (2.6.7)
 
 PLATFORMS
   ruby
 
 DEPENDENCIES
+  activerecord-multi-tenant
+  ancestry
   bootsnap
-  capybara
-  debug
+  factory_bot_rails
   graphiql-rails
   graphql (~> 2.0)
   pg
@@ -261,12 +249,12 @@ DEPENDENCIES
   rubocop-graphql
   rubocop-rails
   rubocop-rspec
-  selenium-webdriver
+  shoulda-matchers
   spring
+  spring-commands-rspec
   sprockets-rails
   tzinfo-data
   web-console
-  webdrivers
 
 RUBY VERSION
    ruby 3.2.1p31

@@ -1,0 +1,19 @@
+# frozen_string_literal: true
+
+class CreateRealms < ActiveRecord::Migration[7.0]
+  def change
+    create_table :realms, id: :uuid do |t|
+      t.string :title, null: false
+      t.string :remote_id
+      t.string :color
+      t.string :bg_color
+      t.string :slug
+      t.references :organization, foreign_key: { on_delete: :cascade }, type: :uuid
+      t.string :ancestry, collation: :default
+
+      t.timestamps
+    end
+    add_index :realms, :ancestry
+    add_index :realms, :remote_id
+  end
+end
