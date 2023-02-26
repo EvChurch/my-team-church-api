@@ -2,8 +2,7 @@
 
 FactoryBot.define do
   factory :position do
-    organization_id { '' }
+    organization
     title { 'MyString' }
-    ancestry { 'MyString' }
   end
 end
