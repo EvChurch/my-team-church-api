@@ -18,9 +18,7 @@ module Fluro
           emails: remote['emails'],
           phone_numbers: remote['phoneNumbers']
         )
-        @organization.realms.where(remote_id: remote['realms'].pluck('_id')).each do |realm|
-          contact.contact_connections.find_or_create_by(realm_id: realm.id)
-        end
+        connect_realms(remote, contact)
       end
     end
   end

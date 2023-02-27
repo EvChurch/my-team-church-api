@@ -5,7 +5,14 @@ class Team < ApplicationRecord
   friendly_id :title, use: :scoped, scope: [:organization_id]
   has_ancestry primary_key_format: %r{\A[\w-]+(/[\w-]+)*\z}
   multi_tenant :organization
-  has_many :contact_memberships, dependent: :delete_all, class_name: 'Contact::Membership'
-  has_many :contacts, through: :contact_memberships
+  has_many :realm_connections,
+           dependent: :delete_all,
+           class_name: 'Realm::Connection',
+           as: :subject
+  has_many :realms, through: :realm_connections
+  has_many :memberships,
+           dependent: :delete_all,
+           class_name: 'Team::Membership'
+  has_many :contacts, through: :memberships
   validates :title, presence: true
 end

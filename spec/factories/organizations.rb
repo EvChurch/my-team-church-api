@@ -2,6 +2,6 @@
 
 FactoryBot.define do
   factory :organization do
-    title { 'MyString' }
+    title { Faker::Company.name }
   end
 end

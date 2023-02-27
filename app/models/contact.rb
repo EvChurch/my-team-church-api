@@ -4,13 +4,14 @@ class Contact < ApplicationRecord
   extend FriendlyId
   friendly_id :title, use: :scoped, scope: [:organization_id]
   multi_tenant :organization
-  has_many :contact_connections,
+  has_many :realm_connections,
            dependent: :delete_all,
-           class_name: 'Contact::Connection'
-  has_many :realms, through: :contact_connections
-  has_many :contact_memberships,
+           class_name: 'Realm::Connection',
+           as: :subject
+  has_many :realms, through: :realm_connections
+  has_many :memberships,
            dependent: :delete_all,
-           class_name: 'Contact::Membership'
-  has_many :teams, through: :contact_memberships
+           class_name: 'Team::Membership'
+  has_many :teams, through: :memberships
   validates :title, presence: true
 end

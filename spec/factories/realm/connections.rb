@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
 FactoryBot.define do
-  factory :contact_connection, class: 'Contact::Connection' do
+  factory :realm_connection, class: 'Realm::Connection' do
     organization
-    contact
     realm
+    subject factory: :contact
   end
 end

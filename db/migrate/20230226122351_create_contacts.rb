@@ -3,7 +3,7 @@
 class CreateContacts < ActiveRecord::Migration[7.0]
   def change
     create_table :contacts, id: :uuid do |t|
-      t.references :organization, foreign_key: { on_delete: :cascade }, type: :uuid
+      t.references :organization, null: false, foreign_key: { on_delete: :cascade }, type: :uuid
       t.string :title, null: false
       t.string :slug, null: false
       t.string :first_name

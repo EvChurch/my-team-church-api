@@ -3,9 +3,8 @@
 FactoryBot.define do
   factory :realm do
     organization
-    title { 'MyString' }
-    color { 'MyString' }
-    bg_color { 'MyString' }
-    slug { 'MyString' }
+    title { Faker::Company.name }
+    color { Faker::Color.hex_color }
+    bg_color { Faker::Color.hex_color }
   end
 end

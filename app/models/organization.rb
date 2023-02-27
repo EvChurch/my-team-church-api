@@ -5,6 +5,9 @@ class Organization < ApplicationRecord
   friendly_id :title, use: :slugged
   has_many :contacts, dependent: :delete_all
   has_many :realms, dependent: :delete_all
+  has_many :realm_connections, dependent: :delete_all, class_name: 'Realm::Connection'
+  has_many :team_memberships, dependent: :delete_all, class_name: 'Team::Membership'
+  has_many :teams, dependent: :delete_all
   validates :title, presence: true
   encrypts :fluro_api_key
 

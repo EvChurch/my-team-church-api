@@ -8,7 +8,7 @@ class CreateRealms < ActiveRecord::Migration[7.0]
       t.string :remote_id
       t.string :color
       t.string :bg_color
-      t.references :organization, foreign_key: { on_delete: :cascade }, type: :uuid
+      t.references :organization, null: false, foreign_key: { on_delete: :cascade }, type: :uuid
       t.string :ancestry, collation: :default
 
       t.timestamps

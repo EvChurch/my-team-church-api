@@ -5,13 +5,10 @@ class Realm < ApplicationRecord
   friendly_id :title, use: :scoped, scope: [:organization_id]
   has_ancestry primary_key_format: %r{\A[\w-]+(/[\w-]+)*\z}
   multi_tenant :organization
-  has_many :contact_connections,
+  has_many :connections,
            dependent: :delete_all,
-           class_name: 'Contact::Connection'
-  has_many :contacts, through: :contact_connections
-  has_many :team_connections,
-           dependent: :delete_all,
-           class_name: 'Team::Connection'
-  has_many :teams, through: :team_connections
+           class_name: 'Realm::Connection'
+  has_many :contacts, through: :connections, source: :subject, source_type: 'Contact'
+  has_many :teams, through: :connections, source: :subject, source_type: 'Team'
   validates :title, presence: true
 end
