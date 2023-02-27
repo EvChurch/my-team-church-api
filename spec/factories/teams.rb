@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 FactoryBot.define do
-  factory :position do
+  factory :team do
     organization
     title { 'MyString' }
   end

@@ -14,7 +14,7 @@ module Fluro
       self.class.get('/content/contact', @options)
     end
 
-    def positions
+    def teams
       self.class.get('/content/ministryTeam', @options)
     end
 

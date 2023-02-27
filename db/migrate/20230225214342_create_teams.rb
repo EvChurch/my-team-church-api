@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-class CreatePositions < ActiveRecord::Migration[7.0]
+class CreateTeams < ActiveRecord::Migration[7.0]
   def change
-    create_table :positions, id: :uuid do |t|
+    create_table :teams, id: :uuid do |t|
       t.references :organization, foreign_key: { on_delete: :cascade }, type: :uuid
       t.string :ancestry, collation: :default
       t.string :title, null: false
@@ -11,8 +11,8 @@ class CreatePositions < ActiveRecord::Migration[7.0]
 
       t.timestamps
     end
-    add_index :positions, :ancestry
-    add_index :positions, :remote_id
-    add_index :positions, %i[organization_id slug], unique: true
+    add_index :teams, :ancestry
+    add_index :teams, :remote_id
+    add_index :teams, %i[organization_id slug], unique: true
   end
 end

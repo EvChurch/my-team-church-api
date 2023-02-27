@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Position < ApplicationRecord
+class Team < ApplicationRecord
   extend FriendlyId
   friendly_id :title, use: :scoped, scope: [:organization_id]
   has_ancestry primary_key_format: %r{\A[\w-]+(/[\w-]+)*\z}

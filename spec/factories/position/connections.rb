@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
 FactoryBot.define do
-  factory :position_connection, class: 'Position::Connection' do
+  factory :team_connection, class: 'Team::Connection' do
     realm
     organization
-    position
+    team
   end
 end

@@ -10,7 +10,7 @@ class Organization < ApplicationRecord
 
   def import
     MultiTenant.with(self) do
-      Fluro::Import::BaseService.import(self)
+      Fluro::ImportService.import(self)
     end
   end
 end

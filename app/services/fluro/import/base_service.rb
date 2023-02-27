@@ -13,9 +13,15 @@ module Fluro
       end
 
       def import
-        Fluro::Import::RealmService.import(@organization)
-        Fluro::Import::ContactService.import(@organization)
-        Fluro::Import::PositionService.import(@organization)
+        collection.each do |remote_item|
+          import_item(remote_item)
+        end
+      end
+
+      def connect_realms(remote)
+        @organization.realms.where(remote_id: remote['realms'].pluck('_id')).each do |realm|
+          contact.contact_connections.find_or_create_by(realm_id: realm.id)
+        end
       end
     end
   end

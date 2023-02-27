@@ -1,8 +1,10 @@
 # frozen_string_literal: true
 
 class MyTeamChurchApiSchema < GraphQL::Schema
-  mutation(Types::MutationType)
-  query(Types::QueryType)
+  mutation Types::MutationType
+  query Types::QueryType
+  max_complexity 100
+  max_depth 10
 
   # For batch-loading (see https://graphql-ruby.org/dataloader/overview.html)
   use GraphQL::Dataloader

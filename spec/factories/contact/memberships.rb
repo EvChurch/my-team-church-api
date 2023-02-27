@@ -4,6 +4,6 @@ FactoryBot.define do
   factory :contact_membership, class: 'Contact::Membership' do
     organization
     contact
-    position
+    team
   end
 end

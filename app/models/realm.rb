@@ -9,9 +9,9 @@ class Realm < ApplicationRecord
            dependent: :delete_all,
            class_name: 'Contact::Connection'
   has_many :contacts, through: :contact_connections
-  has_many :position_connections,
+  has_many :team_connections,
            dependent: :delete_all,
-           class_name: 'Position::Connection'
-  has_many :positions, through: :position_connections
+           class_name: 'Team::Connection'
+  has_many :teams, through: :team_connections
   validates :title, presence: true
 end
