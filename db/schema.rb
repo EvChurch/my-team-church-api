@@ -19,6 +19,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_27_085739) do
     t.uuid "organization_id", null: false
     t.string "title", null: false
     t.string "slug", null: false
+    t.string "definition", null: false
     t.string "first_name"
     t.string "last_name"
     t.text "emails", default: [], array: true
@@ -74,6 +75,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_27_085739) do
     t.uuid "organization_id", null: false
     t.string "ancestry"
     t.string "status", default: "active"
+    t.string "definition", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["ancestry"], name: "index_realms_on_ancestry"
@@ -99,6 +101,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_27_085739) do
     t.string "ancestry"
     t.string "title", null: false
     t.string "slug", null: false
+    t.string "definition", null: false
     t.string "remote_id"
     t.string "status", default: "active"
     t.datetime "created_at", null: false

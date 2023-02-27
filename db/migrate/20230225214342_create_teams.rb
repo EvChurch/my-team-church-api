@@ -5,10 +5,11 @@ class CreateTeams < ActiveRecord::Migration[7.0]
     create_table :teams, id: :uuid do |t|
       t.references :organization, null: false, foreign_key: { on_delete: :cascade }, type: :uuid
       t.string :ancestry, collation: :default
-      t.string :title, null: false
+      t.string :definition, null: false
       t.string :slug, null: false
-      t.string :remote_id
       t.string :status, default: 'active'
+      t.string :title, null: false
+      t.string :remote_id
 
       t.timestamps
     end

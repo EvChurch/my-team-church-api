@@ -16,17 +16,23 @@ module Fluro
 
       def import_item(remote, parent = nil)
         realm = @organization.realms.find_or_initialize_by(remote_id: remote['_id'])
-        realm.update(
-          title: remote['title'],
-          bg_color: remote['bgColor'],
-          color: remote['color'],
-          slug: remote['slug'],
-          status: remote['status'],
-          parent:
-        )
+        realm.update attributes(remote).merge(parent:)
         remote['children'].each do |remote_child|
           import_item(remote_child, realm)
         end
+      end
+
+      private
+
+      def attributes(remote)
+        {
+          definition: remote['definition'] || remote['_type'],
+          slug: remote['slug'],
+          status: remote['status'],
+          title: remote['title'],
+          bg_color: remote['bgColor'],
+          color: remote['color']
+        }
       end
     end
   end

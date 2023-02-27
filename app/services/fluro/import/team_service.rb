@@ -16,12 +16,7 @@ module Fluro
 
       def import_item(remote, parent = nil)
         team = @organization.teams.find_or_initialize_by(remote_id: remote['_id'])
-        team.update(
-          title: remote['title'],
-          slug: remote['slug'],
-          status: remote['status'],
-          parent:
-        )
+        team.update attributes(remote).merge(parent:)
         connect_realms(remote, team)
         connect_contacts(remote, team)
         remote['children'].each do |remote_child|
@@ -30,6 +25,15 @@ module Fluro
       end
 
       private
+
+      def attributes(remote)
+        {
+          definition: remote['definition'] || remote['_type'],
+          slug: remote['slug'],
+          status: remote['status'],
+          title: remote['title']
+        }
+      end
 
       def connect_contacts(remote, team)
         team.contacts = @organization.contacts.where(remote_id: remote['provisionalMembers'].pluck('_id'))
