@@ -11,15 +11,15 @@ module Fluro
     end
 
     def contacts
-      self.class.get('/content/contact', @options)
+      self.class.get('/content/contact?allDefinitions=true', @options)
     end
 
     def teams
-      self.class.get('/content/ministryTeam', @options)
+      self.class.get('/content/team?allDefinitions=true', @options)
     end
 
     def realms
-      self.class.get('/realm/tree', @options)
+      self.class.get('/content/realm?allDefinitions=true', @options)
     end
   end
 end

@@ -8,6 +8,7 @@ class CreateTeams < ActiveRecord::Migration[7.0]
       t.string :title, null: false
       t.string :slug, null: false
       t.string :remote_id
+      t.string :status, default: 'active'
 
       t.timestamps
     end

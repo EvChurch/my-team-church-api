@@ -14,5 +14,6 @@ class Team < ApplicationRecord
            dependent: :delete_all,
            class_name: 'Team::Membership'
   has_many :contacts, through: :memberships
+  enum status: { active: 'active', archived: 'archived' }
   validates :title, presence: true
 end

@@ -6,7 +6,12 @@ module Fluro
       protected
 
       def collection
-        @client.realms
+        nested_hash = @client.realms.to_h { |e| [e['_id'], e.merge('children' => [])] }
+        nested_hash.each do |_id, item|
+          parent = nested_hash[item.dig('trail', -1, '_id')]
+          parent['children'] << item if parent
+        end
+        nested_hash.select { |_id, item| item.dig('trail', -1, '_id').nil? }.values
       end
 
       def import_item(remote, parent = nil)
@@ -15,6 +20,8 @@ module Fluro
           title: remote['title'],
           bg_color: remote['bgColor'],
           color: remote['color'],
+          slug: remote['slug'],
+          status: remote['status'],
           parent:
         )
         remote['children'].each do |remote_child|

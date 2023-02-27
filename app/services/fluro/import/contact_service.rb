@@ -16,7 +16,9 @@ module Fluro
           first_name: remote['firstName'],
           last_name: remote['lastName'],
           emails: remote['emails'],
-          phone_numbers: remote['phoneNumbers']
+          phone_numbers: remote['phoneNumbers'],
+          slug: remote['slug'],
+          status: remote['status']
         )
         connect_realms(remote, contact)
       end

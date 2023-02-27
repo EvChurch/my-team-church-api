@@ -18,6 +18,8 @@ module Fluro
         team = @organization.teams.find_or_initialize_by(remote_id: remote['_id'])
         team.update(
           title: remote['title'],
+          slug: remote['slug'],
+          status: remote['status'],
           parent:
         )
         connect_realms(remote, team)

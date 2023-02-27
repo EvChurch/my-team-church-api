@@ -16,7 +16,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_27_085739) do
   enable_extension "plpgsql"
 
   create_table "contacts", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.uuid "organization_id"
+    t.uuid "organization_id", null: false
     t.string "title", null: false
     t.string "slug", null: false
     t.string "first_name"
@@ -24,6 +24,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_27_085739) do
     t.text "emails", default: [], array: true
     t.text "phone_numbers", default: [], array: true
     t.string "remote_id"
+    t.string "status", default: "active"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["organization_id", "slug"], name: "index_contacts_on_organization_id_and_slug", unique: true
@@ -52,10 +53,10 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_27_085739) do
   end
 
   create_table "realm_connections", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.uuid "organization_id"
+    t.uuid "organization_id", null: false
     t.string "subject_type"
     t.uuid "subject_id"
-    t.uuid "realm_id"
+    t.uuid "realm_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["organization_id"], name: "index_realm_connections_on_organization_id"
@@ -69,8 +70,9 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_27_085739) do
     t.string "remote_id"
     t.string "color"
     t.string "bg_color"
-    t.uuid "organization_id"
+    t.uuid "organization_id", null: false
     t.string "ancestry"
+    t.string "status", default: "active"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["ancestry"], name: "index_realms_on_ancestry"
@@ -91,11 +93,12 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_27_085739) do
   end
 
   create_table "teams", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.uuid "organization_id"
+    t.uuid "organization_id", null: false
     t.string "ancestry"
     t.string "title", null: false
     t.string "slug", null: false
     t.string "remote_id"
+    t.string "status", default: "active"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["ancestry"], name: "index_teams_on_ancestry"

@@ -12,8 +12,8 @@ module Fluro
     end
 
     def import
-      # Fluro::Import::RealmService.import(@organization)
-      # Fluro::Import::ContactService.import(@organization)
+      Fluro::Import::RealmService.import(@organization)
+      Fluro::Import::ContactService.import(@organization)
       Fluro::Import::TeamService.import(@organization)
     end
   end

@@ -11,6 +11,7 @@ class CreateContacts < ActiveRecord::Migration[7.0]
       t.text :emails, array: true, default: []
       t.text :phone_numbers, array: true, default: []
       t.string :remote_id
+      t.string :status, default: 'active'
 
       t.timestamps
     end
