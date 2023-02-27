@@ -5,5 +5,6 @@ class Team
     multi_tenant :organization
     belongs_to :contact
     belongs_to :team
+    validates :team_id, uniqueness: { scope: %i[contact_id] }
   end
 end

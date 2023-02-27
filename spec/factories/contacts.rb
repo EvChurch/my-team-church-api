@@ -8,5 +8,6 @@ FactoryBot.define do
     last_name { Faker::Name.last_name }
     emails { [Faker::Internet.email] }
     phone_numbers { [Faker::PhoneNumber.phone_number] }
+    definition { 'contact' }
   end
 end
