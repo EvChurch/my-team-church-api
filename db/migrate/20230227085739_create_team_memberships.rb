@@ -9,5 +9,6 @@ class CreateTeamMemberships < ActiveRecord::Migration[7.0]
 
       t.timestamps
     end
+    add_index :team_memberships, %i[contact_id team_id], unique: true
   end
 end

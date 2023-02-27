@@ -61,6 +61,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_27_085739) do
     t.datetime "updated_at", null: false
     t.index ["organization_id"], name: "index_realm_connections_on_organization_id"
     t.index ["realm_id"], name: "index_realm_connections_on_realm_id"
+    t.index ["subject_id", "subject_type", "realm_id"], name: "index_realm_connections_on_subject_and_realm_id", unique: true
     t.index ["subject_type", "subject_id"], name: "index_realm_connections_on_subject"
   end
 
@@ -87,6 +88,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_27_085739) do
     t.uuid "team_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["contact_id", "team_id"], name: "index_team_memberships_on_contact_id_and_team_id", unique: true
     t.index ["contact_id"], name: "index_team_memberships_on_contact_id"
     t.index ["organization_id"], name: "index_team_memberships_on_organization_id"
     t.index ["team_id"], name: "index_team_memberships_on_team_id"

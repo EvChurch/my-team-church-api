@@ -32,9 +32,7 @@ module Fluro
       private
 
       def connect_contacts(remote, team)
-        @organization.contacts.where(remote_id: remote['provisionalMembers'].pluck('_id')).each do |contact|
-          team.contacts << contact
-        end
+        team.contacts = @organization.contacts.where(remote_id: remote['provisionalMembers'].pluck('_id'))
       end
     end
   end

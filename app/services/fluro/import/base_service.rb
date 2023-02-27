@@ -19,9 +19,7 @@ module Fluro
       end
 
       def connect_realms(remote, local)
-        @organization.realms.where(remote_id: remote['realms'].pluck('_id')).each do |realm|
-          local.realms << realm
-        end
+        local.realms = @organization.realms.where(remote_id: remote['realms'].pluck('_id'))
       end
     end
   end

@@ -9,5 +9,9 @@ class CreateRealmConnections < ActiveRecord::Migration[7.0]
 
       t.timestamps
     end
+    add_index :realm_connections,
+              %i[subject_id subject_type realm_id],
+              unique: true,
+              name: 'index_realm_connections_on_subject_and_realm_id'
   end
 end

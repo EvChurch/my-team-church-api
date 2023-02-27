@@ -9,6 +9,6 @@ RSpec.describe Contact do
   it { is_expected.to have_many(:realms).through(:realm_connections) }
   it { is_expected.to have_many(:memberships).dependent(:delete_all) }
   it { is_expected.to have_many(:teams).through(:memberships) }
-  it { is_expected.to define_enum_for(:status).with_values(active: 'active', archived: 'archived') }
+  it { is_expected.to define_enum_for(:status).with_values(active: 'active', archived: 'archived', draft: 'draft') }
   it { is_expected.to validate_presence_of(:title) }
 end

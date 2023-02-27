@@ -10,6 +10,6 @@ class Realm < ApplicationRecord
            class_name: 'Realm::Connection'
   has_many :contacts, through: :connections, source: :subject, source_type: 'Contact'
   has_many :teams, through: :connections, source: :subject, source_type: 'Team'
-  enum status: { active: 'active', archived: 'archived' }
+  enum status: { active: 'active', archived: 'archived', draft: 'draft' }
   validates :title, presence: true
 end
