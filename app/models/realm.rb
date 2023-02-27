@@ -1,7 +1,9 @@
 # frozen_string_literal: true
 
 class Realm < ApplicationRecord
-  has_ancestry
+  extend FriendlyId
+  friendly_id :title, use: :scoped, scope: [:organization_id]
+  has_ancestry primary_key_format: %r{\A[\w-]+(/[\w-]+)*\z}
   multi_tenant :organization
   has_many :contact_connections,
            dependent: :delete_all,
