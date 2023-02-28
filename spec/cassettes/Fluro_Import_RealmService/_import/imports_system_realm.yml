@@ -1,0 +1,82 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://api.fluro.io/content/realm?allDefinitions=true
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Authorization:
+      - Bearer <BEARER_TOKEN>
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=utf-8
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      X-Fluro-Server-Version:
+      - b2f266de
+      Vary:
+      - Origin, Accept-Encoding
+      Access-Control-Allow-Credentials:
+      - 'true'
+      Access-Control-Expose-Headers:
+      - x-fluro-pager-total
+      Etag:
+      - W/"15f8f-H1P3LeyZBIY5MtZI8rWEct+7FHY"
+      Set-Cookie:
+      - fls=s%3AfUGJbN06tIB2Zj1qXdaFsVAHIDf5E4-c.B%2BYOqhY4XjSrdMyi8fqk43CQ1Sqi5CfAVHBOSVO2Pss;
+        Domain=.fluro.io; Path=/; Expires=Mon, 06 Mar 2023 23:33:34 GMT; HttpOnly;
+        SameSite=Lax
+      Date:
+      - Mon, 27 Feb 2023 23:33:34 GMT
+      X-Cache:
+      - Miss from cloudfront
+      Via:
+      - 1.1 8f0eabccda03f9d30c01b8f28cbea6ea.cloudfront.net (CloudFront)
+      X-Amz-Cf-Pop:
+      - AKL50-C1
+      X-Amz-Cf-Id:
+      - fKG0cm9tK96rnsvVSAQmOqRwvQ8S3zIboajGFyy9JwEDx2K3_pgXOA==
+    body:
+      encoding: ASCII-8BIT
+      string: '[
+          {
+            "_id": "5c05050b48890574c5395cad",
+            "status": "active",
+            "trail": [{ "_id": "5c0dd66be6f97b5fa6211998", "title": "System" }],
+            "title": "Church",
+            "_type": "realm",
+            "created": "2018-12-03T10:27:23.136Z",
+            "updated": "2021-04-21T05:10:44.668Z",
+            "bgColor": "#555",
+            "color": "#eee",
+            "slug": "realm-auckland-ev",
+            "definition": "locationRealm"
+          },
+          {
+            "_id": "5c0dd66be6f97b5fa6211998",
+            "status": "active",
+            "trail": [],
+            "title": "System",
+            "_type": "realm",
+            "created": "2018-12-10T02:58:51.704Z",
+            "updated": "2018-12-10T02:58:51.708Z",
+            "bgColor": "#555",
+            "color": "#eee"
+          }
+        ]'
+  recorded_at: Mon, 27 Feb 2023 23:33:35 GMT
+recorded_with: VCR 6.1.0

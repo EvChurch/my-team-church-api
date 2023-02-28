@@ -15,5 +15,5 @@ class Team < ApplicationRecord
            class_name: 'Team::Membership'
   has_many :contacts, through: :memberships
   enum status: { active: 'active', archived: 'archived', draft: 'draft' }
-  validates :title, presence: true
+  validates :title, :definition, presence: true
 end

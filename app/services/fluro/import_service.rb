@@ -2,9 +2,10 @@
 
 module Fluro
   class ImportService
+    attr_reader :organization
+
     def initialize(organization)
       @organization = organization
-      @client = Fluro::ClientService.new(organization)
     end
 
     def self.import(organization)
@@ -12,9 +13,9 @@ module Fluro
     end
 
     def import
-      Fluro::Import::RealmService.import(@organization)
-      Fluro::Import::ContactService.import(@organization)
-      Fluro::Import::TeamService.import(@organization)
+      Fluro::Import::RealmService.import(organization)
+      Fluro::Import::ContactService.import(organization)
+      Fluro::Import::TeamService.import(organization)
     end
   end
 end

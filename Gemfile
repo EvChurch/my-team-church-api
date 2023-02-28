@@ -11,6 +11,7 @@ gem 'friendly_id'
 gem 'graphql', '~> 2.0'
 gem 'httparty'
 gem 'pg'
+gem 'pry-byebug'
 gem 'pry-rails'
 gem 'puma'
 gem 'rails', '~> 7.0.4', '>= 7.0.4.2'
@@ -37,4 +38,6 @@ end
 group :test do
   gem 'faker'
   gem 'shoulda-matchers'
+  gem 'vcr'
+  gem 'webmock'
 end

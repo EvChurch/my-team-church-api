@@ -6,7 +6,6 @@ module Fluro
     base_uri 'https://api.fluro.io'
 
     def initialize(organization)
-      @organization = organization
       @options = { headers: { authorization: "Bearer #{organization.fluro_api_key}" } }
     end
 
