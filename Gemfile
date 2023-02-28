@@ -36,6 +36,7 @@ group :development do
 end
 
 group :test do
+  gem 'database_cleaner-active_record'
   gem 'faker'
   gem 'shoulda-matchers'
   gem 'vcr'

@@ -1,0 +1,123 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://api.fluro.io/content/team?allDefinitions=true
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Authorization:
+      - Bearer <BEARER_TOKEN>
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=utf-8
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      X-Fluro-Server-Version:
+      - b2f266de
+      Vary:
+      - Origin, Accept-Encoding
+      Access-Control-Allow-Credentials:
+      - 'true'
+      Access-Control-Expose-Headers:
+      - x-fluro-pager-total
+      Etag:
+      - W/"7f0de7-XIGP6AKTt56tEeMi4vtX7wLhu4c"
+      Set-Cookie:
+      - fls=s%3Ae6dVHXnTxFjgR9X7s082W4lZRS_g8QRY.WavpclFHTE8Y4GLOH46Erb5RcLoz9gRD5%2FPh6Gy6l1M;
+        Domain=.fluro.io; Path=/; Expires=Tue, 07 Mar 2023 09:46:25 GMT; HttpOnly;
+        SameSite=Lax
+      Date:
+      - Tue, 28 Feb 2023 09:46:25 GMT
+      X-Cache:
+      - Miss from cloudfront
+      Via:
+      - 1.1 f2867d87cb7f6c638a180770df71e800.cloudfront.net (CloudFront)
+      X-Amz-Cf-Pop:
+      - AKL50-C1
+      X-Amz-Cf-Id:
+      - yhklL54BeQewhEJfZd8heC-O47DUff6mYgHf3MQuN4O5A7dapJCzcg==
+    body:
+      encoding: ASCII-8BIT
+      string: '[
+          {
+            "_id": "5c0dd66be6f97b5fa6211998",
+            "status": "active",
+            "provisionalMembers": [
+              { "_id": "5c0d98ef44d30a36d8c5574d" },
+              { "_id": "5c05049048890574c5395ca5" }
+            ],
+            "realms": [
+              {
+                "_id": "5c0d9d3e7ef61e100ae4514b",
+                "title": "Central",
+                "bgColor": "#9ee2ff",
+                "color": "#1366a3",
+                "_type": "realm",
+                "slug": "realm-morning-church",
+                "definition": "locationRealm"
+              },
+              {
+                "_id": "5c0d9d497ef61e100ae45153",
+                "title": "Unichurch",
+                "bgColor": "#EC2E2EFF",
+                "color": "#FFB5BAFF",
+                "_type": "realm",
+                "slug": "realm-unichurch",
+                "definition": "locationRealm"
+              }
+            ],
+            "_type": "team",
+            "title": "The Parent Team",
+            "created": "2021-01-02T03:24:52.840Z",
+            "updated": "2021-04-23T22:20:38.284Z"
+          },
+          {
+            "_id": "5c05050b48890574c5395cad",
+            "status": "active",
+            "provisionalMembers": [{ "_id": "5c0d98ef44d30a36d8c5574d" }],
+            "realms": [
+              {
+                "_id": "5c0d9d3e7ef61e100ae4514b",
+                "title": "Central",
+                "bgColor": "#9ee2ff",
+                "color": "#1366a3",
+                "_type": "realm",
+                "slug": "realm-morning-church",
+                "definition": "locationRealm"
+              },
+              {
+                "_id": "5c0d9d497ef61e100ae45153",
+                "title": "Unichurch",
+                "bgColor": "#EC2E2EFF",
+                "color": "#FFB5BAFF",
+                "_type": "realm",
+                "slug": "realm-unichurch",
+                "definition": "locationRealm"
+              }
+            ],
+            "_type": "team",
+            "title": "The Child Team",
+            "created": "2021-01-02T03:24:52.840Z",
+            "updated": "2021-04-23T22:20:38.284Z",
+            "definition": "serviceTeam",
+            "data": {
+              "parentTeam": "5c0dd66be6f97b5fa6211998"
+            }
+          }
+        ]'
+  recorded_at: Tue, 28 Feb 2023 09:46:26 GMT
+recorded_with: VCR 6.1.0

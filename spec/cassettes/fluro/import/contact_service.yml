@@ -61,6 +61,39 @@ http_interactions:
             "lastName": "Smith",
             "emails": ["robert@aucklandev.co.nz", "robert.smith@gmail.com"],
             "phoneNumbers": ["021098765", "6421098765"],
+            "definition": "leader",
+            "_type": "contact",
+            "created": "2014-01-15T01:36:47.000Z",
+            "updated": "2023-02-21T22:21:19.559Z",
+            "realms": [
+              {
+                "_id": "5c0d9d3e7ef61e100ae4514b",
+                "title": "Central",
+                "bgColor": "#9ee2ff",
+                "color": "#1366a3",
+                "_type": "realm",
+                "slug": "realm-morning-church",
+                "definition": "locationRealm"
+              },
+              {
+                "_id": "5c0d9d497ef61e100ae45153",
+                "title": "Unichurch",
+                "bgColor": "#EC2E2EFF",
+                "color": "#FFB5BAFF",
+                "_type": "realm",
+                "slug": "realm-unichurch",
+                "definition": "locationRealm"
+              }
+            ]
+          },
+          {
+            "_id": "607bf8ccd6fc8e05f37379ed",
+            "status": "active",
+            "title": "Michelle Smith",
+            "firstName": "Michelle",
+            "lastName": "Smith",
+            "emails": ["michelle@aucklandev.co.nz", "michelle.smith@gmail.com"],
+            "phoneNumbers": ["021098761", "6421098761"],
             "_type": "contact",
             "created": "2014-01-15T01:36:47.000Z",
             "updated": "2023-02-21T22:21:19.559Z",
