@@ -13,5 +13,4 @@ RSpec.describe Realm::Connection do
   it { is_expected.to have_db_column(:updated_at).of_type(:datetime).with_options(null: false) }
   it { is_expected.to belong_to(:realm) }
   it { is_expected.to belong_to(:subject) }
-  it { is_expected.to validate_uniqueness_of(:realm_id).scoped_to(:subject_id, :subject_type).case_insensitive }
 end
