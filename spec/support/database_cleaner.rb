@@ -14,7 +14,7 @@ RSpec.configure do |config|
   end
 
   config.around do |each|
-    MultiTenant.with(respond_to?(:organization) ? organization : create(:organization)) do
+    MultiTenant.with(respond_to?(:account) ? account : create(:account)) do
       each.run
     end
   end

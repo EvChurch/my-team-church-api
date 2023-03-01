@@ -15,7 +15,7 @@ module Fluro
       end
 
       def local_collection
-        @organization.teams
+        @account.teams
       end
 
       def remote_fields
@@ -23,7 +23,7 @@ module Fluro
       end
 
       def connect_associations(remote, team)
-        team.contacts = @organization.contacts.where(remote_id: remote['provisionalMembers'].pluck('_id'))
+        team.contacts = @account.contacts.where(remote_id: remote['provisionalMembers'].pluck('_id'))
       end
     end
   end

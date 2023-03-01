@@ -3,7 +3,7 @@
 class CreateContacts < ActiveRecord::Migration[7.0]
   def change
     create_table :contacts, id: :uuid do |t|
-      t.references :organization, null: false, foreign_key: { on_delete: :cascade }, type: :uuid
+      t.references :account, null: false, foreign_key: { on_delete: :cascade }, type: :uuid
       t.string :definition, null: false
       t.string :slug, null: false
       t.string :status, default: 'active'
@@ -17,6 +17,6 @@ class CreateContacts < ActiveRecord::Migration[7.0]
       t.timestamps
     end
     add_index :contacts, :remote_id
-    add_index :contacts, %i[organization_id slug], unique: true
+    add_index :contacts, %i[account_id slug], unique: true
   end
 end

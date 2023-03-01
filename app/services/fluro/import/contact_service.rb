@@ -10,7 +10,7 @@ module Fluro
       end
 
       def local_collection
-        @organization.contacts
+        @account.contacts
       end
 
       def remote_fields

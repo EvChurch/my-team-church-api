@@ -3,19 +3,19 @@
 require 'rails_helper'
 
 RSpec.describe Fluro::Import::ContactService, vcr: 'fluro/import/contact_service' do
-  subject(:contact_service) { described_class.new(organization) }
+  subject(:contact_service) { described_class.new(account) }
 
-  let(:organization) { create(:organization, fluro_api_key: 'fluro_api_key') }
+  let(:account) { create(:account, fluro_api_key: 'fluro_api_key') }
 
   describe '#import' do
-    let!(:realm1) { create(:realm, organization:, remote_id: '5c0d9d3e7ef61e100ae4514b') }
-    let!(:realm2) { create(:realm, organization:, remote_id: '5c0d9d497ef61e100ae45153') }
+    let!(:realm1) { create(:realm, account:, remote_id: '5c0d9d3e7ef61e100ae4514b') }
+    let!(:realm2) { create(:realm, account:, remote_id: '5c0d9d497ef61e100ae45153') }
 
     describe 'with definition' do
       let(:attributes) do
         {
           'definition' => 'leader',
-          'organization_id' => organization.id,
+          'account_id' => account.id,
           'remote_id' => '5c05057c48890574c5395cc6',
           'slug' => 'robert-smith',
           'status' => 'active',
@@ -45,7 +45,7 @@ RSpec.describe Fluro::Import::ContactService, vcr: 'fluro/import/contact_service
       let(:attributes) do
         {
           'definition' => 'contact',
-          'organization_id' => organization.id,
+          'account_id' => account.id,
           'remote_id' => '607bf8ccd6fc8e05f37379ed',
           'slug' => 'michelle-smith',
           'status' => 'active',

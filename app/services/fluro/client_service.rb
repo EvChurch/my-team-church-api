@@ -5,8 +5,8 @@ module Fluro
     include HTTParty
     base_uri 'https://api.fluro.io'
 
-    def initialize(organization)
-      @options = { headers: { authorization: "Bearer #{organization.fluro_api_key}" } }
+    def initialize(account)
+      @options = { headers: { authorization: "Bearer #{account.fluro_api_key}" } }
     end
 
     def contacts

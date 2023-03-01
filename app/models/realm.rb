@@ -2,9 +2,9 @@
 
 class Realm < ApplicationRecord
   extend FriendlyId
-  friendly_id :title, use: :scoped, scope: [:organization_id]
+  friendly_id :title, use: :scoped, scope: [:account_id]
   has_ancestry primary_key_format: %r{\A[\w-]+(/[\w-]+)*\z}
-  multi_tenant :organization
+  multi_tenant :account
   has_many :connections,
            dependent: :delete_all,
            class_name: 'Realm::Connection'

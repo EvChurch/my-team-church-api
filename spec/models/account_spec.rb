@@ -2,8 +2,8 @@
 
 require 'rails_helper'
 
-RSpec.describe Organization do
-  subject(:organization) { create(:organization) }
+RSpec.describe Account do
+  subject(:account) { create(:account) }
 
   it { is_expected.to have_db_column(:title).of_type(:string).with_options(null: false) }
   it { is_expected.to have_db_column(:slug).of_type(:string).with_options(null: false) }

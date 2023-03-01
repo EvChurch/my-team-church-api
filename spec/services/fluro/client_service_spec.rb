@@ -3,9 +3,9 @@
 require 'rails_helper'
 
 RSpec.describe Fluro::ClientService do
-  subject(:client_service) { described_class.new(organization) }
+  subject(:client_service) { described_class.new(account) }
 
-  let(:organization) { create(:organization, fluro_api_key: 'fluro_api_key') }
+  let(:account) { create(:account, fluro_api_key: 'fluro_api_key') }
 
   describe '#contacts' do
     before do
@@ -16,7 +16,7 @@ RSpec.describe Fluro::ClientService do
       client_service.contacts
       expect(described_class).to have_received(:get).with(
         '/content/contact?allDefinitions=true',
-        { headers: { authorization: "Bearer #{organization.fluro_api_key}" } }
+        { headers: { authorization: "Bearer #{account.fluro_api_key}" } }
       )
     end
 
@@ -34,7 +34,7 @@ RSpec.describe Fluro::ClientService do
       client_service.teams
       expect(described_class).to have_received(:get).with(
         '/content/team?allDefinitions=true',
-        { headers: { authorization: "Bearer #{organization.fluro_api_key}" } }
+        { headers: { authorization: "Bearer #{account.fluro_api_key}" } }
       )
     end
 
@@ -52,7 +52,7 @@ RSpec.describe Fluro::ClientService do
       client_service.realms
       expect(described_class).to have_received(:get).with(
         '/content/realm?allDefinitions=true',
-        { headers: { authorization: "Bearer #{organization.fluro_api_key}" } }
+        { headers: { authorization: "Bearer #{account.fluro_api_key}" } }
       )
     end
 

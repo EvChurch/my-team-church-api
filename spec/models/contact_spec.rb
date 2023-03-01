@@ -5,7 +5,7 @@ require 'rails_helper'
 RSpec.describe Contact do
   subject(:contact) { create(:contact) }
 
-  it { is_expected.to have_db_column(:organization_id).of_type(:uuid).with_options(null: false) }
+  it { is_expected.to have_db_column(:account_id).of_type(:uuid).with_options(null: false) }
   it { is_expected.to have_db_column(:definition).of_type(:string).with_options(null: false) }
   it { is_expected.to have_db_column(:slug).of_type(:string).with_options(null: false) }
   it { is_expected.to have_db_column(:status).of_type(:string).with_options(default: 'active') }

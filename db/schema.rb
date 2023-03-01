@@ -15,8 +15,17 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_27_085739) do
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
 
+  create_table "accounts", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "title", null: false
+    t.string "slug", null: false
+    t.string "fluro_api_key"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["slug"], name: "index_accounts_on_slug", unique: true
+  end
+
   create_table "contacts", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.uuid "organization_id", null: false
+    t.uuid "account_id", null: false
     t.string "definition", null: false
     t.string "slug", null: false
     t.string "status", default: "active"
@@ -28,8 +37,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_27_085739) do
     t.text "phone_numbers", default: [], array: true
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["organization_id", "slug"], name: "index_contacts_on_organization_id_and_slug", unique: true
-    t.index ["organization_id"], name: "index_contacts_on_organization_id"
+    t.index ["account_id", "slug"], name: "index_contacts_on_account_id_and_slug", unique: true
+    t.index ["account_id"], name: "index_contacts_on_account_id"
     t.index ["remote_id"], name: "index_contacts_on_remote_id"
   end
 
@@ -44,30 +53,21 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_27_085739) do
     t.index ["sluggable_type", "sluggable_id"], name: "index_friendly_id_slugs_on_sluggable_type_and_sluggable_id"
   end
 
-  create_table "organizations", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.string "title", null: false
-    t.string "slug", null: false
-    t.string "fluro_api_key"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["slug"], name: "index_organizations_on_slug", unique: true
-  end
-
   create_table "realm_connections", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.uuid "organization_id", null: false
+    t.uuid "account_id", null: false
     t.string "subject_type", null: false
     t.uuid "subject_id", null: false
     t.uuid "realm_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["organization_id"], name: "index_realm_connections_on_organization_id"
+    t.index ["account_id"], name: "index_realm_connections_on_account_id"
     t.index ["realm_id"], name: "index_realm_connections_on_realm_id"
     t.index ["subject_id", "subject_type", "realm_id"], name: "index_realm_connections_on_subject_and_realm_id", unique: true
     t.index ["subject_type", "subject_id"], name: "index_realm_connections_on_subject"
   end
 
   create_table "realms", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.uuid "organization_id", null: false
+    t.uuid "account_id", null: false
     t.string "ancestry"
     t.string "definition", null: false
     t.string "slug", null: false
@@ -78,26 +78,26 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_27_085739) do
     t.string "bg_color"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["account_id", "slug"], name: "index_realms_on_account_id_and_slug", unique: true
+    t.index ["account_id"], name: "index_realms_on_account_id"
     t.index ["ancestry"], name: "index_realms_on_ancestry"
-    t.index ["organization_id", "slug"], name: "index_realms_on_organization_id_and_slug", unique: true
-    t.index ["organization_id"], name: "index_realms_on_organization_id"
     t.index ["remote_id"], name: "index_realms_on_remote_id"
   end
 
   create_table "team_memberships", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.uuid "organization_id", null: false
+    t.uuid "account_id", null: false
     t.uuid "contact_id", null: false
     t.uuid "team_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["account_id"], name: "index_team_memberships_on_account_id"
     t.index ["contact_id", "team_id"], name: "index_team_memberships_on_contact_id_and_team_id", unique: true
     t.index ["contact_id"], name: "index_team_memberships_on_contact_id"
-    t.index ["organization_id"], name: "index_team_memberships_on_organization_id"
     t.index ["team_id"], name: "index_team_memberships_on_team_id"
   end
 
   create_table "teams", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.uuid "organization_id", null: false
+    t.uuid "account_id", null: false
     t.string "ancestry"
     t.string "definition", null: false
     t.string "slug", null: false
@@ -106,18 +106,18 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_27_085739) do
     t.string "remote_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["account_id", "slug"], name: "index_teams_on_account_id_and_slug", unique: true
+    t.index ["account_id"], name: "index_teams_on_account_id"
     t.index ["ancestry"], name: "index_teams_on_ancestry"
-    t.index ["organization_id", "slug"], name: "index_teams_on_organization_id_and_slug", unique: true
-    t.index ["organization_id"], name: "index_teams_on_organization_id"
     t.index ["remote_id"], name: "index_teams_on_remote_id"
   end
 
-  add_foreign_key "contacts", "organizations", on_delete: :cascade
-  add_foreign_key "realm_connections", "organizations", on_delete: :cascade
+  add_foreign_key "contacts", "accounts", on_delete: :cascade
+  add_foreign_key "realm_connections", "accounts", on_delete: :cascade
   add_foreign_key "realm_connections", "realms", on_delete: :cascade
-  add_foreign_key "realms", "organizations", on_delete: :cascade
+  add_foreign_key "realms", "accounts", on_delete: :cascade
+  add_foreign_key "team_memberships", "accounts", on_delete: :cascade
   add_foreign_key "team_memberships", "contacts", on_delete: :cascade
-  add_foreign_key "team_memberships", "organizations", on_delete: :cascade
   add_foreign_key "team_memberships", "teams", on_delete: :cascade
-  add_foreign_key "teams", "organizations", on_delete: :cascade
+  add_foreign_key "teams", "accounts", on_delete: :cascade
 end

@@ -2,8 +2,8 @@
 
 class Contact < ApplicationRecord
   extend FriendlyId
-  friendly_id :title, use: :scoped, scope: [:organization_id]
-  multi_tenant :organization
+  friendly_id :title, use: :scoped, scope: [:account_id]
+  multi_tenant :account
   has_many :realm_connections,
            dependent: :delete_all,
            class_name: 'Realm::Connection',

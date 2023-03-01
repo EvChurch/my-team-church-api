@@ -6,21 +6,21 @@ module Types
     # Add `node(id: ID!) and `nodes(ids: [ID!]!)`
     include GraphQL::Types::Relay::HasNodeField
     include GraphQL::Types::Relay::HasNodesField
-    field :organizations,
-          Types::Objects::OrganizationType.connection_type,
-          'organizations belonging to the current user',
+    field :accounts,
+          Types::Objects::AccountType.connection_type,
+          'accounts belonging to the current user',
           null: false
     field :realms,
           Types::Objects::RealmType.connection_type,
-          'realms belonging to the current organization',
+          'realms belonging to the current account',
           null: false
 
     def realms
-      Organization.first.realms
+      Account.first.realms
     end
 
-    def organizations
-      Organization.all
+    def accounts
+      Account.all
     end
   end
 end

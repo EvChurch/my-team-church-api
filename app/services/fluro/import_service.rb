@@ -2,20 +2,20 @@
 
 module Fluro
   class ImportService
-    attr_reader :organization
+    attr_reader :account
 
-    def initialize(organization)
-      @organization = organization
+    def initialize(account)
+      @account = account
     end
 
-    def self.import(organization)
-      new(organization).import
+    def self.import(account)
+      new(account).import
     end
 
     def import
-      Fluro::Import::RealmService.import(organization)
-      Fluro::Import::ContactService.import(organization)
-      Fluro::Import::TeamService.import(organization)
+      Fluro::Import::RealmService.import(account)
+      Fluro::Import::ContactService.import(account)
+      Fluro::Import::TeamService.import(account)
     end
   end
 end

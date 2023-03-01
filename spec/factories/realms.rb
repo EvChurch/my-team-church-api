@@ -2,7 +2,7 @@
 
 FactoryBot.define do
   factory :realm do
-    organization
+    account
     title { Faker::Company.name }
     color { Faker::Color.hex_color }
     bg_color { Faker::Color.hex_color }

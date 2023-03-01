@@ -2,7 +2,7 @@
 
 FactoryBot.define do
   factory :team do
-    organization
+    account
     title { Faker::Company.name }
     definition { 'team' }
   end

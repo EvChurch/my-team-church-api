@@ -15,7 +15,7 @@ module Fluro
       end
 
       def local_collection
-        @organization.realms
+        @account.realms
       end
 
       def remote_fields

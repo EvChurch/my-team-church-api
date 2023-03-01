@@ -3,9 +3,9 @@
 require 'rails_helper'
 
 RSpec.describe Fluro::Import::RealmService, vcr: 'fluro/import/realm_service' do
-  subject(:realm_service) { described_class.new(organization) }
+  subject(:realm_service) { described_class.new(account) }
 
-  let(:organization) { create(:organization, fluro_api_key: 'fluro_api_key') }
+  let(:account) { create(:account, fluro_api_key: 'fluro_api_key') }
 
   describe '#import' do
     let(:attributes) do
@@ -15,7 +15,7 @@ RSpec.describe Fluro::Import::RealmService, vcr: 'fluro/import/realm_service' do
         'color' => '#eee',
         'created_at' => '2018-12-10 02:58:51.704000000 +0000'.to_time,
         'definition' => 'realm',
-        'organization_id' => organization.id,
+        'account_id' => account.id,
         'remote_id' => '5c0dd66be6f97b5fa6211998',
         'slug' => 'system',
         'status' => 'active',
@@ -30,7 +30,7 @@ RSpec.describe Fluro::Import::RealmService, vcr: 'fluro/import/realm_service' do
         'color' => '#eee',
         'created_at' => '2018-12-03 10:27:23.136000000 +0000'.to_time,
         'definition' => 'locationRealm',
-        'organization_id' => organization.id,
+        'account_id' => account.id,
         'remote_id' => '5c05050b48890574c5395cad',
         'slug' => 'church',
         'status' => 'active',

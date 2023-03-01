@@ -2,7 +2,7 @@
 
 FactoryBot.define do
   factory :realm_connection, class: 'Realm::Connection' do
-    organization
+    account
     realm
     subject factory: :contact
   end

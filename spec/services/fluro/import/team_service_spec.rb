@@ -3,9 +3,9 @@
 require 'rails_helper'
 
 RSpec.describe Fluro::Import::TeamService, vcr: 'fluro/import/team_service' do
-  subject(:team_service) { described_class.new(organization) }
+  subject(:team_service) { described_class.new(account) }
 
-  let(:organization) { create(:organization, fluro_api_key: 'fluro_api_key') }
+  let(:account) { create(:account, fluro_api_key: 'fluro_api_key') }
 
   describe '#import' do
     let(:team) { Team.find_by(remote_id: '5c0dd66be6f97b5fa6211998') }
@@ -16,7 +16,7 @@ RSpec.describe Fluro::Import::TeamService, vcr: 'fluro/import/team_service' do
           'ancestry' => nil,
           'created_at' => '2021-01-02 03:24:52.840000000 +0000'.to_time,
           'definition' => 'team',
-          'organization_id' => organization.id,
+          'account_id' => account.id,
           'remote_id' => '5c0dd66be6f97b5fa6211998',
           'slug' => 'the-parent-team',
           'status' => 'active',
@@ -37,7 +37,7 @@ RSpec.describe Fluro::Import::TeamService, vcr: 'fluro/import/team_service' do
           'ancestry' => team.id,
           'created_at' => '2021-01-02 03:24:52.840000000 +0000'.to_time,
           'definition' => 'serviceTeam',
-          'organization_id' => organization.id,
+          'account_id' => account.id,
           'remote_id' => '5c05050b48890574c5395cad',
           'slug' => 'the-child-team',
           'status' => 'active',
@@ -54,8 +54,8 @@ RSpec.describe Fluro::Import::TeamService, vcr: 'fluro/import/team_service' do
     end
 
     describe 'realms association' do
-      let!(:realm1) { create(:realm, organization:, remote_id: '5c0d9d3e7ef61e100ae4514b') }
-      let!(:realm2) { create(:realm, organization:, remote_id: '5c0d9d497ef61e100ae45153') }
+      let!(:realm1) { create(:realm, account:, remote_id: '5c0d9d3e7ef61e100ae4514b') }
+      let!(:realm2) { create(:realm, account:, remote_id: '5c0d9d497ef61e100ae45153') }
 
       it 'connects team to realms' do
         team_service.import
@@ -64,8 +64,8 @@ RSpec.describe Fluro::Import::TeamService, vcr: 'fluro/import/team_service' do
     end
 
     describe 'contacts association' do
-      let!(:contact1) { create(:contact, organization:, remote_id: '5c0d98ef44d30a36d8c5574d') }
-      let!(:contact2) { create(:contact, organization:, remote_id: '5c05049048890574c5395ca5') }
+      let!(:contact1) { create(:contact, account:, remote_id: '5c0d98ef44d30a36d8c5574d') }
+      let!(:contact2) { create(:contact, account:, remote_id: '5c05049048890574c5395ca5') }
 
       it 'connects team to contacts' do
         team_service.import

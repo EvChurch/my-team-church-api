@@ -3,12 +3,12 @@
 require 'rails_helper'
 
 RSpec.describe Fluro::ImportService do
-  subject(:import_service) { described_class.new(organization) }
+  subject(:import_service) { described_class.new(account) }
 
-  let(:organization) { create(:organization, fluro_api_key: 'fluro_api_key') }
+  let(:account) { create(:account, fluro_api_key: 'fluro_api_key') }
 
   describe '.import' do
-    let!(:instance) { described_class.new(organization) }
+    let!(:instance) { described_class.new(account) }
 
     before do
       allow(described_class).to receive(:new).and_return(instance)
@@ -16,19 +16,19 @@ RSpec.describe Fluro::ImportService do
     end
 
     it 'creates an instance' do
-      described_class.import(organization)
-      expect(described_class).to have_received(:new).with(organization)
+      described_class.import(account)
+      expect(described_class).to have_received(:new).with(account)
     end
 
     it 'calls import' do
-      described_class.import(organization)
+      described_class.import(account)
       expect(instance).to have_received(:import)
     end
   end
 
-  describe '#organization' do
-    it 'returns organization' do
-      expect(import_service.organization).to eq organization
+  describe '#account' do
+    it 'returns account' do
+      expect(import_service.account).to eq account
     end
   end
 
@@ -41,17 +41,17 @@ RSpec.describe Fluro::ImportService do
 
     it 'calls realm service' do
       import_service.import
-      expect(Fluro::Import::RealmService).to have_received(:import).with(organization)
+      expect(Fluro::Import::RealmService).to have_received(:import).with(account)
     end
 
     it 'calls contact service' do
       import_service.import
-      expect(Fluro::Import::ContactService).to have_received(:import).with(organization)
+      expect(Fluro::Import::ContactService).to have_received(:import).with(account)
     end
 
     it 'calls team service' do
       import_service.import
-      expect(Fluro::Import::TeamService).to have_received(:import).with(organization)
+      expect(Fluro::Import::TeamService).to have_received(:import).with(account)
     end
   end
 end
