@@ -7,5 +7,6 @@ FactoryBot.define do
     color { Faker::Color.hex_color }
     bg_color { Faker::Color.hex_color }
     definition { 'realm' }
+    remote_id { SecureRandom.uuid }
   end
 end

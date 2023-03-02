@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 RSpec.describe Fluro::ClientService do
-  subject(:client_service) { described_class.new(account) }
+  subject(:client_service) { described_class.new(account.fluro_api_key) }
 
   let(:account) { create(:account, fluro_api_key: 'fluro_api_key') }
 
@@ -58,6 +58,24 @@ RSpec.describe Fluro::ClientService do
 
     it 'returns list of realms' do
       expect(client_service.realms).to eq([])
+    end
+  end
+
+  describe '#session' do
+    before do
+      allow(described_class).to receive(:get).and_return({})
+    end
+
+    it 'calls the api' do
+      client_service.realms
+      expect(described_class).to have_received(:get).with(
+        '/content/session',
+        { headers: { authorization: "Bearer #{account.fluro_api_key}" } }
+      )
+    end
+
+    it 'returns current session' do
+      expect(client_service.session).to eq({})
     end
   end
 end

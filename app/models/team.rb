@@ -16,4 +16,5 @@ class Team < ApplicationRecord
   has_many :contacts, through: :memberships
   enum status: { active: 'active', archived: 'archived', draft: 'draft' }
   validates :title, :definition, presence: true
+  validates :remote_id, uniqueness: { scope: :account_id }, allow_nil: true
 end

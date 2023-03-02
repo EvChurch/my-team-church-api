@@ -9,5 +9,6 @@ FactoryBot.define do
     emails { [Faker::Internet.email] }
     phone_numbers { [Faker::PhoneNumber.phone_number] }
     definition { 'contact' }
+    remote_id { SecureRandom.uuid }
   end
 end

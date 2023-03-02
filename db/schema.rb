@@ -10,18 +10,35 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_02_27_085739) do
+ActiveRecord::Schema[7.0].define(version: 2023_03_02_100456) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
 
   create_table "accounts", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.string "title", null: false
     t.string "slug", null: false
-    t.string "fluro_api_key"
+    t.string "status", default: "active"
+    t.string "title", null: false
+    t.string "remote_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["remote_id"], name: "index_accounts_on_remote_id", unique: true
     t.index ["slug"], name: "index_accounts_on_slug", unique: true
+  end
+
+  create_table "applications", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "account_id", null: false
+    t.string "definition", null: false
+    t.string "slug", null: false
+    t.string "status", default: "active"
+    t.string "title", null: false
+    t.string "remote_id"
+    t.string "api_key"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["account_id", "remote_id"], name: "index_applications_on_account_id_and_remote_id", unique: true
+    t.index ["account_id", "slug"], name: "index_applications_on_account_id_and_slug", unique: true
+    t.index ["account_id"], name: "index_applications_on_account_id"
   end
 
   create_table "contacts", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -37,9 +54,9 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_27_085739) do
     t.text "phone_numbers", default: [], array: true
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["account_id", "remote_id"], name: "index_contacts_on_account_id_and_remote_id", unique: true
     t.index ["account_id", "slug"], name: "index_contacts_on_account_id_and_slug", unique: true
     t.index ["account_id"], name: "index_contacts_on_account_id"
-    t.index ["remote_id"], name: "index_contacts_on_remote_id"
   end
 
   create_table "friendly_id_slugs", force: :cascade do |t|
@@ -78,10 +95,10 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_27_085739) do
     t.string "bg_color"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["account_id", "remote_id"], name: "index_realms_on_account_id_and_remote_id", unique: true
     t.index ["account_id", "slug"], name: "index_realms_on_account_id_and_slug", unique: true
     t.index ["account_id"], name: "index_realms_on_account_id"
     t.index ["ancestry"], name: "index_realms_on_ancestry"
-    t.index ["remote_id"], name: "index_realms_on_remote_id"
   end
 
   create_table "team_memberships", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -106,12 +123,13 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_27_085739) do
     t.string "remote_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["account_id", "remote_id"], name: "index_teams_on_account_id_and_remote_id", unique: true
     t.index ["account_id", "slug"], name: "index_teams_on_account_id_and_slug", unique: true
     t.index ["account_id"], name: "index_teams_on_account_id"
     t.index ["ancestry"], name: "index_teams_on_ancestry"
-    t.index ["remote_id"], name: "index_teams_on_remote_id"
   end
 
+  add_foreign_key "applications", "accounts", on_delete: :cascade
   add_foreign_key "contacts", "accounts", on_delete: :cascade
   add_foreign_key "realm_connections", "accounts", on_delete: :cascade
   add_foreign_key "realm_connections", "realms", on_delete: :cascade

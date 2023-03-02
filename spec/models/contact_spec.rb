@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 RSpec.describe Contact do
-  subject(:contact) { create(:contact) }
+  subject(:contact) { create(:contact, remote_id: 'remote_id') }
 
   it { is_expected.to have_db_column(:account_id).of_type(:uuid).with_options(null: false) }
   it { is_expected.to have_db_column(:definition).of_type(:string).with_options(null: false) }
@@ -30,4 +30,5 @@ RSpec.describe Contact do
 
   it { is_expected.to validate_presence_of(:title) }
   it { is_expected.to validate_presence_of(:definition) }
+  it { is_expected.to validate_uniqueness_of(:remote_id).scoped_to(:account_id).allow_nil }
 end

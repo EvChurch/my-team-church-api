@@ -5,8 +5,8 @@ module Fluro
     include HTTParty
     base_uri 'https://api.fluro.io'
 
-    def initialize(account)
-      @options = { headers: { authorization: "Bearer #{account.fluro_api_key}" } }
+    def initialize(api_key)
+      @options = { headers: { authorization: "Bearer #{api_key}" } }
     end
 
     def contacts
@@ -19,6 +19,14 @@ module Fluro
 
     def realms
       self.class.get('/content/realm?allDefinitions=true', @options)
+    end
+
+    def session
+      self.class.get('/session', @options)
+    end
+
+    def account(id)
+      self.class.get("/account/#{id}", @options)
     end
   end
 end

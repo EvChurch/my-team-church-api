@@ -16,7 +16,7 @@ class CreateRealms < ActiveRecord::Migration[7.0]
       t.timestamps
     end
     add_index :realms, :ancestry
-    add_index :realms, :remote_id
+    add_index :realms, %i[account_id remote_id], unique: true
     add_index :realms, %i[account_id slug], unique: true
   end
 end

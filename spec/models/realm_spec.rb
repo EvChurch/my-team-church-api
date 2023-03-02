@@ -28,4 +28,5 @@ RSpec.describe Realm do
 
   it { is_expected.to validate_presence_of(:title) }
   it { is_expected.to validate_presence_of(:definition) }
+  it { is_expected.to validate_uniqueness_of(:remote_id).scoped_to(:account_id).allow_nil }
 end
