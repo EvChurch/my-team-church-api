@@ -14,7 +14,7 @@ class Account < ApplicationRecord
 
   def import
     MultiTenant.with(self) do
-      Fluro::ImportService.import(self)
+      Fluro::ImportService.import_all(self)
     end
   end
 

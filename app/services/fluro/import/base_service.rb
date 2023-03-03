@@ -3,16 +3,18 @@
 module Fluro
   module Import
     class BaseService
-      def initialize(account)
-        @account = account
-        @client = Fluro::ClientService.new(account)
+      attr_reader :account, :client
+
+      def initialize(application)
+        @account = application.account
+        @client = Fluro::ClientService.new(application)
       end
 
-      def self.import(account)
-        new(account).import
+      def self.import_all(application)
+        new(application).import
       end
 
-      def import
+      def import_all
         remote_collection.each do |remote_item|
           import_item(remote_item)
         end
@@ -31,7 +33,7 @@ module Fluro
       end
 
       def connect_realms(remote, local)
-        local.realms = @account.realms.where(remote_id: remote['realms'].pluck('_id'))
+        local.realms = account.realms.where(remote_id: remote['realms'].pluck('_id'))
       end
 
       def attributes(remote, parent)

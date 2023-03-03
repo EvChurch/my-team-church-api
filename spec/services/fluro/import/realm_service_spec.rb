@@ -3,11 +3,12 @@
 require 'rails_helper'
 
 RSpec.describe Fluro::Import::RealmService, vcr: 'fluro/import/realm_service' do
-  subject(:realm_service) { described_class.new(account) }
+  subject(:realm_service) { described_class.new(application) }
 
-  let(:account) { create(:account, fluro_api_key: 'fluro_api_key') }
+  let(:account) { create(:account) }
+  let(:application) { create(:application, account:, api_key: 'fluro_api_key') }
 
-  describe '#import' do
+  describe '#import_all' do
     let(:attributes) do
       {
         'ancestry' => nil,
@@ -38,17 +39,16 @@ RSpec.describe Fluro::Import::RealmService, vcr: 'fluro/import/realm_service' do
         'updated_at' => '2021-04-21 05:10:44.668000000 +0000'.to_time
       }
     end
-    let(:realm) { Realm.find_by(remote_id: '5c0dd66be6f97b5fa6211998') }
-    let(:child_realm) { Realm.find_by(remote_id: '5c05050b48890574c5395cad') }
+    let(:realm) { Realm.find_by(remote_id: attributes['remote_id']) }
 
     it 'imports system realm' do
-      realm_service.import
+      realm_service.import_all
       expect(realm.attributes).to include(attributes)
     end
 
     it 'imports church realm' do
-      realm_service.import
-      expect(child_realm.attributes).to include(child_attributes)
+      realm_service.import_all
+      expect(Realm.find_by(remote_id: child_attributes['remote_id']).attributes).to include(child_attributes)
     end
   end
 end

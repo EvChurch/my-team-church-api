@@ -6,11 +6,11 @@ module Fluro
       protected
 
       def remote_collection
-        @client.contacts
+        client.contacts
       end
 
       def local_collection
-        @account.contacts
+        account.contacts
       end
 
       def remote_fields

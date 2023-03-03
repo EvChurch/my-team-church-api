@@ -6,7 +6,7 @@ module Fluro
       protected
 
       def remote_collection
-        nested_hash = @client.teams.to_h { |e| [e['_id'], e.merge('children' => [])] }
+        nested_hash = client.teams.to_h { |e| [e['_id'], e.merge('children' => [])] }
         nested_hash.each do |_id, item|
           parent = nested_hash[item.dig('data', 'parentTeam')]
           parent['children'] << item if parent
@@ -15,7 +15,7 @@ module Fluro
       end
 
       def local_collection
-        @account.teams
+        account.teams
       end
 
       def remote_fields

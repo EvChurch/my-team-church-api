@@ -3,11 +3,12 @@
 require 'rails_helper'
 
 RSpec.describe Fluro::Import::ContactService, vcr: 'fluro/import/contact_service' do
-  subject(:contact_service) { described_class.new(account) }
+  subject(:contact_service) { described_class.new(application) }
 
-  let(:account) { create(:account, fluro_api_key: 'fluro_api_key') }
+  let(:account) { create(:account) }
+  let(:application) { create(:application, account:, api_key: 'fluro_api_key') }
 
-  describe '#import' do
+  describe '#import_all' do
     let!(:realm1) { create(:realm, account:, remote_id: '5c0d9d3e7ef61e100ae4514b') }
     let!(:realm2) { create(:realm, account:, remote_id: '5c0d9d497ef61e100ae45153') }
 
@@ -28,16 +29,15 @@ RSpec.describe Fluro::Import::ContactService, vcr: 'fluro/import/contact_service
           'updated_at' => '2023-02-21 22:21:19.559000000 +0000'.to_time
         }
       end
-      let(:contact) { Contact.find_by(remote_id: '5c05057c48890574c5395cc6') }
 
       it 'imports contact' do
-        contact_service.import
-        expect(contact.attributes).to include(attributes)
+        contact_service.import_all
+        expect(Contact.find_by(remote_id: attributes['remote_id']).attributes).to include(attributes)
       end
 
       it 'connects contact to realms' do
-        contact_service.import
-        expect(contact.realms).to match([realm1, realm2])
+        contact_service.import_all
+        expect(Contact.find_by(remote_id: attributes['remote_id']).realm_ids).to match([realm1.id, realm2.id])
       end
     end
 
@@ -58,16 +58,15 @@ RSpec.describe Fluro::Import::ContactService, vcr: 'fluro/import/contact_service
           'updated_at' => '2023-02-21 22:21:19.559000000 +0000'.to_time
         }
       end
-      let(:contact) { Contact.find_by(remote_id: '607bf8ccd6fc8e05f37379ed') }
 
       it 'imports contact' do
-        contact_service.import
-        expect(contact.attributes).to include(attributes)
+        contact_service.import_all
+        expect(Contact.find_by(remote_id: attributes['remote_id']).attributes).to include(attributes)
       end
 
       it 'connects contact to realms' do
-        contact_service.import
-        expect(contact.realms).to match([realm1, realm2])
+        contact_service.import_all
+        expect(Contact.find_by(remote_id: attributes['remote_id']).realm_ids).to match([realm1.id, realm2.id])
       end
     end
   end
