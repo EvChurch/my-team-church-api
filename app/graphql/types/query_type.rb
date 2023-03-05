@@ -6,8 +6,8 @@ module Types
     # Add `node(id: ID!) and `nodes(ids: [ID!]!)`
     include GraphQL::Types::Relay::HasNodeField
     include GraphQL::Types::Relay::HasNodesField
-    field :accounts,
-          Types::Objects::AccountType.connection_type,
+    field :account,
+          Types::Objects::AccountType,
           'accounts belonging to the current user',
           null: false
     field :realms,
@@ -16,11 +16,11 @@ module Types
           null: false
 
     def realms
-      Account.first.realms
+      Realm.all
     end
 
-    def accounts
-      Account.all
+    def account
+      context[:current_account]
     end
   end
 end

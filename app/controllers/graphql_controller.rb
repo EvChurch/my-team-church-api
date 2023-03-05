@@ -7,13 +7,16 @@ class GraphqlController < ApplicationController
   protect_from_forgery with: :null_session
 
   def execute
-    variables = prepare_variables(params[:variables]) || {}
+    variables = prepare_variables(params[:variables] || {})
     operation_name = params[:operationName]
-    context = {
-      # Query context goes here, for example:
-      # current_user: current_user,
-    }
-    render json: MyTeamChurchApiSchema.execute(params[:query], variables:, context:, operation_name:)
+    MultiTenant.with(current_account) do
+      context = {
+        # Query context goes here, for example:
+        current_account:
+        # current_user:
+      }
+      render json: MyTeamChurchApiSchema.execute(params[:query], variables:, context:, operation_name:)
+    end
   rescue StandardError => e
     raise e unless Rails.env.development?
 
@@ -41,5 +44,9 @@ class GraphqlController < ApplicationController
 
     render json: { errors: [{ message: error.message, backtrace: error.backtrace }], data: {} },
            status: :internal_server_error
+  end
+
+  def current_account
+    Account.friendly.find(request.headers['X-ACCOUNT-ID'])
   end
 end
