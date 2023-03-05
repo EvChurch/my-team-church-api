@@ -25,6 +25,7 @@ RSpec.describe Fluro::Import::ApplicationService, vcr: 'fluro/import/application
     let(:account_attributes) do
       {
         'remote_id' => '5c05049048890574c5395ca5',
+        'slug' => 'auckland-ev',
         'status' => 'active',
         'title' => 'Auckland Ev',
         'created_at' => '2018-12-03 10:25:20.416000000 +0000'.to_time,

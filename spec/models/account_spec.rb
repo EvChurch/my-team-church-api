@@ -25,4 +25,11 @@ RSpec.describe Account do
       expect(Fluro::Import::ApplicationService).to have_received(:import_all).with('api_key')
     end
   end
+
+  describe '#should_generate_new_friendly_id?' do
+    it 'updates slug when title changes' do
+      account.update(title: 'this is a test')
+      expect(account.slug).to eq 'this-is-a-test'
+    end
+  end
 end

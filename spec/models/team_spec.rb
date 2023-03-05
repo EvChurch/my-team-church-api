@@ -28,4 +28,11 @@ RSpec.describe Team do
   it { is_expected.to validate_presence_of(:title) }
   it { is_expected.to validate_presence_of(:definition) }
   it { is_expected.to validate_uniqueness_of(:remote_id).scoped_to(:account_id).allow_nil }
+
+  describe '#should_generate_new_friendly_id?' do
+    it 'updates slug when title changes' do
+      team.update(title: 'this is a test')
+      expect(team.slug).to eq 'this-is-a-test'
+    end
+  end
 end

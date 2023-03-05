@@ -18,4 +18,8 @@ class Application < ApplicationRecord
       Fluro::ImportService.import_all(self)
     end
   end
+
+  def should_generate_new_friendly_id?
+    title_changed?
+  end
 end

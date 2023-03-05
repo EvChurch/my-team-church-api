@@ -18,4 +18,11 @@ RSpec.describe Application do
       expect(Fluro::ImportService).to have_received(:import_all).with(application)
     end
   end
+
+  describe '#should_generate_new_friendly_id?' do
+    it 'updates slug when title changes' do
+      application.update(title: 'this is a test')
+      expect(application.slug).to eq 'this-is-a-test'
+    end
+  end
 end

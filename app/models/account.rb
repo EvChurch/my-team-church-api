@@ -15,4 +15,8 @@ class Account < ApplicationRecord
   def self.import_all(api_key)
     Fluro::Import::ApplicationService.import_all(api_key)
   end
+
+  def should_generate_new_friendly_id?
+    title_changed?
+  end
 end

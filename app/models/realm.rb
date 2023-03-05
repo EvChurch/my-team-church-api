@@ -13,4 +13,8 @@ class Realm < ApplicationRecord
   enum status: { active: 'active', archived: 'archived', draft: 'draft' }
   validates :title, :definition, presence: true
   validates :remote_id, uniqueness: { scope: :account_id }, allow_nil: true
+
+  def should_generate_new_friendly_id?
+    title_changed?
+  end
 end
