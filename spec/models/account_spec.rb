@@ -17,4 +17,12 @@ RSpec.describe Account do
   it { is_expected.to have_many(:team_memberships).dependent(:delete_all) }
   it { is_expected.to validate_presence_of(:title) }
   it { is_expected.to validate_uniqueness_of(:remote_id).allow_nil }
+
+  describe '.import_all' do
+    it 'calls import_all with api_key' do
+      allow(Fluro::Import::ApplicationService).to receive(:import_all)
+      described_class.import_all('api_key')
+      expect(Fluro::Import::ApplicationService).to have_received(:import_all).with('api_key')
+    end
+  end
 end

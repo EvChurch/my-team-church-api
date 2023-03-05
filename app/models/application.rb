@@ -12,4 +12,10 @@ class Application < ApplicationRecord
   validates :title, :definition, presence: true
   validates :remote_id, uniqueness: { scope: :account_id }, allow_nil: true
   encrypts :api_key
+
+  def import
+    MultiTenant.with(account) do
+      Fluro::ImportService.import_all(self)
+    end
+  end
 end

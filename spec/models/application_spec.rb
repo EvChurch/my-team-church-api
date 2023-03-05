@@ -10,4 +10,12 @@ RSpec.describe Application do
   it { is_expected.to validate_presence_of(:title) }
   it { is_expected.to validate_presence_of(:definition) }
   it { is_expected.to validate_uniqueness_of(:remote_id).scoped_to(:account_id).allow_nil }
+
+  describe '#import' do
+    it 'calls import_all with application' do
+      allow(Fluro::ImportService).to receive(:import_all)
+      application.import
+      expect(Fluro::ImportService).to have_received(:import_all).with(application)
+    end
+  end
 end
