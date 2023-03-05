@@ -14,7 +14,7 @@ module Fluro
       end
 
       def remote_fields
-        %w[status title first_name last_name emails phone_numbers]
+        %w[first_name last_name emails phone_numbers]
       end
     end
   end

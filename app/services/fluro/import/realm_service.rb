@@ -19,7 +19,7 @@ module Fluro
       end
 
       def remote_fields
-        %w[status title bg_color color]
+        %w[bg_color color]
       end
     end
   end

@@ -18,10 +18,6 @@ module Fluro
         account.teams
       end
 
-      def remote_fields
-        %w[status title]
-      end
-
       def connect_associations(remote, team)
         team.contacts = @account.contacts.where(remote_id: remote['provisionalMembers'].pluck('_id'))
       end

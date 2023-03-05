@@ -14,16 +14,10 @@ RSpec.configure do |config|
   end
 
   config.around do |each|
-    MultiTenant.with(respond_to?(:account) ? account : create(:account)) do
-      each.run
+    DatabaseCleaner.cleaning do
+      MultiTenant.with(respond_to?(:account) ? account : create(:account)) do
+        each.run
+      end
     end
-  end
-
-  config.before do
-    DatabaseCleaner.start
-  end
-
-  config.append_after do
-    DatabaseCleaner.clean
   end
 end

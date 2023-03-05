@@ -3,10 +3,9 @@
 require 'rails_helper'
 
 RSpec.describe Fluro::ClientService do
-  subject(:client_service) { described_class.new(application) }
+  subject(:client_service) { described_class.new(api_key) }
 
-  let(:account) { create(:account) }
-  let(:application) { create(:application, account:, api_key: 'fluro_api_key') }
+  let(:api_key) { 'fluro_api_key' }
 
   describe '#contacts' do
     before do
@@ -17,7 +16,7 @@ RSpec.describe Fluro::ClientService do
       client_service.contacts
       expect(described_class).to have_received(:get).with(
         '/content/contact?allDefinitions=true',
-        { headers: { authorization: "Bearer #{application.api_key}" } }
+        { headers: { authorization: "Bearer #{api_key}" } }
       )
     end
 
@@ -35,7 +34,7 @@ RSpec.describe Fluro::ClientService do
       client_service.teams
       expect(described_class).to have_received(:get).with(
         '/content/team?allDefinitions=true',
-        { headers: { authorization: "Bearer #{application.api_key}" } }
+        { headers: { authorization: "Bearer #{api_key}" } }
       )
     end
 
@@ -53,7 +52,7 @@ RSpec.describe Fluro::ClientService do
       client_service.realms
       expect(described_class).to have_received(:get).with(
         '/content/realm?allDefinitions=true',
-        { headers: { authorization: "Bearer #{application.api_key}" } }
+        { headers: { authorization: "Bearer #{api_key}" } }
       )
     end
 
@@ -71,7 +70,7 @@ RSpec.describe Fluro::ClientService do
       client_service.session
       expect(described_class).to have_received(:get).with(
         '/session',
-        { headers: { authorization: "Bearer #{application.api_key}" } }
+        { headers: { authorization: "Bearer #{api_key}" } }
       )
     end
 

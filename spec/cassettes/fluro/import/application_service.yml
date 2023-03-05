@@ -1,0 +1,130 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://api.fluro.io/session
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Authorization:
+      - Bearer <BEARER_TOKEN>
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=utf-8
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      X-Fluro-Server-Version:
+      - 25fc7df3
+      Vary:
+      - Origin, Accept-Encoding
+      Access-Control-Allow-Credentials:
+      - 'true'
+      Access-Control-Expose-Headers:
+      - x-fluro-pager-total
+      Etag:
+      - W/"560d-LA+5ctpZNH8hhMVES6j/+wpdRTc"
+      Set-Cookie:
+      - fls=s%3Augg2JvZWc6_vn2QgrpSsQKeDOR4ac0aT.C%2FoK79MqaJ5F1A2w%2FCvkq45f1%2FYOTl7PENDLGwOAvms;
+        Domain=.fluro.io; Path=/; Expires=Sun, 12 Mar 2023 04:25:00 GMT; HttpOnly;
+        SameSite=Lax
+      Date:
+      - Sun, 05 Mar 2023 04:25:00 GMT
+      X-Cache:
+      - Miss from cloudfront
+      Via:
+      - 1.1 d67c8849fe670ca3fd6d3888de84e16a.cloudfront.net (CloudFront)
+      X-Amz-Cf-Pop:
+      - AKL50-C1
+      X-Amz-Cf-Id:
+      - yYT5whSepfb4ALxQTVQOJrOS5NceIXKtnw3ne3jy8OGE0WwcML8-hA==
+    body:
+      encoding: ASCII-8BIT
+      string: '{
+          "_id": "63fbd5525a6b6b002498273e",
+          "status": "active",
+          "realms": ["5c0dd66be6f97b5fa6211998"],
+          "_type": "application",
+          "title": "My Team (Development)",
+          "domain": "myteam.lvh.me:3000",
+          "account": {
+            "_id": "5c05049048890574c5395ca5"
+          },
+          "apikey": "<BEARER_TOKEN>",
+          "created":"2023-02-26T21:55:30.864Z",
+          "updated":"2023-02-26T21:58:07.626Z"
+        }'
+  recorded_at: Sun, 05 Mar 2023 04:25:01 GMT
+- request:
+    method: get
+    uri: https://api.fluro.io/account/5c05049048890574c5395ca5
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Authorization:
+      - Bearer <BEARER_TOKEN>
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=utf-8
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      X-Fluro-Server-Version:
+      - 25fc7df3
+      Vary:
+      - Origin, Accept-Encoding
+      Access-Control-Allow-Credentials:
+      - 'true'
+      Access-Control-Expose-Headers:
+      - x-fluro-pager-total
+      Etag:
+      - W/"37c1-G7QmpuSry5NPeNFfeyFnRR1Cvzg"
+      Set-Cookie:
+      - fls=s%3A12jo7WAK2bWGrm9j3p78V1-NMa--6bGx.unsHXHDPqVmuE4dE6iNWNnIm3cWhKSScFGyRaLIMpgY;
+        Domain=.fluro.io; Path=/; Expires=Sun, 12 Mar 2023 04:25:01 GMT; HttpOnly;
+        SameSite=Lax
+      Date:
+      - Sun, 05 Mar 2023 04:25:01 GMT
+      X-Cache:
+      - Miss from cloudfront
+      Via:
+      - 1.1 595a0a560fcba7d7d7e277b46349fc48.cloudfront.net (CloudFront)
+      X-Amz-Cf-Pop:
+      - AKL50-C1
+      X-Amz-Cf-Id:
+      - bvTDyhrSS5qOMD-3TwBQfotrlZec4attMXY-MOBL6paumWR3_c-7CQ==
+    body:
+      encoding: ASCII-8BIT
+      string: '{
+          "_id": "5c05049048890574c5395ca5",
+          "title": "Auckland Ev",
+          "status": "active",
+          "created": "2018-12-03T10:25:20.416Z",
+          "updated": "2022-10-14T21:10:34.749Z"
+        }'
+  recorded_at: Sun, 05 Mar 2023 04:25:01 GMT
+recorded_with: VCR 6.1.0
