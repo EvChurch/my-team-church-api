@@ -9,6 +9,7 @@ class Account < ApplicationRecord
   has_many :realm_connections, dependent: :delete_all, class_name: 'Realm::Connection'
   has_many :teams, dependent: :delete_all
   has_many :team_memberships, dependent: :delete_all, class_name: 'Team::Membership'
+  has_many :users, dependent: :delete_all
   validates :title, presence: true
   validates :remote_id, uniqueness: true, allow_nil: true
 

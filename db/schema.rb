@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_03_02_100456) do
+ActiveRecord::Schema[7.0].define(version: 2023_03_06_042119) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -39,6 +39,18 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_02_100456) do
     t.index ["account_id", "remote_id"], name: "index_applications_on_account_id_and_remote_id", unique: true
     t.index ["account_id", "slug"], name: "index_applications_on_account_id_and_slug", unique: true
     t.index ["account_id"], name: "index_applications_on_account_id"
+  end
+
+  create_table "contact_connections", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "account_id", null: false
+    t.uuid "contact_id", null: false
+    t.uuid "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["account_id"], name: "index_contact_connections_on_account_id"
+    t.index ["contact_id"], name: "index_contact_connections_on_contact_id"
+    t.index ["user_id", "contact_id"], name: "index_contact_connections_on_user_id_and_contact_id", unique: true
+    t.index ["user_id"], name: "index_contact_connections_on_user_id"
   end
 
   create_table "contacts", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -129,7 +141,26 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_02_100456) do
     t.index ["ancestry"], name: "index_teams_on_ancestry"
   end
 
+  create_table "users", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "account_id", null: false
+    t.string "title", null: false
+    t.string "slug", null: false
+    t.string "remote_id"
+    t.string "first_name"
+    t.string "last_name"
+    t.string "email"
+    t.string "phone_number"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["account_id", "remote_id"], name: "index_users_on_account_id_and_remote_id", unique: true
+    t.index ["account_id", "slug"], name: "index_users_on_account_id_and_slug", unique: true
+    t.index ["account_id"], name: "index_users_on_account_id"
+  end
+
   add_foreign_key "applications", "accounts", on_delete: :cascade
+  add_foreign_key "contact_connections", "accounts", on_delete: :cascade
+  add_foreign_key "contact_connections", "contacts", on_delete: :cascade
+  add_foreign_key "contact_connections", "users", on_delete: :cascade
   add_foreign_key "contacts", "accounts", on_delete: :cascade
   add_foreign_key "realm_connections", "accounts", on_delete: :cascade
   add_foreign_key "realm_connections", "realms", on_delete: :cascade
@@ -138,4 +169,5 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_02_100456) do
   add_foreign_key "team_memberships", "contacts", on_delete: :cascade
   add_foreign_key "team_memberships", "teams", on_delete: :cascade
   add_foreign_key "teams", "accounts", on_delete: :cascade
+  add_foreign_key "users", "accounts", on_delete: :cascade
 end

@@ -16,7 +16,7 @@ RSpec.describe Fluro::ClientService do
       client_service.contacts
       expect(described_class).to have_received(:get).with(
         '/content/contact?allDefinitions=true',
-        { headers: { authorization: "Bearer #{api_key}" } }
+        { headers: { 'Content-Type' => 'application/json', authorization: "Bearer #{api_key}" } }
       )
     end
 
@@ -34,7 +34,7 @@ RSpec.describe Fluro::ClientService do
       client_service.teams
       expect(described_class).to have_received(:get).with(
         '/content/team?allDefinitions=true',
-        { headers: { authorization: "Bearer #{api_key}" } }
+        { headers: { 'Content-Type' => 'application/json', authorization: "Bearer #{api_key}" } }
       )
     end
 
@@ -52,7 +52,7 @@ RSpec.describe Fluro::ClientService do
       client_service.realms
       expect(described_class).to have_received(:get).with(
         '/content/realm?allDefinitions=true',
-        { headers: { authorization: "Bearer #{api_key}" } }
+        { headers: { 'Content-Type' => 'application/json', authorization: "Bearer #{api_key}" } }
       )
     end
 
@@ -70,7 +70,7 @@ RSpec.describe Fluro::ClientService do
       client_service.session
       expect(described_class).to have_received(:get).with(
         '/session',
-        { headers: { authorization: "Bearer #{api_key}" } }
+        { headers: { 'Content-Type' => 'application/json', authorization: "Bearer #{api_key}" } }
       )
     end
 

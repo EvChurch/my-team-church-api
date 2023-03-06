@@ -15,6 +15,7 @@ RSpec.describe Account do
   it { is_expected.to have_many(:realm_connections).dependent(:delete_all) }
   it { is_expected.to have_many(:teams).dependent(:delete_all) }
   it { is_expected.to have_many(:team_memberships).dependent(:delete_all) }
+  it { is_expected.to have_many(:users).dependent(:delete_all) }
   it { is_expected.to validate_presence_of(:title) }
   it { is_expected.to validate_uniqueness_of(:remote_id).allow_nil }
 
