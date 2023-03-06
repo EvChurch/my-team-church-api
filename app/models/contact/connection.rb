@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module Contact
+class Contact
   class Connection < ApplicationRecord
     multi_tenant :account
     belongs_to :contact

@@ -36,7 +36,6 @@ RSpec.describe User do
         'email' => 'bob.jones@example.com',
         'phoneNumber' => '021987654',
         'created' => '2023-02-26 21:55:30.864000000 +0000',
-        'updated' => '2023-02-26 21:58:07.626000000 +0000',
         'visibleRealms' => [{
           '_id' => realm.remote_id
         }],
@@ -54,7 +53,6 @@ RSpec.describe User do
         'phone_number' => '021987654',
         'slug' => 'bob-jones',
         'created_at' => '2023-02-26 21:55:30.864000000 +0000'.to_time,
-        'updated_at' => '2023-02-26 21:58:07.626000000 +0000'.to_time
       }
     end
 

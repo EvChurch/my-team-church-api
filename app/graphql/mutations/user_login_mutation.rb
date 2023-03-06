@@ -4,18 +4,24 @@ module Mutations
   class UserLoginMutation < BaseMutation
     description 'Authenticate a User'
 
-    field :user, Types::Objects::UserType, null: true
+    field :user, Types::Objects::UserType, 'user if credentials are valid', null: true
 
-    argument :user_login_input, Types::Inputs::UserLoginInputType, required: true
+    argument :user_login_input, Types::Inputs::UserLoginInputType,
+             'user credentials (passed to fluro to authenticate)', required: true
 
     def resolve(user_login_input:)
       client = Fluro::ClientService.new(context[:current_account].applications.first)
-      user = client.login(user_login_input.username, user_login_input.password, context[:current_account].remote_id)
+      remote_user = client.login(user_login_input.username, user_login_input.password,
+                                 context[:current_account].remote_id)
+      if remote_user.body == 'Invalid Account ID'
+        raise GraphQL::ExecutionError,
+              'User is not associated with Fluro account.'
+      end
+      raise GraphQL::ExecutionError, remote_user['message'] if remote_user.code != 200
 
-      team = ::Team.new(**team_input)
-      raise GraphQL::ExecutionError.new 'Error creating team', extensions: team.errors.to_hash unless team.save
+      user = User.login(remote_user)
 
-      { team: }
+      { user: }
     end
   end
 end

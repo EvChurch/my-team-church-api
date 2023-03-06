@@ -2,6 +2,8 @@
 
 module Types
   class MutationType < Types::BaseObject
-    field :user_login, mutation: Mutations::UserLoginMutation
+    description 'Base Mutation Type'
+
+    field :user_login, description: 'authenticate a user', mutation: Mutations::UserLoginMutation
   end
 end

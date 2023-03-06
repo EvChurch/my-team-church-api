@@ -31,8 +31,7 @@ class User < ApplicationRecord
       last_name: remote['lastName'],
       email: remote['email'],
       phone_number: remote['phoneNumber'],
-      created_at: remote['created'],
-      updated_at: remote['updated']
+      created_at: remote['created']
     }
   end
 
