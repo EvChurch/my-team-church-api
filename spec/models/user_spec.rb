@@ -17,15 +17,12 @@ RSpec.describe User do
   it { is_expected.to have_db_column(:phone_number).of_type(:string) }
   it { is_expected.to have_db_column(:created_at).of_type(:datetime).with_options(null: false) }
   it { is_expected.to have_db_column(:updated_at).of_type(:datetime).with_options(null: false) }
-  it { is_expected.to have_many(:realm_connections).dependent(:delete_all) }
-  it { is_expected.to have_many(:realms).through(:realm_connections) }
   it { is_expected.to have_many(:contact_connections).dependent(:delete_all) }
   it { is_expected.to have_many(:contacts).through(:contact_connections) }
   it { is_expected.to validate_presence_of(:title) }
   it { is_expected.to validate_uniqueness_of(:remote_id).scoped_to(:account_id).allow_nil }
 
   describe '.login' do
-    let!(:realm) { create(:realm, account:, remote_id: '5c0d9d3e7ef61e100ae4514b') }
     let!(:contact) { create(:contact, account:, remote_id: '5c0d9d497ef61e100ae45153') }
     let(:remote_attributes) do
       {
@@ -36,9 +33,6 @@ RSpec.describe User do
         'email' => 'bob.jones@example.com',
         'phoneNumber' => '021987654',
         'created' => '2023-02-26 21:55:30.864000000 +0000',
-        'visibleRealms' => [{
-          '_id' => realm.remote_id
-        }],
         'contacts' => [contact.remote_id]
       }
     end
@@ -52,7 +46,7 @@ RSpec.describe User do
         'email' => 'bob.jones@example.com',
         'phone_number' => '021987654',
         'slug' => 'bob-jones',
-        'created_at' => '2023-02-26 21:55:30.864000000 +0000'.to_time,
+        'created_at' => '2023-02-26 21:55:30.864000000 +0000'.to_time
       }
     end
 
@@ -63,11 +57,6 @@ RSpec.describe User do
     it 'sets attributes of user' do
       user = described_class.login(remote_attributes)
       expect(user.attributes).to include(local_attributes)
-    end
-
-    it 'connects user to realms' do
-      user = described_class.login(remote_attributes)
-      expect(user.realms).to eq [realm]
     end
 
     it 'connects user to contacts' do
