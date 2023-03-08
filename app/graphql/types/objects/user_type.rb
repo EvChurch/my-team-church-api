@@ -12,7 +12,6 @@ module Types
       field :id, ID, 'record unique identifier', null: false
       field :last_name, String, 'user last name'
       field :phone_number, String, 'user phone number'
-      field :realms, [Types::Objects::RealmType], 'realms the contact belongs to', null: false
       field :remote_id, String, 'unique identifier in fluro'
       field :slug, String, 'friendly unique identifier', null: false
       field :title, String, 'title of record', null: false

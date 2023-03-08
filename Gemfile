@@ -10,6 +10,7 @@ gem 'bootsnap', require: false
 gem 'friendly_id'
 gem 'graphql', '~> 2.0'
 gem 'httparty'
+gem 'jwt'
 gem 'pg'
 gem 'pry-byebug'
 gem 'pry-rails'

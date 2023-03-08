@@ -55,13 +55,18 @@ RSpec.describe User do
     end
 
     it 'sets attributes of user' do
-      user = described_class.login(remote_attributes)
-      expect(user.attributes).to include(local_attributes)
+      login = described_class.login(remote_attributes)
+      expect(login[:user].attributes).to include(local_attributes)
     end
 
     it 'connects user to contacts' do
-      user = described_class.login(remote_attributes)
-      expect(user.contacts).to eq [contact]
+      login = described_class.login(remote_attributes)
+      expect(login[:user].contacts).to eq [contact]
+    end
+
+    it 'sets token' do
+      login = described_class.login(remote_attributes)
+      expect(JsonWebTokenService.decode(login[:token])).to include(user_id: login[:user].id)
     end
 
     context 'when user already exists' do
