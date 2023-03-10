@@ -26,7 +26,7 @@ group :development, :test do
 end
 
 group :development do
-  gem 'graphiql-rails'
+  gem 'graphiql-rails', git: 'https://github.com/rmosolgo/graphiql-rails.git'
   gem 'rubocop', require: false
   gem 'rubocop-graphql', require: false
   gem 'rubocop-rails', require: false

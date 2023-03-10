@@ -5,22 +5,20 @@ class GraphqlController < ApplicationController
   # This allows for outside API access while preventing CSRF attacks,
   # but you'll have to authenticate your user separately
   protect_from_forgery with: :null_session
+  before_action :authorize
+  attr_reader :current_user, :current_account
 
   def execute
-    variables = prepare_variables(params[:variables] || {})
-    operation_name = params[:operationName]
     MultiTenant.with(current_account) do
-      context = {
-        # Query context goes here, for example:
-        current_account:
-        # current_user:
-      }
-      render json: MyTeamChurchApiSchema.execute(params[:query], variables:, context:, operation_name:)
+      render json: MyTeamChurchApiSchema.execute(
+        params[:query],
+        variables: prepare_variables(params[:variables] || {}),
+        context: { current_account:, current_user: },
+        operation_name: params[:operationName]
+      )
     end
   rescue StandardError => e
-    raise e unless Rails.env.development?
-
-    handle_error_in_development(e)
+    handle_error(e)
   end
 
   private
@@ -38,7 +36,9 @@ class GraphqlController < ApplicationController
     raise ArgumentError, "Unexpected parameter: #{variables_param}"
   end
 
-  def handle_error_in_development(error)
+  def handle_error(error)
+    raise e unless Rails.env.development?
+
     logger.error error.message
     logger.error error.backtrace.join("\n")
 
@@ -46,7 +46,15 @@ class GraphqlController < ApplicationController
            status: :internal_server_error
   end
 
-  def current_account
-    Account.friendly.find(request.headers['X-ACCOUNT-ID'])
+  def authorize
+    @current_account = Account.friendly.find(request.subdomain)
+
+    token = request.headers['Authorization']&.split&.last
+    return unless token
+
+    decoded_token = JsonWebTokenService.decode(token)
+    @current_user = @current_account.users.find(decoded_token[:user_id])
+  rescue ActiveRecord::RecordNotFound, JWT::DecodeError => e
+    render json: { errors: e.message }, status: :unauthorized
   end
 end

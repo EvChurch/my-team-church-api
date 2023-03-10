@@ -1,3 +1,11 @@
+GIT
+  remote: https://github.com/rmosolgo/graphiql-rails.git
+  revision: 6b34eb17bf13262eef6edf9a069cfc69b5db9708
+  specs:
+    graphiql-rails (1.8.0)
+      railties
+      sprockets-rails
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -101,9 +109,6 @@ GEM
       activerecord (>= 4.0.0)
     globalid (1.1.0)
       activesupport (>= 5.0)
-    graphiql-rails (1.8.0)
-      railties
-      sprockets-rails
     graphql (2.0.17)
     hashdiff (1.0.1)
     httparty (0.21.0)
@@ -275,7 +280,7 @@ DEPENDENCIES
   factory_bot_rails
   faker
   friendly_id
-  graphiql-rails
+  graphiql-rails!
   graphql (~> 2.0)
   httparty
   jwt
