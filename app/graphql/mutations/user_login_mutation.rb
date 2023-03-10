@@ -7,12 +7,13 @@ module Mutations
     field :token, String, 'token to use as Authorization header as: Bearer \'token\'', null: true
     field :user, Types::Objects::UserType, 'user if credentials are valid', null: true
 
-    argument :password, String, 'Password of the user', required: true
-    argument :username, String, 'Username of the user', required: true
+    argument :account_slug, String, 'Slug of account', required: true
+    argument :credentials, Types::Inputs::UserCredentialsInputType, 'Credentials of the user', required: true
 
-    def resolve(password:, username:)
-      client = Fluro::ClientService.new(context[:current_account].applications.first)
-      response = client.login(username, password, context[:current_account].remote_id)
+    def resolve(account_slug:, credentials:)
+      account = Account.friendly.find(account_slug)
+      client = Fluro::ClientService.new(account.applications.first)
+      response = client.login(credentials.username, credentials.password, account.remote_id)
       validate!(response)
       User.login(response.parsed_response)
     end

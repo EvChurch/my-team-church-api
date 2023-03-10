@@ -30,7 +30,7 @@ RSpec.describe Mutations::UserLoginMutation, vcr: {
     {
       'data' => {
         'userLogin' => {
-          'token' => JsonWebTokenService.encode(user_id: user.id),
+          'token' => JsonWebTokenService.encode(user_id: user.id, account_id: account.id),
           'user' => {
             'createdAt' => '2018-12-03T10:30:14Z',
             'email' => 'bob.jones@example.com',
@@ -46,10 +46,9 @@ RSpec.describe Mutations::UserLoginMutation, vcr: {
   end
 
   it 'returns a valid user' do
-    input = { username: 'bob.jones@example.com', password: 'ultra-secure-password' }
-    response = MyTeamChurchApiSchema.execute(
-      query, variables: { input: }, context: { current_account: account }
-    )
+    credentials = { username: 'bob.jones@example.com', password: 'ultra-secure-password' }
+    input = { credentials:, accountSlug: account.slug }
+    response = MyTeamChurchApiSchema.execute(query, variables: { input: })
     expect(response.to_h).to eq result
   end
 
@@ -77,10 +76,9 @@ RSpec.describe Mutations::UserLoginMutation, vcr: {
     end
 
     it 'returns an invalid account id error' do
-      input = { username: 'mike.smith@example.com', password: 'different-account-password' }
-      response = MyTeamChurchApiSchema.execute(
-        query, variables: { input: }, context: { current_account: account }
-      )
+      credentials = { username: 'mike.smith@example.com', password: 'different-account-password' }
+      input = { credentials:, accountSlug: account.slug }
+      response = MyTeamChurchApiSchema.execute(query, variables: { input: })
       expect(response.to_h).to eq result
     end
   end
@@ -109,10 +107,9 @@ RSpec.describe Mutations::UserLoginMutation, vcr: {
     end
 
     it 'returns an invalid account id error' do
-      input = { username: 'bob.jones@example.com', password: 'incorrect' }
-      response = MyTeamChurchApiSchema.execute(
-        query, variables: { input: }, context: { current_account: account }
-      )
+      credentials = { username: 'bob.jones@example.com', password: 'incorrect' }
+      input = { credentials:, accountSlug: account.slug }
+      response = MyTeamChurchApiSchema.execute(query, variables: { input: })
       expect(response.to_h).to eq result
     end
   end

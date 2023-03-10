@@ -23,6 +23,8 @@ RSpec.describe User do
   it { is_expected.to validate_uniqueness_of(:remote_id).scoped_to(:account_id).allow_nil }
 
   describe '.login' do
+    before { travel_to Time.zone.local(1994) }
+
     let!(:contact) { create(:contact, account:, remote_id: '5c0d9d497ef61e100ae45153') }
     let(:remote_attributes) do
       {
@@ -66,7 +68,9 @@ RSpec.describe User do
 
     it 'sets token' do
       login = described_class.login(remote_attributes)
-      expect(JsonWebTokenService.decode(login[:token])).to include(user_id: login[:user].id)
+      expect(JsonWebTokenService.decode(login[:token])).to eq(
+        'user_id' => login[:user].id, 'account_id' => login[:user].account_id, 'exp' => 24.hours.from_now.to_i
+      )
     end
 
     context 'when user already exists' do
