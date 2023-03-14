@@ -13,7 +13,15 @@ module Fluro
       end
 
       def local_collection
-        account.applications
+        account.application
+      end
+
+      def import(remote, parent = nil)
+        local = account.application
+        local ||= account.build_application(remote_id: remote['_id'])
+        local.update! attributes(remote, parent)
+        connect_realms(remote, local)
+        connect_associations(remote, local)
       end
 
       protected

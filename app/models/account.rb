@@ -3,7 +3,7 @@
 class Account < ApplicationRecord
   extend FriendlyId
   friendly_id :title, use: :slugged
-  has_many :applications, dependent: :delete_all
+  has_one :application, dependent: :delete
   has_many :contacts, dependent: :delete_all
   has_many :realms, dependent: :delete_all
   has_many :realm_connections, dependent: :delete_all, class_name: 'Realm::Connection'

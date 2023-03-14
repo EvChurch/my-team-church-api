@@ -36,9 +36,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_13_050949) do
     t.string "api_key"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["account_id", "remote_id"], name: "index_applications_on_account_id_and_remote_id", unique: true
-    t.index ["account_id", "slug"], name: "index_applications_on_account_id_and_slug", unique: true
-    t.index ["account_id"], name: "index_applications_on_account_id"
+    t.index ["account_id"], name: "index_applications_on_account_id", unique: true
   end
 
   create_table "contact_connections", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|

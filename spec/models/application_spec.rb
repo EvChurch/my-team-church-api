@@ -9,7 +9,7 @@ RSpec.describe Application do
   it { is_expected.to have_many(:realms).through(:realm_connections) }
   it { is_expected.to validate_presence_of(:title) }
   it { is_expected.to validate_presence_of(:definition) }
-  it { is_expected.to validate_uniqueness_of(:remote_id).scoped_to(:account_id).allow_nil }
+  it { is_expected.to validate_uniqueness_of(:account_id).case_insensitive }
 
   describe '#import' do
     it 'calls import_all with application' do

@@ -13,7 +13,7 @@ module Mutations
     def resolve(account_slug:, credentials:)
       account = Account.friendly.find(account_slug)
       MultiTenant.with(account) do
-        client = Fluro::ClientService.new(account.applications.first)
+        client = Fluro::ClientService.new(account.application)
         response = client.login(credentials.username, credentials.password, account.remote_id)
         validate!(response)
         User.login(response.parsed_response)

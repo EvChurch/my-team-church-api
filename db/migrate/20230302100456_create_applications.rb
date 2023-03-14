@@ -3,7 +3,7 @@
 class CreateApplications < ActiveRecord::Migration[7.0]
   def change
     create_table :applications, id: :uuid do |t|
-      t.references :account, null: false, foreign_key: { on_delete: :cascade }, type: :uuid
+      t.references :account, null: false, foreign_key: { on_delete: :cascade }, type: :uuid, index: { unique: true }
       t.string :definition, null: false
       t.string :slug, null: false
       t.string :status, default: 'active'
@@ -13,7 +13,5 @@ class CreateApplications < ActiveRecord::Migration[7.0]
 
       t.timestamps
     end
-    add_index :applications, %i[account_id remote_id], unique: true
-    add_index :applications, %i[account_id slug], unique: true
   end
 end

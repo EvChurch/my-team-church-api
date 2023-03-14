@@ -9,7 +9,7 @@ RSpec.describe Account do
   it { is_expected.to have_db_column(:slug).of_type(:string).with_options(null: false) }
   it { is_expected.to have_db_column(:created_at).of_type(:datetime).with_options(null: false) }
   it { is_expected.to have_db_column(:updated_at).of_type(:datetime).with_options(null: false) }
-  it { is_expected.to have_many(:applications).dependent(:delete_all) }
+  it { is_expected.to have_one(:application).dependent(:delete) }
   it { is_expected.to have_many(:contacts).dependent(:delete_all) }
   it { is_expected.to have_many(:realms).dependent(:delete_all) }
   it { is_expected.to have_many(:realm_connections).dependent(:delete_all) }

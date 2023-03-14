@@ -10,7 +10,7 @@ class Application < ApplicationRecord
            as: :subject
   has_many :realms, through: :realm_connections
   validates :title, :definition, presence: true
-  validates :remote_id, uniqueness: { scope: :account_id }, allow_nil: true
+  validates :account_id, uniqueness: true
   encrypts :api_key
 
   def import
