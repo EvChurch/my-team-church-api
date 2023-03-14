@@ -26,6 +26,7 @@ RSpec.describe Fluro::Import::ContactService,
           'last_name' => 'Smith',
           'emails' => ['robert@aucklandev.co.nz', 'robert.smith@gmail.com'],
           'phone_numbers' => %w[021098765 6421098765],
+          'avatar' => 'YXZhdGFy',
           'created_at' => '2014-01-15 01:36:47.000000000 +0000'.to_time,
           'updated_at' => '2023-02-21 22:21:19.559000000 +0000'.to_time
         }
@@ -55,6 +56,7 @@ RSpec.describe Fluro::Import::ContactService,
           'last_name' => 'Smith',
           'emails' => ['michelle@aucklandev.co.nz', 'michelle.smith@gmail.com'],
           'phone_numbers' => %w[021098761 6421098761],
+          'avatar' => 'YXZhdGFy',
           'created_at' => '2014-01-15 01:36:47.000000000 +0000'.to_time,
           'updated_at' => '2023-02-21 22:21:19.559000000 +0000'.to_time
         }

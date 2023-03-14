@@ -99,14 +99,18 @@ RSpec.describe Fluro::ClientService do
         expect(described_class).to have_received(:post).with('/token/login', options)
       end
 
-      it 'returns the requested account' do
+      it 'returns an authenticated user' do
         expect(client_service.login('username', 'password', 'accountId')).to eq({ _id: 'userId' })
       end
     end
 
     describe '#avatar' do
+      let(:ok) { true }
+
       before do
-        allow(described_class).to receive(:get).and_return(instance_double(HTTParty::Response, body: 'avatar'))
+        allow(described_class).to receive(:get).and_return(
+          instance_double(HTTParty::Response, body: 'avatar', ok?: ok)
+        )
       end
 
       it 'calls the api' do
@@ -116,8 +120,16 @@ RSpec.describe Fluro::ClientService do
         )
       end
 
-      it 'returns the requested account' do
+      it 'returns the avatar' do
         expect(Base64.strict_decode64(client_service.avatar('contact', 'contactId'))).to eq('avatar')
+      end
+
+      context 'when not ok' do
+        let(:ok) { false }
+
+        it 'returns nil' do
+          expect(client_service.avatar('contact', 'contactId')).to be_nil
+        end
       end
     end
   end

@@ -120,4 +120,108 @@ http_interactions:
           }
         ]'
   recorded_at: Tue, 28 Feb 2023 05:13:29 GMT
+- request:
+    method: get
+    uri: https://api.fluro.io/get/avatar/contact/5c05057c48890574c5395cc6?access_token=fluro_api_key&h=40&w=40
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=utf-8
+      Content-Length:
+      - '93'
+      Connection:
+      - keep-alive
+      X-Fluro-Server-Version:
+      - 8b0f5986
+      Vary:
+      - Origin, Accept-Encoding
+      Access-Control-Allow-Credentials:
+      - 'true'
+      Access-Control-Expose-Headers:
+      - x-fluro-pager-total
+      Etag:
+      - W/"5d-98jvc3UzSyv5C7gzYdKvFLOxGaY"
+      Set-Cookie:
+      - fls=s%3AQBtO-A9NDRm9tFi5y_HwjsA8iifOUpqm.cAgtrs7FIpOwkLfLNuCjXcdyi5m%2BSo02Wyztk8gJEmQ;
+        Domain=.fluro.io; Path=/; Expires=Tue, 21 Mar 2023 12:53:22 GMT; HttpOnly;
+        SameSite=Lax
+      Date:
+      - Tue, 14 Mar 2023 12:53:22 GMT
+      X-Cache:
+      - Error from cloudfront
+      Via:
+      - 1.1 f2867d87cb7f6c638a180770df71e800.cloudfront.net (CloudFront)
+      X-Amz-Cf-Pop:
+      - AKL50-C1
+      X-Amz-Cf-Id:
+      - c2fWa0bRd1oA65IRPZGIc7QMhJcd9S7dZkfqfgBuz3v__rk5-0Gs2g==
+    body:
+      encoding: UTF-8
+      string: 'avatar'
+  recorded_at: Tue, 14 Mar 2023 12:53:22 GMT
+- request:
+    method: get
+    uri: https://api.fluro.io/get/avatar/contact/607bf8ccd6fc8e05f37379ed?access_token=fluro_api_key&h=40&w=40
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=utf-8
+      Content-Length:
+      - '93'
+      Connection:
+      - keep-alive
+      X-Fluro-Server-Version:
+      - 8b0f5986
+      Vary:
+      - Origin, Accept-Encoding
+      Access-Control-Allow-Credentials:
+      - 'true'
+      Access-Control-Expose-Headers:
+      - x-fluro-pager-total
+      Etag:
+      - W/"5d-98jvc3UzSyv5C7gzYdKvFLOxGaY"
+      Set-Cookie:
+      - fls=s%3A8peOeAgnTWilvvb73tXRqLMNx2ezl9iA.GBPevTaILbGmL3S5uVxhCv%2F1CdAR3qrLj162vbkn4MM;
+        Domain=.fluro.io; Path=/; Expires=Tue, 21 Mar 2023 12:53:23 GMT; HttpOnly;
+        SameSite=Lax
+      Date:
+      - Tue, 14 Mar 2023 12:53:23 GMT
+      X-Cache:
+      - Error from cloudfront
+      Via:
+      - 1.1 787ebd166e9da00b36a5337407e50714.cloudfront.net (CloudFront)
+      X-Amz-Cf-Pop:
+      - AKL50-C1
+      X-Amz-Cf-Id:
+      - aLIEOCxd423OPhZwhXfJ-p2aF2DF552rdJM3wBAFlukvvSEVCU4bGA==
+    body:
+      encoding: UTF-8
+      string: 'avatar'
+  recorded_at: Tue, 14 Mar 2023 12:53:23 GMT
 recorded_with: VCR 6.1.0

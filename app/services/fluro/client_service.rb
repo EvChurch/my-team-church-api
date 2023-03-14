@@ -37,7 +37,7 @@ module Fluro
 
     def avatar(type, id)
       response = self.class.get("/get/avatar/#{type}/#{id}?access_token=#{@api_key}&w=40&h=40")
-      Base64.strict_encode64(response.body)
+      Base64.strict_encode64(response.body) if response.ok?
     end
   end
 end
