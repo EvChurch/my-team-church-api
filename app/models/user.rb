@@ -8,6 +8,7 @@ class User < ApplicationRecord
            dependent: :delete_all,
            class_name: 'Contact::Connection'
   has_many :contacts, through: :contact_connections
+  has_many :teams, -> { distinct }, through: :contacts
   validates :title, presence: true
   validates :remote_id, uniqueness: { scope: :account_id }, allow_nil: true
 

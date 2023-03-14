@@ -10,6 +10,7 @@ RSpec.describe Contact do
   it { is_expected.to have_db_column(:slug).of_type(:string).with_options(null: false) }
   it { is_expected.to have_db_column(:status).of_type(:string).with_options(default: 'active') }
   it { is_expected.to have_db_column(:title).of_type(:string).with_options(null: false) }
+  it { is_expected.to have_db_column(:avatar).of_type(:string) }
   it { is_expected.to have_db_column(:remote_id).of_type(:string) }
   it { is_expected.to have_db_column(:first_name).of_type(:string) }
   it { is_expected.to have_db_column(:last_name).of_type(:string) }

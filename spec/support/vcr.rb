@@ -7,8 +7,8 @@ VCR.configure do |config|
   config.configure_rspec_metadata!
 
   config.filter_sensitive_data('<BEARER_TOKEN>') do |interaction|
-    auths = interaction.request.headers['Authorization'].first
-    if (match = auths.match(/^Bearer\s+([^,\s]+)/))
+    auths = interaction.request.headers['Authorization']&.first
+    if auths.present? && match = auths.match(/^Bearer\s+([^,\s]+)/)
       match.captures.first
     end
   end

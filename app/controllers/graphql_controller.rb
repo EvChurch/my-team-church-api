@@ -47,12 +47,11 @@ class GraphqlController < ApplicationController
   end
 
   def authorize
-    @current_account = Account.friendly.find(request.subdomain)
-
     token = request.headers['Authorization']&.split&.last
     return unless token
 
     decoded_token = JsonWebTokenService.decode(token)
+    @current_account = Account.find(decoded_token[:account_id])
     @current_user = @current_account.users.find(decoded_token[:user_id])
   rescue ActiveRecord::RecordNotFound, JWT::DecodeError => e
     render json: { errors: e.message }, status: :unauthorized

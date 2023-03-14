@@ -14,6 +14,7 @@ module Types
       field :phone_number, String, 'user phone number'
       field :remote_id, String, 'unique identifier in fluro'
       field :slug, String, 'friendly unique identifier', null: false
+      field :teams, [Types::Objects::TeamType], 'teams that contacts are connected with', null: false
       field :title, String, 'title of record', null: false
       field :updated_at, GraphQL::Types::ISO8601DateTime, 'time record updated', null: false
     end

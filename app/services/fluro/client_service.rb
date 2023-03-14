@@ -3,10 +3,12 @@
 module Fluro
   class ClientService
     include HTTParty
+
     base_uri 'https://api.fluro.io'
 
     def initialize(api_key)
-      @options = { headers: { authorization: "Bearer #{api_key}", 'Content-Type' => 'application/json' } }
+      @api_key = api_key
+      @options = { headers: { authorization: "Bearer #{@api_key}", 'Content-Type' => 'application/json' } }
     end
 
     def contacts
@@ -31,6 +33,11 @@ module Fluro
 
     def login(username, password, account_id)
       self.class.post('/token/login', @options.merge(body: { username:, password:, account: account_id }.to_json))
+    end
+
+    def avatar(type, id)
+      response = self.class.get("/get/avatar/#{type}/#{id}?access_token=#{@api_key}&w=40&h=40")
+      Base64.strict_encode64(response.body)
     end
   end
 end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_03_06_042119) do
+ActiveRecord::Schema[7.0].define(version: 2023_03_13_050949) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -66,6 +66,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_06_042119) do
     t.text "phone_numbers", default: [], array: true
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "avatar"
     t.index ["account_id", "remote_id"], name: "index_contacts_on_account_id_and_remote_id", unique: true
     t.index ["account_id", "slug"], name: "index_contacts_on_account_id_and_slug", unique: true
     t.index ["account_id"], name: "index_contacts_on_account_id"

@@ -2,7 +2,8 @@
 
 require 'rails_helper'
 
-RSpec.describe Fluro::Import::ContactService, vcr: 'fluro/import/contact_service' do
+RSpec.describe Fluro::Import::ContactService,
+               vcr: { cassette_name: 'fluro/import/contact_service', record: :new_episodes } do
   subject(:contact_service) { described_class.new(application) }
 
   let(:account) { create(:account) }

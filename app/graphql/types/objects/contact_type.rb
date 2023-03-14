@@ -10,6 +10,7 @@ module Types
       field :emails, [String], "contact's email addresses", null: false
       field :first_name, String, 'contact first name'
       field :id, ID, 'record unique identifier', null: false
+      field :avatar, String, 'contact avatar url'
       field :last_name, String, 'contact last name'
       field :phone_numbers, [String], "contact's phone numbers", null: false
       field :realms, [Types::Objects::RealmType], 'realms the contact belongs to', null: false
@@ -19,6 +20,10 @@ module Types
       field :teams, [Types::Objects::TeamType], 'teams the contact belongs to', null: false
       field :title, String, 'title of record', null: false
       field :updated_at, GraphQL::Types::ISO8601DateTime, 'time record updated', null: false
+
+      def avatar
+        "data:image/png;base64,#{object.avatar}" if object.avatar
+      end
     end
   end
 end
