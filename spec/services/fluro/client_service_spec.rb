@@ -68,68 +68,68 @@ RSpec.describe Fluro::ClientService do
     it 'returns current session' do
       expect(client_service.session).to eq({})
     end
+  end
 
-    describe '#account' do
-      before do
-        allow(described_class).to receive(:get).and_return({ _id: 'accountId' })
-      end
-
-      it 'calls the api' do
-        client_service.account('accountId')
-        expect(described_class).to have_received(:get).with('/account/accountId', options)
-      end
-
-      it 'returns the requested account' do
-        expect(client_service.account('accountId')).to eq({ _id: 'accountId' })
-      end
+  describe '#account' do
+    before do
+      allow(described_class).to receive(:get).and_return({ _id: 'accountId' })
     end
 
-    describe '#login' do
-      let(:options) do
-        { headers: { 'Content-Type' => 'application/json', authorization: "Bearer #{api_key}" },
-          body: { username: 'username', password: 'password', account: 'accountId' }.to_json }
-      end
-
-      before do
-        allow(described_class).to receive(:post).and_return({ _id: 'userId' })
-      end
-
-      it 'calls the api' do
-        client_service.login('username', 'password', 'accountId')
-        expect(described_class).to have_received(:post).with('/token/login', options)
-      end
-
-      it 'returns an authenticated user' do
-        expect(client_service.login('username', 'password', 'accountId')).to eq({ _id: 'userId' })
-      end
+    it 'calls the api' do
+      client_service.account('accountId')
+      expect(described_class).to have_received(:get).with('/account/accountId', options)
     end
 
-    describe '#avatar' do
-      let(:ok) { true }
+    it 'returns the requested account' do
+      expect(client_service.account('accountId')).to eq({ _id: 'accountId' })
+    end
+  end
 
-      before do
-        allow(described_class).to receive(:get).and_return(
-          instance_double(HTTParty::Response, body: 'avatar', ok?: ok)
-        )
-      end
+  describe '#login' do
+    let(:options) do
+      { headers: { 'Content-Type' => 'application/json', authorization: "Bearer #{api_key}" },
+        body: { username: 'username', password: 'password', account: 'accountId' }.to_json }
+    end
 
-      it 'calls the api' do
-        client_service.avatar('contact', 'contactId')
-        expect(described_class).to have_received(:get).with(
-          "/get/avatar/contact/contactId?access_token=#{api_key}&w=40&h=40"
-        )
-      end
+    before do
+      allow(described_class).to receive(:post).and_return({ _id: 'userId' })
+    end
 
-      it 'returns the avatar' do
-        expect(Base64.strict_decode64(client_service.avatar('contact', 'contactId'))).to eq('avatar')
-      end
+    it 'calls the api' do
+      client_service.login('username', 'password', 'accountId')
+      expect(described_class).to have_received(:post).with('/token/login', options)
+    end
 
-      context 'when not ok' do
-        let(:ok) { false }
+    it 'returns an authenticated user' do
+      expect(client_service.login('username', 'password', 'accountId')).to eq({ _id: 'userId' })
+    end
+  end
 
-        it 'returns nil' do
-          expect(client_service.avatar('contact', 'contactId')).to be_nil
-        end
+  describe '#avatar' do
+    let(:ok) { true }
+
+    before do
+      allow(described_class).to receive(:get).and_return(
+        instance_double(HTTParty::Response, body: 'avatar', ok?: ok)
+      )
+    end
+
+    it 'calls the api' do
+      client_service.avatar('contact', 'contactId')
+      expect(described_class).to have_received(:get).with(
+        "/get/avatar/contact/contactId?access_token=#{api_key}&w=40&h=40"
+      )
+    end
+
+    it 'returns the avatar' do
+      expect(Base64.strict_decode64(client_service.avatar('contact', 'contactId'))).to eq('avatar')
+    end
+
+    context 'when not ok' do
+      let(:ok) { false }
+
+      it 'returns nil' do
+        expect(client_service.avatar('contact', 'contactId')).to be_nil
       end
     end
   end

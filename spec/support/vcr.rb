@@ -9,7 +9,7 @@ VCR.configure do |config|
 
   config.filter_sensitive_data('<BEARER_TOKEN>') do |interaction|
     auths = interaction.request.headers['Authorization']&.first
-    if auths.present? && match = auths.match(/^Bearer\s+([^,\s]+)/)
+    if auths.present? && (match = auths.match(/^Bearer\s+([^,\s]+)/))
       match.captures.first
     end
   end
