@@ -14,6 +14,7 @@ RSpec.describe Team do
   it { is_expected.to have_db_column(:remote_id).of_type(:string) }
   it { is_expected.to have_db_column(:created_at).of_type(:datetime).with_options(null: false) }
   it { is_expected.to have_db_column(:updated_at).of_type(:datetime).with_options(null: false) }
+  it { is_expected.to have_db_column(:visible_members).of_type(:boolean) }
   it { is_expected.to have_many(:realm_connections).dependent(:delete_all) }
   it { is_expected.to have_many(:realms).through(:realm_connections) }
   it { is_expected.to have_many(:memberships).dependent(:delete_all) }
