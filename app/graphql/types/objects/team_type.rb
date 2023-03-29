@@ -17,6 +17,10 @@ module Types
       field :status, Types::Enums::StatusType, 'record status'
       field :title, String, 'title of record', null: false
       field :updated_at, GraphQL::Types::ISO8601DateTime, 'time record updated', null: false
+
+      def contacts
+        object.contacts.order(:title)
+      end
     end
   end
 end
