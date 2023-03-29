@@ -13,10 +13,10 @@ module Mutations
     def resolve(account_slug:, credentials:)
       account = Account.friendly.find(account_slug)
       MultiTenant.with(account) do
-        client = Fluro::ClientService.new(account.application)
+        client = Fluro::ClientService.new(account.application.api_key)
         response = client.login(credentials.username, credentials.password, account.remote_id)
         validate!(response)
-        User.login(response.parsed_response)
+        User.login(client, response.parsed_response)
       end
     rescue ActiveRecord::RecordNotFound
       raise GraphQL::ExecutionError, 'Invalid Account ID'

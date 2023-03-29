@@ -12,15 +12,16 @@ class User < ApplicationRecord
   validates :title, presence: true
   validates :remote_id, uniqueness: { scope: :account_id }, allow_nil: true
 
-  def self.login(remote)
+  def self.login(client, remote)
     user = find_or_initialize_by(remote_id: remote['_id'])
-    user.update!(remote_attributes(remote))
+    user.update!(remote_attributes(client, remote))
     user.contacts = Contact.where(remote_id: remote['contacts'])
     { user:, token: JsonWebTokenService.encode(user_id: user.id, account_id: user.account_id) }
   end
 
-  def self.remote_attributes(remote)
+  def self.remote_attributes(client, remote)
     {
+      avatar: client.avatar('user', remote['_id']),
       title: remote['name'],
       first_name: remote['firstName'],
       last_name: remote['lastName'],

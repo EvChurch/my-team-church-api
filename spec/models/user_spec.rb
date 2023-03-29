@@ -10,6 +10,7 @@ RSpec.describe User do
   it { is_expected.to have_db_column(:account_id).of_type(:uuid).with_options(null: false) }
   it { is_expected.to have_db_column(:title).of_type(:string).with_options(null: false) }
   it { is_expected.to have_db_column(:slug).of_type(:string).with_options(null: false) }
+  it { is_expected.to have_db_column(:avatar).of_type(:string) }
   it { is_expected.to have_db_column(:remote_id).of_type(:string) }
   it { is_expected.to have_db_column(:first_name).of_type(:string) }
   it { is_expected.to have_db_column(:last_name).of_type(:string) }
@@ -43,6 +44,7 @@ RSpec.describe User do
       {
         'account_id' => account.id,
         'remote_id' => 'remote_id',
+        'avatar' => nil,
         'title' => 'Bob Jones',
         'first_name' => 'Bob',
         'last_name' => 'Jones',
@@ -53,36 +55,47 @@ RSpec.describe User do
       }
     end
 
+    let(:client) { instance_double(Fluro::ClientService, avatar: nil) }
+
     it 'creates new user' do
-      expect { described_class.login(remote_attributes) }.to change(described_class, :count).by(1)
+      expect { described_class.login(client, remote_attributes) }.to change(described_class, :count).by(1)
     end
 
     it 'sets attributes of user' do
-      login = described_class.login(remote_attributes)
+      login = described_class.login(client, remote_attributes)
       expect(login[:user].attributes).to include(local_attributes)
     end
 
     it 'connects user to contacts' do
-      login = described_class.login(remote_attributes)
+      login = described_class.login(client, remote_attributes)
       expect(login[:user].contacts).to eq [contact]
     end
 
     it 'sets token' do
-      login = described_class.login(remote_attributes)
+      login = described_class.login(client, remote_attributes)
       expect(JsonWebTokenService.decode(login[:token])).to eq(
         'user_id' => login[:user].id, 'account_id' => login[:user].account_id, 'exp' => 24.hours.from_now.to_i
       )
+    end
+
+    context 'when avatar' do
+      let(:client) { instance_double(Fluro::ClientService, avatar: 'base64encodedstring') }
+
+      it 'sets avatar' do
+        login = described_class.login(client, remote_attributes)
+        expect(login[:user].attributes).to include('avatar' => 'base64encodedstring')
+      end
     end
 
     context 'when user already exists' do
       subject!(:user) { create(:user, remote_id: 'remote_id') }
 
       it 'does not create new user' do
-        expect { described_class.login(remote_attributes) }.not_to change(described_class, :count)
+        expect { described_class.login(client, remote_attributes) }.not_to change(described_class, :count)
       end
 
       it 'updates existing user' do
-        described_class.login(remote_attributes)
+        described_class.login(client, remote_attributes)
         expect(user.reload.attributes).to include(local_attributes)
       end
     end
