@@ -2,7 +2,7 @@
 
 module Resolvers
   class MeResolver < BaseResolver
-    description 'current user (requires authorization header to be set)'
+    description 'retrieve current user (requires authorization header to be set)'
 
     type Types::Objects::UserType, null: false
 

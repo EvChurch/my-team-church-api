@@ -6,5 +6,6 @@ class Team
     belongs_to :contact
     belongs_to :team
     validates :team_id, uniqueness: { scope: %i[contact_id] }
+    has_many :objectives, as: :objectable, dependent: :delete_all
   end
 end

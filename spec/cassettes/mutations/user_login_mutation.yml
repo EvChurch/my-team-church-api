@@ -1,182 +1,227 @@
 ---
 http_interactions:
-  - request:
-      method: post
-      uri: https://api.fluro.io/token/login
-      body:
-        encoding: UTF-8
-        string: '{"username":"bob.jones@example.com","password":"ultra-secure-password","account":"remote_account_id"}'
-      headers:
-        Authorization:
-          - Bearer
-        Content-Type:
-          - application/json
-        Accept-Encoding:
-          - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
-        Accept:
-          - "*/*"
-        User-Agent:
-          - Ruby
-    response:
-      status:
-        code: 200
-        message: OK
-      headers:
-        Content-Type:
-          - application/json; charset=utf-8
-        Transfer-Encoding:
-          - chunked
-        Connection:
-          - keep-alive
-        X-Fluro-Server-Version:
-          - "082610a6"
-        Vary:
-          - Origin, Accept-Encoding
-        Access-Control-Allow-Credentials:
-          - "true"
-        Access-Control-Expose-Headers:
-          - x-fluro-pager-total
-        Etag:
-          - W/"2e498-tNvDQrEwCc/9RPIRIBSbUTG/Jeg"
-        Set-Cookie:
-          - fls=s%3AgS_2HNvsee1BM2h2tUeJyun94dpW9qJg.jVK76AAKXUj9GoadHEuam53wyZoXe8l0lZBhVzqDAzo;
-            Domain=.fluro.io; Path=/; Expires=Thu, 16 Mar 2023 04:54:22 GMT; HttpOnly;
-            SameSite=Lax
-        Date:
-          - Thu, 09 Mar 2023 04:54:22 GMT
-        X-Cache:
-          - Miss from cloudfront
-        Via:
-          - 1.1 db27945f43c40f2922559a67408b4818.cloudfront.net (CloudFront)
-        X-Amz-Cf-Pop:
-          - AKL50-C1
-        X-Amz-Cf-Id:
-          - NlaD-Dd2L6p4siMQCWp1Hkl7yw72gRu2OQSRrojWLctIadCWxDt9KA==
-      body:
-        encoding: ASCII-8BIT
-        string: '{
-          "_id":"remote_user_id",
-          "name":"Bob Jones",
-          "firstName":"Bob",
-          "lastName":"Jones",
-          "email":"bob.jones@example.com",
-          "phoneNumber":"+6421000111",
-          "created":"2018-12-03T10:30:14.845Z",
-          "contacts":["remote_contact_id"]
-          }'
-    recorded_at: Thu, 09 Mar 2023 04:54:22 GMT
-  - request:
-      method: post
-      uri: https://api.fluro.io/token/login
-      body:
-        encoding: UTF-8
-        string: '{"username":"mike.smith@example.com","password":"different-account-password","account":"remote_account_id"}'
-      headers:
-        Authorization:
-          - Bearer
-        Content-Type:
-          - application/json
-        Accept-Encoding:
-          - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
-        Accept:
-          - "*/*"
-        User-Agent:
-          - Ruby
-    response:
-      status:
-        code: 500
-        message: Internal Server Error
-      headers:
-        Content-Type:
-          - text/html; charset=utf-8
-        Content-Length:
-          - "18"
-        Connection:
-          - keep-alive
-        X-Fluro-Server-Version:
-          - "082610a6"
-        Vary:
-          - Origin, Accept-Encoding
-        Access-Control-Allow-Credentials:
-          - "true"
-        Access-Control-Expose-Headers:
-          - x-fluro-pager-total
-        Etag:
-          - W/"12-lHqIuFqb9sLiNhFkxo+h6PbMy+c"
-        Set-Cookie:
-          - fls=s%3AvgvcXh-siqvC7P-cfNzH8Wd8-SfRjtcj.lmDbMCxa3IkV4GBHm9hiNXif2MFSjk2lnJm8Mnxlc3g;
-            Domain=.fluro.io; Path=/; Expires=Thu, 16 Mar 2023 04:54:22 GMT; HttpOnly;
-            SameSite=Lax
-        Date:
-          - Thu, 09 Mar 2023 04:54:22 GMT
-        X-Cache:
-          - Error from cloudfront
-        Via:
-          - 1.1 8f38409ac650a102ff16537f77e76c30.cloudfront.net (CloudFront)
-        X-Amz-Cf-Pop:
-          - AKL50-C1
-        X-Amz-Cf-Id:
-          - mAPAhT3UsOjyP42rKkqFpEfNKenDzJbaHJebbuBFSpL-DL4euwxFKw==
-      body:
-        encoding: UTF-8
-        string: Invalid Account ID
-    recorded_at: Thu, 09 Mar 2023 04:54:22 GMT
-  - request:
-      method: post
-      uri: https://api.fluro.io/token/login
-      body:
-        encoding: UTF-8
-        string: '{"username":"bob.jones@example.com","password":"incorrect","account":"remote_account_id"}'
-      headers:
-        Authorization:
-          - Bearer
-        Content-Type:
-          - application/json
-        Accept-Encoding:
-          - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
-        Accept:
-          - "*/*"
-        User-Agent:
-          - Ruby
-    response:
-      status:
-        code: 401
-        message: Unauthorized
-      headers:
-        Content-Type:
-          - application/json; charset=utf-8
-        Content-Length:
-          - "129"
-        Connection:
-          - keep-alive
-        X-Fluro-Server-Version:
-          - "082610a6"
-        Vary:
-          - Origin, Accept-Encoding
-        Access-Control-Allow-Credentials:
-          - "true"
-        Access-Control-Expose-Headers:
-          - x-fluro-pager-total
-        Etag:
-          - W/"81-1LHhcLMIvYBehdzq/L4TSeagAyU"
-        Set-Cookie:
-          - fls=s%3ANLOCw0hPM1MokDtm3P7wLSsKxB-UbHiy.6uF2awFxAHhSUS0msG%2BotP5%2BERm7jXnumpEHzcqFCeY;
-            Domain=.fluro.io; Path=/; Expires=Thu, 16 Mar 2023 04:54:23 GMT; HttpOnly;
-            SameSite=Lax
-        Date:
-          - Thu, 09 Mar 2023 04:54:23 GMT
-        X-Cache:
-          - Error from cloudfront
-        Via:
-          - 1.1 787ebd166e9da00b36a5337407e50714.cloudfront.net (CloudFront)
-        X-Amz-Cf-Pop:
-          - AKL50-C1
-        X-Amz-Cf-Id:
-          - GkXP2BNmZQvURyvFaIGaVnWeMXoCIiqTLDeC5GFJbIOrQXbQ7SrBSA==
-      body:
-        encoding: UTF-8
-        string:
-          '{"status":401,"asJSON":true,"data":null,"message":"Login Failed. Please
-          check your email address and password.","statusCode":401}'
-    recorded_at: Thu, 09 Mar 2023 04:54:23 GMT
+- request:
+    method: post
+    uri: https://api.fluro.io/token/login
+    body:
+      encoding: UTF-8
+      string: '{"username":"bob.jones@example.com","password":"ultra-secure-password","account":"remote_account_id"}'
+    headers:
+      Authorization:
+      - Bearer
+      Content-Type:
+      - application/json
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=utf-8
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      X-Fluro-Server-Version:
+      - '082610a6'
+      Vary:
+      - Origin, Accept-Encoding
+      Access-Control-Allow-Credentials:
+      - 'true'
+      Access-Control-Expose-Headers:
+      - x-fluro-pager-total
+      Etag:
+      - W/"2e498-tNvDQrEwCc/9RPIRIBSbUTG/Jeg"
+      Set-Cookie:
+      - fls=s%3AgS_2HNvsee1BM2h2tUeJyun94dpW9qJg.jVK76AAKXUj9GoadHEuam53wyZoXe8l0lZBhVzqDAzo;
+        Domain=.fluro.io; Path=/; Expires=Thu, 16 Mar 2023 04:54:22 GMT; HttpOnly;
+        SameSite=Lax
+      Date:
+      - Thu, 09 Mar 2023 04:54:22 GMT
+      X-Cache:
+      - Miss from cloudfront
+      Via:
+      - 1.1 db27945f43c40f2922559a67408b4818.cloudfront.net (CloudFront)
+      X-Amz-Cf-Pop:
+      - AKL50-C1
+      X-Amz-Cf-Id:
+      - NlaD-Dd2L6p4siMQCWp1Hkl7yw72gRu2OQSRrojWLctIadCWxDt9KA==
+    body:
+      encoding: ASCII-8BIT
+      string: '{ "_id":"remote_user_id", "name":"Bob Jones", "firstName":"Bob", "lastName":"Jones",
+        "email":"bob.jones@example.com", "phoneNumber":"+6421000111", "created":"2018-12-03T10:30:14.845Z",
+        "contacts":["remote_contact_id"] }'
+  recorded_at: Thu, 09 Mar 2023 04:54:22 GMT
+- request:
+    method: post
+    uri: https://api.fluro.io/token/login
+    body:
+      encoding: UTF-8
+      string: '{"username":"mike.smith@example.com","password":"different-account-password","account":"remote_account_id"}'
+    headers:
+      Authorization:
+      - Bearer
+      Content-Type:
+      - application/json
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 500
+      message: Internal Server Error
+    headers:
+      Content-Type:
+      - text/html; charset=utf-8
+      Content-Length:
+      - '18'
+      Connection:
+      - keep-alive
+      X-Fluro-Server-Version:
+      - '082610a6'
+      Vary:
+      - Origin, Accept-Encoding
+      Access-Control-Allow-Credentials:
+      - 'true'
+      Access-Control-Expose-Headers:
+      - x-fluro-pager-total
+      Etag:
+      - W/"12-lHqIuFqb9sLiNhFkxo+h6PbMy+c"
+      Set-Cookie:
+      - fls=s%3AvgvcXh-siqvC7P-cfNzH8Wd8-SfRjtcj.lmDbMCxa3IkV4GBHm9hiNXif2MFSjk2lnJm8Mnxlc3g;
+        Domain=.fluro.io; Path=/; Expires=Thu, 16 Mar 2023 04:54:22 GMT; HttpOnly;
+        SameSite=Lax
+      Date:
+      - Thu, 09 Mar 2023 04:54:22 GMT
+      X-Cache:
+      - Error from cloudfront
+      Via:
+      - 1.1 8f38409ac650a102ff16537f77e76c30.cloudfront.net (CloudFront)
+      X-Amz-Cf-Pop:
+      - AKL50-C1
+      X-Amz-Cf-Id:
+      - mAPAhT3UsOjyP42rKkqFpEfNKenDzJbaHJebbuBFSpL-DL4euwxFKw==
+    body:
+      encoding: UTF-8
+      string: Invalid Account ID
+  recorded_at: Thu, 09 Mar 2023 04:54:22 GMT
+- request:
+    method: post
+    uri: https://api.fluro.io/token/login
+    body:
+      encoding: UTF-8
+      string: '{"username":"bob.jones@example.com","password":"incorrect","account":"remote_account_id"}'
+    headers:
+      Authorization:
+      - Bearer
+      Content-Type:
+      - application/json
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 401
+      message: Unauthorized
+    headers:
+      Content-Type:
+      - application/json; charset=utf-8
+      Content-Length:
+      - '129'
+      Connection:
+      - keep-alive
+      X-Fluro-Server-Version:
+      - '082610a6'
+      Vary:
+      - Origin, Accept-Encoding
+      Access-Control-Allow-Credentials:
+      - 'true'
+      Access-Control-Expose-Headers:
+      - x-fluro-pager-total
+      Etag:
+      - W/"81-1LHhcLMIvYBehdzq/L4TSeagAyU"
+      Set-Cookie:
+      - fls=s%3ANLOCw0hPM1MokDtm3P7wLSsKxB-UbHiy.6uF2awFxAHhSUS0msG%2BotP5%2BERm7jXnumpEHzcqFCeY;
+        Domain=.fluro.io; Path=/; Expires=Thu, 16 Mar 2023 04:54:23 GMT; HttpOnly;
+        SameSite=Lax
+      Date:
+      - Thu, 09 Mar 2023 04:54:23 GMT
+      X-Cache:
+      - Error from cloudfront
+      Via:
+      - 1.1 787ebd166e9da00b36a5337407e50714.cloudfront.net (CloudFront)
+      X-Amz-Cf-Pop:
+      - AKL50-C1
+      X-Amz-Cf-Id:
+      - GkXP2BNmZQvURyvFaIGaVnWeMXoCIiqTLDeC5GFJbIOrQXbQ7SrBSA==
+    body:
+      encoding: UTF-8
+      string: '{"status":401,"asJSON":true,"data":null,"message":"Login Failed. Please
+        check your email address and password.","statusCode":401}'
+  recorded_at: Thu, 09 Mar 2023 04:54:23 GMT
+- request:
+    method: get
+    uri: https://api.fluro.io/get/avatar/user/remote_user_id?access_token=api_key&h=40&w=40
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 401
+      message: Unauthorized
+    headers:
+      Content-Type:
+      - application/json; charset=utf-8
+      Content-Length:
+      - '93'
+      Connection:
+      - keep-alive
+      X-Fluro-Server-Version:
+      - d917a632
+      Vary:
+      - Origin, Accept-Encoding
+      Access-Control-Allow-Credentials:
+      - 'true'
+      Access-Control-Expose-Headers:
+      - x-fluro-pager-total
+      Etag:
+      - W/"5d-98jvc3UzSyv5C7gzYdKvFLOxGaY"
+      Set-Cookie:
+      - fls=s%3ARmzX9z1j_BTXAm8miRlquKfVAqf8HsDM.6u0UQjZE4jLcpJ1aFL3kXVVWdp5H5yXIVymqUe%2B2HA8;
+        Domain=.fluro.io; Path=/; Expires=Fri, 21 Apr 2023 01:16:27 GMT; HttpOnly;
+        SameSite=Lax
+      Date:
+      - Fri, 14 Apr 2023 01:16:27 GMT
+      X-Cache:
+      - Error from cloudfront
+      Via:
+      - 1.1 51249fa478895b699bf6a0fb2431c2ca.cloudfront.net (CloudFront)
+      X-Amz-Cf-Pop:
+      - AKL50-C1
+      X-Amz-Cf-Id:
+      - N-EQRPCiRJzfYIIjzHFS1oMoRWtZsI_zaiTgYpoHoL81ON9Q5viw0Q==
+    body:
+      encoding: UTF-8
+      string: '{"error":"InvalidAccessToken","status":401,"statusCode":401,"message":"Invalid
+        access token"}'
+  recorded_at: Sat, 01 Jan 1994 00:00:00 GMT
 recorded_with: VCR 6.1.0

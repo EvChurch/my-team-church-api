@@ -6,7 +6,7 @@ RSpec.describe Fluro::Import::TeamService, vcr: 'fluro/import/team_service' do
   subject(:team_service) { described_class.new(application) }
 
   let(:account) { create(:account) }
-  let(:application) { create(:application, account:, api_key: 'fluro_api_key') }
+  let(:application) { create(:application, api_key: 'fluro_api_key') }
 
   describe '#import_all' do
     let(:team) { Team.find_by(remote_id: '5c0dd66be6f97b5fa6211998') }

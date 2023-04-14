@@ -19,6 +19,7 @@ RSpec.describe Team do
   it { is_expected.to have_many(:realms).through(:realm_connections) }
   it { is_expected.to have_many(:memberships).dependent(:delete_all) }
   it { is_expected.to have_many(:contacts).through(:memberships) }
+  it { is_expected.to have_many(:objectives).dependent(:delete_all) }
 
   it {
     expect(team).to define_enum_for(:status).with_values(

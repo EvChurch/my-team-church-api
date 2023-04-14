@@ -27,7 +27,7 @@ RSpec.describe User do
   describe '.login' do
     before { travel_to Time.zone.local(1994) }
 
-    let!(:contact) { create(:contact, account:, remote_id: '5c0d9d497ef61e100ae45153') }
+    let!(:contact) { create(:contact, remote_id: '5c0d9d497ef61e100ae45153') }
     let(:remote_attributes) do
       {
         '_id' => 'remote_id',

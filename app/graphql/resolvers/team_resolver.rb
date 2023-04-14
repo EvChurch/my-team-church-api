@@ -2,7 +2,7 @@
 
 module Resolvers
   class TeamResolver < BaseResolver
-    description 'retrieve team'
+    description 'retrieve team connected to current user'
 
     type Types::Objects::TeamType, null: false
 
@@ -10,6 +10,10 @@ module Resolvers
 
     def resolve(id:)
       context[:current_user].teams.friendly.find(id)
+    end
+
+    def authorized?(id:)
+      super && context[:current_user].present?
     end
   end
 end

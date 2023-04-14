@@ -2,7 +2,6 @@
 
 FactoryBot.define do
   factory :team do
-    account
     title { Faker::Company.name }
     definition { 'team' }
     remote_id { SecureRandom.uuid }

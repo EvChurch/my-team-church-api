@@ -7,11 +7,11 @@ RSpec.describe Fluro::Import::ContactService,
   subject(:contact_service) { described_class.new(application) }
 
   let(:account) { create(:account) }
-  let(:application) { create(:application, account:, api_key: 'fluro_api_key') }
+  let(:application) { create(:application, api_key: 'fluro_api_key') }
 
   describe '#import_all' do
-    let!(:realm1) { create(:realm, account:, remote_id: '5c0d9d3e7ef61e100ae4514b') }
-    let!(:realm2) { create(:realm, account:, remote_id: '5c0d9d497ef61e100ae45153') }
+    let!(:realm1) { create(:realm, remote_id: '5c0d9d3e7ef61e100ae4514b') }
+    let!(:realm2) { create(:realm, remote_id: '5c0d9d497ef61e100ae45153') }
 
     describe 'with definition' do
       let(:attributes) do

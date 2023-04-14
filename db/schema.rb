@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_03_29_104448) do
+ActiveRecord::Schema[7.0].define(version: 2023_04_14_010332) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -79,6 +79,19 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_29_104448) do
     t.index ["slug", "sluggable_type", "scope"], name: "index_friendly_id_slugs_on_slug_and_sluggable_type_and_scope", unique: true
     t.index ["slug", "sluggable_type"], name: "index_friendly_id_slugs_on_slug_and_sluggable_type"
     t.index ["sluggable_type", "sluggable_id"], name: "index_friendly_id_slugs_on_sluggable_type_and_sluggable_id"
+  end
+
+  create_table "objectives", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "account_id", null: false
+    t.uuid "objectable_id", null: false
+    t.string "objectable_type", null: false
+    t.string "title", null: false
+    t.string "description"
+    t.string "status", default: "draft", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["account_id"], name: "index_objectives_on_account_id"
+    t.index ["objectable_id", "objectable_type"], name: "index_objectives_on_objectable_id_and_objectable_type"
   end
 
   create_table "realm_connections", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -163,6 +176,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_29_104448) do
   add_foreign_key "contact_connections", "contacts", on_delete: :cascade
   add_foreign_key "contact_connections", "users", on_delete: :cascade
   add_foreign_key "contacts", "accounts", on_delete: :cascade
+  add_foreign_key "objectives", "accounts", on_delete: :cascade
   add_foreign_key "realm_connections", "accounts", on_delete: :cascade
   add_foreign_key "realm_connections", "realms", on_delete: :cascade
   add_foreign_key "realms", "accounts", on_delete: :cascade

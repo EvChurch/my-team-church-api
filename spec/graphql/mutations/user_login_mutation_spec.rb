@@ -5,10 +5,7 @@ require 'rails_helper'
 RSpec.describe Mutations::UserLoginMutation, vcr: {
   cassette_name: 'mutations/user_login_mutation', match_requests_on: [:body]
 } do
-  before { travel_to Time.zone.local(1994) }
-
-  let(:account) { create(:account, remote_id: 'remote_account_id') }
-  let(:application) { create(:application, account:, api_key: 'api_key') }
+  let!(:account) { create(:account, remote_id: 'remote_account_id') }
   let(:query) { <<~GRAPHQL }
     mutation($input: UserLoginMutationInput!) {
       userLogin(input: $input) {
@@ -43,6 +40,11 @@ RSpec.describe Mutations::UserLoginMutation, vcr: {
         }
       }
     }
+  end
+
+  before do
+    travel_to Time.zone.local(1994)
+    create(:application, api_key: 'api_key')
   end
 
   it 'returns a valid user' do

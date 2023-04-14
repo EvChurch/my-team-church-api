@@ -9,6 +9,11 @@ class MyTeamChurchApiSchema < GraphQL::Schema
   # For batch-loading (see https://graphql-ruby.org/dataloader/overview.html)
   use GraphQL::Dataloader
 
+  rescue_from(ActiveRecord::RecordNotFound) do |_err, _obj, _args, _ctx, field|
+    # Raise a graphql-friendly error with a custom message
+    raise GraphQL::ExecutionError, "#{field.type.unwrap.graphql_name} not found"
+  end
+
   # GraphQL-Ruby calls this when something goes wrong while running a query:
 
   # Union and Interface Resolution
