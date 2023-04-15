@@ -14,6 +14,7 @@ RSpec.describe Resolvers::TeamResolver do
         createdAt
         definition
         id
+        objectives { id }
         parent { id }
         realms { id }
         remoteId
@@ -67,6 +68,7 @@ RSpec.describe Resolvers::TeamResolver do
             'createdAt' => team.created_at.iso8601,
             'definition' => team.definition,
             'id' => team.id,
+            'objectives' => [],
             'parent' => nil,
             'realms' => [],
             'remoteId' => 'remote_team_id',

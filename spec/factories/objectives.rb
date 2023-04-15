@@ -2,7 +2,8 @@
 
 FactoryBot.define do
   factory :objective do
-    objectable { create(:contact) }
+    contact
+    team
     title { Faker::Name.name }
     status { Objective.statuses['active'] }
   end

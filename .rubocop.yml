@@ -9,3 +9,5 @@ Style/Documentation:
 Metrics/MethodLength:
   Exclude: 
     - db/migrate/**/*
+RSpec/MultipleMemoizedHelpers:
+  Max: 10
