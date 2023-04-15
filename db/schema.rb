@@ -83,15 +83,16 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_14_010332) do
 
   create_table "objectives", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.uuid "account_id", null: false
-    t.uuid "objectable_id", null: false
-    t.string "objectable_type", null: false
+    t.uuid "team_id", null: false
+    t.uuid "contact_id", null: false
     t.string "title", null: false
     t.string "description"
     t.string "status", default: "draft", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["account_id"], name: "index_objectives_on_account_id"
-    t.index ["objectable_id", "objectable_type"], name: "index_objectives_on_objectable_id_and_objectable_type"
+    t.index ["contact_id"], name: "index_objectives_on_contact_id"
+    t.index ["team_id"], name: "index_objectives_on_team_id"
   end
 
   create_table "realm_connections", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -177,6 +178,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_14_010332) do
   add_foreign_key "contact_connections", "users", on_delete: :cascade
   add_foreign_key "contacts", "accounts", on_delete: :cascade
   add_foreign_key "objectives", "accounts", on_delete: :cascade
+  add_foreign_key "objectives", "contacts", on_delete: :cascade
+  add_foreign_key "objectives", "teams", on_delete: :cascade
   add_foreign_key "realm_connections", "accounts", on_delete: :cascade
   add_foreign_key "realm_connections", "realms", on_delete: :cascade
   add_foreign_key "realms", "accounts", on_delete: :cascade

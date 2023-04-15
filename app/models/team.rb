@@ -14,7 +14,7 @@ class Team < ApplicationRecord
            dependent: :delete_all,
            class_name: 'Team::Membership'
   has_many :contacts, through: :memberships
-  has_many :objectives, as: :objectable, dependent: :delete_all
+  has_many :objectives, dependent: :delete_all
   enum status: { active: 'active', archived: 'archived', draft: 'draft' }
   validates :title, :definition, presence: true
   validates :remote_id, uniqueness: { scope: :account_id }, allow_nil: true
