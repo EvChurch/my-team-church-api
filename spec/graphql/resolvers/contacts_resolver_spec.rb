@@ -51,7 +51,7 @@ RSpec.describe Resolvers::ContactsResolver do
             'remoteId' => 'remote_contact_id',
             'slug' => contact.slug,
             'status' => contact.status,
-            'teams' => [],
+            'teams' => contact.teams.map { |team| { 'id' => team.id } },
             'title' => contact.title,
             'updatedAt' => contact.updated_at.iso8601
           }]
@@ -60,18 +60,42 @@ RSpec.describe Resolvers::ContactsResolver do
     }
   end
 
-  it 'returns contacts connected with user' do
+  it 'returns all contacts belonging to teams that user is member of' do
+    create(:team, contacts: [contact], visible_members: true)
     response = MyTeamChurchApiSchema.execute(
       query, context: { current_account: account, current_user: user }
     )
     expect(response.to_h).to eq result
   end
 
+  context 'when status is active' do
+    let(:contact) { create(:contact, remote_id: 'remote_contact_id', status: 'active') }
+    let(:user) { create(:user, remote_id: 'remote_user_id', contacts: [contact, create(:contact, status: 'draft')]) }
+
+    before do
+      create(:team, contacts: [contact, create(:contact, status: 'draft')], visible_members: true)
+      create(:team, contacts: [contact, create(:contact, status: 'draft')], visible_members: true)
+    end
+
+    it 'returns active contacts belonging to teams that user is a member of' do
+      response = MyTeamChurchApiSchema.execute(
+        query, variables: { status: 'active' },
+               context: { current_account: account, current_user: user }
+      )
+      expect(response.to_h).to eq result
+    end
+  end
+
   context 'when status is draft' do
     let(:contact) { create(:contact, remote_id: 'remote_contact_id', status: 'draft') }
     let(:user) { create(:user, remote_id: 'remote_user_id', contacts: [contact, create(:contact)]) }
 
-    it 'returns draft contacts connected with user' do
+    before do
+      create(:team, contacts: [contact, create(:contact)], visible_members: true)
+      create(:team, contacts: [contact, create(:contact)], visible_members: true)
+    end
+
+    it 'returns draft contacts belonging to teams that user is a member of' do
       response = MyTeamChurchApiSchema.execute(
         query, variables: { status: 'draft' },
                context: { current_account: account, current_user: user }
@@ -84,7 +108,12 @@ RSpec.describe Resolvers::ContactsResolver do
     let(:contact) { create(:contact, remote_id: 'remote_contact_id', status: 'archived') }
     let(:user) { create(:user, remote_id: 'remote_user_id', contacts: [contact, create(:contact)]) }
 
-    it 'returns draft contacts connected with user' do
+    before do
+      create(:team, contacts: [contact, create(:contact)], visible_members: true)
+      create(:team, contacts: [contact, create(:contact)], visible_members: true)
+    end
+
+    it 'returns draft contacts belonging to teams that user is a member of' do
       response = MyTeamChurchApiSchema.execute(
         query, variables: { status: 'archived' },
                context: { current_account: account, current_user: user }

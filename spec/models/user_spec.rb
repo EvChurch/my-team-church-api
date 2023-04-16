@@ -22,6 +22,7 @@ RSpec.describe User do
   it { is_expected.to have_many(:contacts).through(:contact_connections) }
   it { is_expected.to have_many(:teams).through(:contacts) }
   it { is_expected.to have_many(:objectives).through(:contacts) }
+  it { is_expected.to have_many(:members).through(:teams) }
   it { is_expected.to validate_presence_of(:title) }
   it { is_expected.to validate_uniqueness_of(:remote_id).scoped_to(:account_id).allow_nil }
 

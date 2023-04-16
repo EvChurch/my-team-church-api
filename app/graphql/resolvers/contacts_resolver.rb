@@ -2,7 +2,7 @@
 
 module Resolvers
   class ContactsResolver < BaseResolver
-    description 'retrieve a collection of contacts'
+    description 'retrieve a collection of contacts in teams connected with user'
 
     type Types::Objects::ContactType.connection_type, null: false
     argument :status, Types::Enums::StatusType, 'status to filter by', required: false
@@ -24,7 +24,7 @@ module Resolvers
       @contacts = if team_id.present?
                     context[:current_user].teams.friendly.find(team_id).contacts
                   else
-                    context[:current_user].contacts
+                    context[:current_user].members
                   end
     end
   end
