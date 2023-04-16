@@ -69,7 +69,7 @@ RSpec.describe Resolvers::ObjectivesResolver do
 
     before { create(:objective, contact:) }
 
-    it 'returns draft objectives connected with user' do
+    it 'returns archived objectives connected with user' do
       response = MyTeamChurchApiSchema.execute(
         query, variables: { status: 'archived' },
                context: { current_account: account, current_user: user }

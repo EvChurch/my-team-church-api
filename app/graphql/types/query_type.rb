@@ -8,5 +8,6 @@ module Types
     field :me, description: 'current user', resolver: Resolvers::MeResolver
     field :objectives, description: 'retrieve objectives', resolver: Resolvers::ObjectivesResolver
     field :team, description: 'retrieve team', resolver: Resolvers::TeamResolver
+    field :teams, description: 'retrieve teams', resolver: Resolvers::TeamsResolver
   end
 end

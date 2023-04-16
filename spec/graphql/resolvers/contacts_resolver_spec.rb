@@ -113,7 +113,7 @@ RSpec.describe Resolvers::ContactsResolver do
       create(:team, contacts: [contact, create(:contact)], visible_members: true)
     end
 
-    it 'returns draft contacts belonging to teams that user is a member of' do
+    it 'returns archived contacts belonging to teams that user is a member of' do
       response = MyTeamChurchApiSchema.execute(
         query, variables: { status: 'archived' },
                context: { current_account: account, current_user: user }
