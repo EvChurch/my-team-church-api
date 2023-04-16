@@ -22,7 +22,7 @@ module Mutations
       raise GraphQL::ExecutionError, 'Invalid Account ID'
     end
 
-    private
+    protected
 
     def validate!(response)
       raise GraphQL::ExecutionError, response['message'] || response.body if response.code != 200

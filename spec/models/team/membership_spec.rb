@@ -12,5 +12,4 @@ RSpec.describe Team::Membership do
   it { is_expected.to have_db_column(:updated_at).of_type(:datetime).with_options(null: false) }
   it { is_expected.to belong_to(:contact) }
   it { is_expected.to belong_to(:team) }
-  it { is_expected.to have_many(:objectives).dependent(:delete_all) }
 end

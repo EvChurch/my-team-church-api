@@ -22,4 +22,12 @@ RSpec.describe Objective do
   }
 
   it { is_expected.to validate_presence_of(:title) }
+
+  describe '#contact_is_member_of_team' do
+    it 'returns validation error' do
+      objective.contact = create(:contact)
+      objective.save
+      expect(objective.errors[:contact_id]).to eq(['contact must be member of team'])
+    end
+  end
 end

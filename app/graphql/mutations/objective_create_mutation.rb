@@ -6,18 +6,16 @@ module Mutations
 
     argument :objective, Types::Inputs::ObjectiveInputType, 'Objective to create', required: true, as: :attributes
 
-    field :errors, [String], 'array of error messages', null: false
     field :objective, Types::Objects::ObjectiveType, 'created objective', null: true
 
     def resolve(attributes:)
       objective = Objective.create(attributes.to_h)
+      objective.save!
+      { objective: }
+    end
 
-      return { objective:, errors: [] } if objective.save
-
-      {
-        objective: nil,
-        errors: objective.errors.full_messages
-      }
+    def authorized?(attributes:)
+      super && context[:current_user].present? && context[:current_user].team_ids.include?(attributes[:team_id])
     end
   end
 end
