@@ -2,12 +2,12 @@
 
 module Mutations
   class UserLoginMutation < BaseMutation
-    description 'Authenticate a User'
+    description 'authenticate a user'
 
     field :token, String, 'token to use as Authorization header as: Bearer \'token\'', null: true
     field :user, Types::Objects::UserType, 'user if credentials are valid', null: true
 
-    argument :account_slug, String, 'Slug of account', required: true
+    argument :account_slug, String, 'slug of account', required: true
     argument :credentials, Types::Inputs::UserCredentialsInputType, 'Credentials of the user', required: true
 
     def resolve(account_slug:, credentials:)
