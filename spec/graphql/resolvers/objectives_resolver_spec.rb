@@ -15,6 +15,7 @@ RSpec.describe Resolvers::ObjectivesResolver do
           account { id }
           contact { id }
           createdAt
+          dueAt
           id
           status
           team { id }
@@ -32,6 +33,7 @@ RSpec.describe Resolvers::ObjectivesResolver do
             'account' => { 'id' => account.id },
             'contact' => { 'id' => contact.id },
             'createdAt' => objective.created_at.iso8601,
+            'dueAt' => objective.due_at.iso8601,
             'id' => objective.id,
             'status' => objective.status,
             'team' => { 'id' => objective.team_id },

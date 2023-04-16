@@ -7,9 +7,10 @@ RSpec.describe Objective do
 
   it { is_expected.to have_db_column(:account_id).of_type(:uuid).with_options(null: false) }
   it { is_expected.to have_db_column(:team_id).of_type(:uuid).with_options(null: false) }
-  it { is_expected.to have_db_column(:contact_id).of_type(:string).with_options(null: false) }
+  it { is_expected.to have_db_column(:contact_id).of_type(:uuid).with_options(null: false) }
   it { is_expected.to have_db_column(:title).of_type(:string).with_options(null: false) }
   it { is_expected.to have_db_column(:description).of_type(:string) }
+  it { is_expected.to have_db_column(:due_at).of_type(:date) }
   it { is_expected.to have_db_column(:status).of_type(:string).with_options(default: 'draft') }
   it { is_expected.to belong_to(:team) }
   it { is_expected.to belong_to(:contact) }

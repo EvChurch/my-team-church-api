@@ -6,5 +6,6 @@ FactoryBot.define do
     team
     title { Faker::Name.name }
     status { Objective.statuses['active'] }
+    due_at { Time.zone.today }
   end
 end
