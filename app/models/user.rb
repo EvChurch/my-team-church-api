@@ -10,6 +10,7 @@ class User < ApplicationRecord
   has_many :contacts, through: :contact_connections
   has_many :teams, -> { distinct }, through: :contacts
   has_many :objectives, -> { distinct }, through: :contacts
+  has_many :team_objectives, -> { distinct }, through: :teams, source: :objectives
   has_many :members, -> { distinct }, through: :teams, source: :contacts
   validates :title, presence: true
   validates :remote_id, uniqueness: { scope: :account_id }, allow_nil: true

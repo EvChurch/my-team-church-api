@@ -21,6 +21,7 @@ RSpec.describe User do
   it { is_expected.to have_many(:contact_connections).dependent(:delete_all) }
   it { is_expected.to have_many(:contacts).through(:contact_connections) }
   it { is_expected.to have_many(:teams).through(:contacts) }
+  it { is_expected.to have_many(:team_objectives).through(:teams) }
   it { is_expected.to have_many(:objectives).through(:contacts) }
   it { is_expected.to have_many(:members).through(:teams) }
   it { is_expected.to validate_presence_of(:title) }
