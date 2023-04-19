@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_04_16_091635) do
+ActiveRecord::Schema[7.0].define(version: 2023_04_19_035253) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -79,6 +79,42 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_16_091635) do
     t.index ["slug", "sluggable_type", "scope"], name: "index_friendly_id_slugs_on_slug_and_sluggable_type_and_scope", unique: true
     t.index ["slug", "sluggable_type"], name: "index_friendly_id_slugs_on_slug_and_sluggable_type"
     t.index ["sluggable_type", "sluggable_id"], name: "index_friendly_id_slugs_on_sluggable_type_and_sluggable_id"
+  end
+
+  create_table "objective_result_progresses", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "account_id", null: false
+    t.uuid "result_id", null: false
+    t.uuid "contact_id", null: false
+    t.decimal "current_value", default: "0.0", null: false
+    t.string "progress", default: "no_status", null: false
+    t.string "comment"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["account_id"], name: "index_objective_result_progresses_on_account_id"
+    t.index ["contact_id"], name: "index_objective_result_progresses_on_contact_id"
+    t.index ["result_id"], name: "index_objective_result_progresses_on_result_id"
+  end
+
+  create_table "objective_results", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "account_id", null: false
+    t.uuid "objective_id", null: false
+    t.string "title", null: false
+    t.string "description"
+    t.uuid "contact_id", null: false
+    t.string "measurement", default: "numerical", null: false
+    t.string "kind", default: "key_result", null: false
+    t.string "progress", default: "no_status", null: false
+    t.decimal "start_value", default: "0.0", null: false
+    t.decimal "current_value", default: "0.0", null: false
+    t.decimal "target_value", default: "100.0", null: false
+    t.date "start_at"
+    t.date "due_at"
+    t.string "status", default: "draft", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["account_id"], name: "index_objective_results_on_account_id"
+    t.index ["contact_id"], name: "index_objective_results_on_contact_id"
+    t.index ["objective_id"], name: "index_objective_results_on_objective_id"
   end
 
   create_table "objectives", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -178,6 +214,12 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_16_091635) do
   add_foreign_key "contact_connections", "contacts", on_delete: :cascade
   add_foreign_key "contact_connections", "users", on_delete: :cascade
   add_foreign_key "contacts", "accounts", on_delete: :cascade
+  add_foreign_key "objective_result_progresses", "accounts", on_delete: :cascade
+  add_foreign_key "objective_result_progresses", "contacts", on_delete: :cascade
+  add_foreign_key "objective_result_progresses", "objective_results", column: "result_id", on_delete: :cascade
+  add_foreign_key "objective_results", "accounts", on_delete: :cascade
+  add_foreign_key "objective_results", "contacts", on_delete: :cascade
+  add_foreign_key "objective_results", "objectives", on_delete: :cascade
   add_foreign_key "objectives", "accounts", on_delete: :cascade
   add_foreign_key "objectives", "contacts", on_delete: :cascade
   add_foreign_key "objectives", "teams", on_delete: :cascade

@@ -1,0 +1,14 @@
+class CreateObjectiveResultProgresses < ActiveRecord::Migration[7.0]
+  def change
+    create_table :objective_result_progresses, id: :uuid do |t|
+      t.belongs_to :account, null: false, foreign_key: { on_delete: :cascade }, type: :uuid
+      t.belongs_to :result, null: false, foreign_key: { on_delete: :cascade, to_table: :objective_results }, type: :uuid
+      t.belongs_to :contact, null: false, foreign_key: { on_delete: :cascade }, type: :uuid
+      t.decimal :current_value, null: false, default: 0.0
+      t.string :progress, null: false, default: 'no_status'
+      t.string :comment
+
+      t.timestamps
+    end
+  end
+end
