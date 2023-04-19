@@ -2,7 +2,7 @@ class Objective
   class Result
     class Progress < ApplicationRecord
       multi_tenant :account
-      belongs_to :result, class_name: 'Objective::Result'
+      belongs_to :result
       belongs_to :contact
       enum progress: Objective::Result.progresses
       validates :current_value, :progress, presence: true

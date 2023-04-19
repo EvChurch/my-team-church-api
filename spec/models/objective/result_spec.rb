@@ -20,6 +20,7 @@ RSpec.describe Objective::Result do
   it { is_expected.to have_db_column(:due_at).of_type(:date) }
   it { is_expected.to belong_to(:objective) }
   it { is_expected.to belong_to(:contact) }
+  it { is_expected.to have_many(:progresses).dependent(:delete_all) }
 
   it {
     expect(objective_result).to define_enum_for(:measurement).with_values(

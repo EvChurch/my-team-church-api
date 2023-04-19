@@ -4,6 +4,7 @@ class Objective < ApplicationRecord
   multi_tenant :account
   belongs_to :team
   belongs_to :contact
+  has_many :results, dependent: :delete_all
   enum status: { active: 'active', archived: 'archived', draft: 'draft' }
   validates :title, presence: true
   validate :contact_is_member_of_team

@@ -23,6 +23,8 @@ RSpec.describe Contact do
   it { is_expected.to have_many(:memberships).dependent(:delete_all) }
   it { is_expected.to have_many(:teams).through(:memberships) }
   it { is_expected.to have_many(:objectives).dependent(:delete_all) }
+  it { is_expected.to have_many(:results).dependent(:delete_all) }
+  it { is_expected.to have_many(:progresses).dependent(:delete_all) }
 
   it {
     expect(contact).to define_enum_for(:status).with_values(

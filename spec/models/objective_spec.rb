@@ -14,6 +14,7 @@ RSpec.describe Objective do
   it { is_expected.to have_db_column(:status).of_type(:string).with_options(default: 'draft') }
   it { is_expected.to belong_to(:team) }
   it { is_expected.to belong_to(:contact) }
+  it { is_expected.to have_many(:results).dependent(:delete_all) }
 
   it {
     expect(objective).to define_enum_for(:status).with_values(
