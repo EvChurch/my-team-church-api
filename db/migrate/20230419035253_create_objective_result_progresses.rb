@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CreateObjectiveResultProgresses < ActiveRecord::Migration[7.0]
   def change
     create_table :objective_result_progresses, id: :uuid do |t|
