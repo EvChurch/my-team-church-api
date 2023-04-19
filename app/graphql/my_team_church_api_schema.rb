@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class MyTeamChurchApiSchema < GraphQL::Schema
+  use GraphQL::Dataloader
   mutation Types::MutationType
   query Types::QueryType
   max_complexity nil

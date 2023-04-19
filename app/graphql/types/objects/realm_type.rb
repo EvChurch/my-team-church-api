@@ -17,6 +17,10 @@ module Types
       field :teams, Types::Objects::TeamType.connection_type, 'teams related to realm', null: false
       field :title, String, 'title of record', null: false
       field :updated_at, GraphQL::Types::ISO8601DateTime, 'time record updated', null: false
+
+      def account
+        dataloader.with(::Sources::ActiveRecordService, ::Account).load(object.account_id)
+      end
     end
   end
 end

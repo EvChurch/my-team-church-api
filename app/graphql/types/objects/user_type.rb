@@ -19,6 +19,10 @@ module Types
       field :title, String, 'title of record', null: false
       field :updated_at, GraphQL::Types::ISO8601DateTime, 'time record updated', null: false
 
+      def account
+        dataloader.with(::Sources::ActiveRecordService, ::Account).load(object.account_id)
+      end
+
       def avatar
         "data:image/png;base64,#{object.avatar}" if object.avatar
       end

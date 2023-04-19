@@ -90,7 +90,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_16_091635) do
     t.string "status", default: "draft", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.date "due_at", null: false
+    t.date "due_at", default: -> { "now()" }, null: false
     t.index ["account_id"], name: "index_objectives_on_account_id"
     t.index ["contact_id"], name: "index_objectives_on_contact_id"
     t.index ["team_id"], name: "index_objectives_on_team_id"

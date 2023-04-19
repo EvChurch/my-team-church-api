@@ -14,6 +14,18 @@ module Types
       field :team, Types::Objects::TeamType, 'team objective belongs to', null: false
       field :title, String, 'title of record', null: false
       field :updated_at, GraphQL::Types::ISO8601DateTime, 'time record updated', null: false
+
+      def account
+        dataloader.with(::Sources::ActiveRecordService, ::Account).load(object.account_id)
+      end
+
+      def contact
+        dataloader.with(::Sources::ActiveRecordService, ::Contact).load(object.contact_id)
+      end
+
+      def team
+        dataloader.with(::Sources::ActiveRecordService, ::Team).load(object.team_id)
+      end
     end
   end
 end
