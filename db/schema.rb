@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_04_19_035253) do
+ActiveRecord::Schema[7.0].define(version: 2023_04_19_111035) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -81,7 +81,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_19_035253) do
     t.index ["sluggable_type", "sluggable_id"], name: "index_friendly_id_slugs_on_sluggable_type_and_sluggable_id"
   end
 
-  create_table "objective_result_progresses", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+  create_table "objective_result_audits", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.uuid "account_id", null: false
     t.uuid "result_id", null: false
     t.uuid "contact_id", null: false
@@ -90,9 +90,9 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_19_035253) do
     t.string "comment"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["account_id"], name: "index_objective_result_progresses_on_account_id"
-    t.index ["contact_id"], name: "index_objective_result_progresses_on_contact_id"
-    t.index ["result_id"], name: "index_objective_result_progresses_on_result_id"
+    t.index ["account_id"], name: "index_objective_result_audits_on_account_id"
+    t.index ["contact_id"], name: "index_objective_result_audits_on_contact_id"
+    t.index ["result_id"], name: "index_objective_result_audits_on_result_id"
   end
 
   create_table "objective_results", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -127,6 +127,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_19_035253) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.date "due_at", default: -> { "now()" }, null: false
+    t.string "progress", default: "no_status", null: false
     t.index ["account_id"], name: "index_objectives_on_account_id"
     t.index ["contact_id"], name: "index_objectives_on_contact_id"
     t.index ["team_id"], name: "index_objectives_on_team_id"
@@ -214,9 +215,9 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_19_035253) do
   add_foreign_key "contact_connections", "contacts", on_delete: :cascade
   add_foreign_key "contact_connections", "users", on_delete: :cascade
   add_foreign_key "contacts", "accounts", on_delete: :cascade
-  add_foreign_key "objective_result_progresses", "accounts", on_delete: :cascade
-  add_foreign_key "objective_result_progresses", "contacts", on_delete: :cascade
-  add_foreign_key "objective_result_progresses", "objective_results", column: "result_id", on_delete: :cascade
+  add_foreign_key "objective_result_audits", "accounts", on_delete: :cascade
+  add_foreign_key "objective_result_audits", "contacts", on_delete: :cascade
+  add_foreign_key "objective_result_audits", "objective_results", column: "result_id", on_delete: :cascade
   add_foreign_key "objective_results", "accounts", on_delete: :cascade
   add_foreign_key "objective_results", "contacts", on_delete: :cascade
   add_foreign_key "objective_results", "objectives", on_delete: :cascade

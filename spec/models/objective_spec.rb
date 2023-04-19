@@ -12,13 +12,22 @@ RSpec.describe Objective do
   it { is_expected.to have_db_column(:description).of_type(:string) }
   it { is_expected.to have_db_column(:due_at).of_type(:date) }
   it { is_expected.to have_db_column(:status).of_type(:string).with_options(default: 'draft') }
+  it { is_expected.to have_db_column(:progress).of_type(:string).with_options(default: 'no_status') }
   it { is_expected.to belong_to(:team) }
   it { is_expected.to belong_to(:contact) }
   it { is_expected.to have_many(:results).dependent(:delete_all) }
+  it { is_expected.to have_many(:audits) }
 
   it {
     expect(objective).to define_enum_for(:status).with_values(
       active: 'active', archived: 'archived', draft: 'draft'
+    ).backed_by_column_of_type(:string)
+  }
+
+  it {
+    expect(objective).to define_enum_for(:progress).with_values(
+      no_status: 'no_status', off_track: 'off_track', needs_attention: 'needs_attention', on_track: 'on_track',
+      accomplished: 'accomplished'
     ).backed_by_column_of_type(:string)
   }
 

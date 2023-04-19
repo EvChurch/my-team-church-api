@@ -18,9 +18,10 @@ RSpec.describe Objective::Result do
   it { is_expected.to have_db_column(:target_value).of_type(:decimal).with_options(null: false, default: 100.0) }
   it { is_expected.to have_db_column(:start_at).of_type(:date) }
   it { is_expected.to have_db_column(:due_at).of_type(:date) }
+  it { is_expected.to have_db_column(:status).of_type(:string).with_options(null: false, default: 'draft') }
   it { is_expected.to belong_to(:objective) }
   it { is_expected.to belong_to(:contact) }
-  it { is_expected.to have_many(:progresses).dependent(:delete_all) }
+  it { is_expected.to have_many(:audits).dependent(:delete_all) }
 
   it {
     expect(objective_result).to define_enum_for(:measurement).with_values(
@@ -36,8 +37,7 @@ RSpec.describe Objective::Result do
 
   it {
     expect(objective_result).to define_enum_for(:progress).with_values(
-      no_status: 'no_status', off_track: 'off_track', needs_attention: 'needs_attention', on_track: 'on_track',
-      accomplished: 'accomplished'
+      Objective.progresses
     ).backed_by_column_of_type(:string)
   }
 

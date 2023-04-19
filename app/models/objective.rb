@@ -5,6 +5,14 @@ class Objective < ApplicationRecord
   belongs_to :team
   belongs_to :contact
   has_many :results, dependent: :delete_all
+  has_many :audits, through: :results, class_name: 'Objective::Result::Audit'
+  enum progress: {
+    no_status: 'no_status',
+    off_track: 'off_track',
+    needs_attention: 'needs_attention',
+    on_track: 'on_track',
+    accomplished: 'accomplished'
+  }
   enum status: { active: 'active', archived: 'archived', draft: 'draft' }
   validates :title, presence: true
   validate :contact_is_member_of_team

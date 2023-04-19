@@ -5,11 +5,14 @@ module Types
     class ObjectiveType < Types::BaseObject
       description 'objective for a team'
       field :account, Types::Objects::AccountType, 'account record belongs to', null: false
+      field :audits, [Types::Objects::Objective::Result::AuditType], 'audits connected with results of objective',
+            null: false
       field :contact, Types::Objects::ContactType, 'contact objective belongs to', null: false
       field :created_at, GraphQL::Types::ISO8601DateTime, 'time record created', null: false
       field :description, String, 'description of objective', null: true
       field :due_at, GraphQL::Types::ISO8601Date, 'date objective due', null: false
       field :id, ID, 'record unique identifier', null: false
+      field :results, [Types::Objects::Objective::ResultType], 'results contributing to objective', null: false
       field :status, Types::Enums::StatusType, 'record status'
       field :team, Types::Objects::TeamType, 'team objective belongs to', null: false
       field :title, String, 'title of record', null: false
