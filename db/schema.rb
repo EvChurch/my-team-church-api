@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_04_19_111035) do
+ActiveRecord::Schema[7.0].define(version: 2023_04_19_121412) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -105,13 +105,14 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_19_111035) do
     t.string "kind", default: "key_result", null: false
     t.string "progress", default: "no_status", null: false
     t.decimal "start_value", default: "0.0", null: false
-    t.decimal "current_value", default: "0.0", null: false
+    t.decimal "current_value"
     t.decimal "target_value", default: "100.0", null: false
     t.date "start_at"
     t.date "due_at"
     t.string "status", default: "draft", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "percentage", default: 0, null: false
     t.index ["account_id"], name: "index_objective_results_on_account_id"
     t.index ["contact_id"], name: "index_objective_results_on_contact_id"
     t.index ["objective_id"], name: "index_objective_results_on_objective_id"
@@ -128,6 +129,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_19_111035) do
     t.datetime "updated_at", null: false
     t.date "due_at", default: -> { "now()" }, null: false
     t.string "progress", default: "no_status", null: false
+    t.decimal "percentage", default: "0.0", null: false
     t.index ["account_id"], name: "index_objectives_on_account_id"
     t.index ["contact_id"], name: "index_objectives_on_contact_id"
     t.index ["team_id"], name: "index_objectives_on_team_id"

@@ -16,6 +16,7 @@ module Types
         field :kind, Types::Enums::Objective::Result::KindType, 'kind of result', null: false
         field :mesurement, Types::Enums::Objective::Result::MeasurementType, 'measurement to use', null: false
         field :objective, Types::Objects::ObjectiveType, 'objective result belongs to', null: false
+        field :percentage, Int, 'current value expressed as a percentage', null: false
         field :progress, Types::Enums::Objective::ProgressType, 'current progress', null: false
         field :start_at, GraphQL::Types::ISO8601Date, 'date result started', null: true
         field :start_value, Float, 'start value', null: false # rubocop:disable GraphQL/ExtractType

@@ -5,6 +5,6 @@ FactoryBot.define do
     result factory: :objective_result
     contact
     current_value { 0.0 }
-    progress { Objective::Result::Audit.progresses['no_status'] }
+    progress { Objective.progresses[:no_status] }
   end
 end

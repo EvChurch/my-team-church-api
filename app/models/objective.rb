@@ -16,6 +16,7 @@ class Objective < ApplicationRecord
   enum status: { active: 'active', archived: 'archived', draft: 'draft' }
   validates :title, presence: true
   validate :contact_is_member_of_team
+  before_save :update_summary
 
   protected
 
@@ -25,5 +26,26 @@ class Objective < ApplicationRecord
     return if team.contacts.include?(contact)
 
     errors.add(:contact_id, 'contact must be member of team')
+  end
+
+  def update_summary
+    key_results = results.key_result.to_a
+    update_percentage(key_results)
+    update_progress(key_results)
+  end
+
+  def update_percentage(key_results)
+    self.percentage = if key_results.empty?
+                        0
+                      else
+                        key_results.sum(&:percentage) / key_results.size
+                      end
+  end
+
+  def update_progress(key_results)
+    self.progress = key_results.pluck(:progress)
+                               .reject { |v| v == Objective.progresses[:no_status] }
+                               .min_by { |v| Objective.progresses.values.find_index(v) } ||
+                    Objective.progresses[:no_status]
   end
 end

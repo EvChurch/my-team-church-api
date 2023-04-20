@@ -12,7 +12,7 @@ class CreateObjectiveResults < ActiveRecord::Migration[7.0]
       t.string :kind, null: false, default: 'key_result'
       t.string :progress, null: false, default: 'no_status'
       t.decimal :start_value, null: false, default: 0.0
-      t.decimal :current_value, null: false, default: 0.0
+      t.decimal :current_value
       t.decimal :target_value, null: false, default: 100.0
       t.date :start_at
       t.date :due_at

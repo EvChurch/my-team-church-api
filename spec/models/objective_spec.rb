@@ -40,4 +40,66 @@ RSpec.describe Objective do
       expect(objective.errors[:contact_id]).to eq(['contact must be member of team'])
     end
   end
+
+  describe '#update_summary' do
+    it 'updates percentage' do
+      create(:objective_result, objective:, start_value: 0, target_value: 100, current_value: 40)
+      expect(objective.percentage).to eq(40)
+    end
+
+    it 'updates progress' do
+      create(:objective_result, objective:, progress: :off_track)
+      create(:objective_result, objective:, progress: :on_track)
+      expect(objective.progress).to eq('off_track')
+    end
+  end
+
+  describe '#update_percentage' do
+    it 'updates percentage with sum of key result percentages over number of key results' do
+      create(:objective_result, objective:, start_value: 0, target_value: 100, current_value: 40)
+      create(:objective_result, objective:, start_value: 0, target_value: 100, current_value: 60)
+      expect(objective.percentage).to eq(50)
+    end
+
+    context 'when no results' do
+      it 'updates percentage with 0' do
+        result = create(:objective_result, objective:, start_value: 0, target_value: 100, current_value: 40)
+        result.destroy
+        expect(objective.percentage).to eq(0)
+      end
+    end
+
+    context 'when kind changes to initiative' do
+      it 'updates percentage ignoring initiative' do
+        create(:objective_result, objective:, start_value: 0, target_value: 100, current_value: 40)
+        result = create(:objective_result, objective:, start_value: 0, target_value: 100, current_value: 60)
+        result.update(kind: :initiative)
+        expect(objective.percentage).to eq(40)
+      end
+    end
+  end
+
+  describe '#update_progress' do
+    it 'updates progress with lowest progress' do
+      create(:objective_result, objective:, progress: :off_track)
+      create(:objective_result, objective:, progress: :on_track)
+      expect(objective.progress).to eq('off_track')
+    end
+
+    context 'when no results' do
+      it 'updates progress with no_status' do
+        result = create(:objective_result, objective:, progress: :on_track)
+        result.destroy
+        expect(objective.progress).to eq('no_status')
+      end
+    end
+
+    context 'when no_status is option' do
+      it 'updates progress with lowest progress ignoring no_status' do
+        create(:objective_result, objective:, progress: :no_status)
+        create(:objective_result, objective:, progress: :on_track)
+        expect(objective.progress).to eq('on_track')
+      end
+    end
+  end
 end

@@ -6,11 +6,36 @@ class Objective
     belongs_to :objective
     belongs_to :contact
     has_many :audits, dependent: :delete_all
-    enum measurement: { numerical: 'numerical', percentage: 'percentage' }
+    enum measurement: { numerical: 'numerical', percentage: 'percentage', currency: 'currency' }
     enum kind: { key_result: 'key_result', initiative: 'initiative' }
     enum progress: Objective.progresses
     enum status: { active: 'active', archived: 'archived', draft: 'draft' }
-    validates :title, :measurement, :kind, :progress, :start_value, :current_value, :target_value, :status,
+    validates :title, :measurement, :kind, :progress, :start_value, :target_value, :status,
               presence: true
+    validate :start_value_must_not_equal_target_value
+    before_save :update_percentage
+    after_commit :update_objective_summary
+
+    protected
+
+    def start_value_must_not_equal_target_value
+      return unless start_value == target_value
+
+      errors.add(:start_value, 'must not equal target value')
+    end
+
+    def update_percentage
+      diff = (start_value - target_value).abs
+      current = ((current_value || start_value) - start_value).abs
+      self.percentage = (current / diff) * 100
+    end
+
+    def update_objective_summary
+      if saved_change_to_attribute?(:percentage) ||
+         saved_change_to_attribute?(:kind) ||
+         saved_change_to_attribute?(:progress)
+        objective.save
+      end
+    end
   end
 end
