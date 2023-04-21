@@ -8,10 +8,16 @@ class User < ApplicationRecord
            dependent: :delete_all,
            class_name: 'Contact::Connection'
   has_many :contacts, through: :contact_connections
+  has_many :objectives, -> { distinct }, through: :contacts, source: :objectives
+  has_many :activities, -> { distinct }, through: :objectives, class_name: 'Objective::Activity'
+  has_many :results, -> { distinct }, through: :objectives, class_name: 'Objective::Result'
   has_many :teams, -> { distinct }, through: :contacts
-  has_many :objectives, -> { distinct }, through: :contacts
+  has_many :team_contacts, -> { distinct }, through: :teams, source: :contacts
   has_many :team_objectives, -> { distinct }, through: :teams, source: :objectives
-  has_many :members, -> { distinct }, through: :teams, source: :contacts
+  has_many :team_activities,
+           -> { distinct }, through: :team_objectives, source: :activities, class_name: 'Objective::Activity'
+  has_many :team_results,
+           -> { distinct }, through: :team_objectives, source: :results, class_name: 'Objective::Result'
   validates :title, presence: true
   validates :remote_id, uniqueness: { scope: :account_id }, allow_nil: true
 

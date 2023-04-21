@@ -5,6 +5,7 @@ module Types
     module Objective
       module Activity
         class KindType < Types::BaseEnum
+          graphql_name 'ObjectiveActivityKind'
           description 'activity kind enum'
 
           ::Objective::Activity.kinds.each do |key, _value|

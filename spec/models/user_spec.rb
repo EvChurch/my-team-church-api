@@ -20,10 +20,14 @@ RSpec.describe User do
   it { is_expected.to have_db_column(:updated_at).of_type(:datetime).with_options(null: false) }
   it { is_expected.to have_many(:contact_connections).dependent(:delete_all) }
   it { is_expected.to have_many(:contacts).through(:contact_connections) }
-  it { is_expected.to have_many(:teams).through(:contacts) }
-  it { is_expected.to have_many(:team_objectives).through(:teams) }
   it { is_expected.to have_many(:objectives).through(:contacts) }
-  it { is_expected.to have_many(:members).through(:teams) }
+  it { is_expected.to have_many(:results).through(:objectives) }
+  it { is_expected.to have_many(:activities).through(:objectives) }
+  it { is_expected.to have_many(:teams).through(:contacts) }
+  it { is_expected.to have_many(:team_contacts).through(:teams) }
+  it { is_expected.to have_many(:team_objectives).through(:teams) }
+  it { is_expected.to have_many(:team_results).through(:team_objectives) }
+  it { is_expected.to have_many(:team_activities).through(:team_objectives) }
   it { is_expected.to validate_presence_of(:title) }
   it { is_expected.to validate_uniqueness_of(:remote_id).scoped_to(:account_id).allow_nil }
 

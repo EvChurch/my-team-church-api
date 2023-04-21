@@ -24,7 +24,7 @@ module Resolvers
       @contacts = if team_id.present?
                     context[:current_user].teams.friendly.find(team_id).contacts
                   else
-                    context[:current_user].members
+                    context[:current_user].contacts
                   end
     end
   end

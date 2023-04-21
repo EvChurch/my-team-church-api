@@ -5,6 +5,7 @@ module Types
     module Objective
       module Result
         class KindType < Types::BaseEnum
+          graphql_name 'ObjectiveResultKind'
           description 'result kind enum'
 
           ::Objective::Result.kinds.each do |key, _value|
