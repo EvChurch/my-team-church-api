@@ -7,13 +7,14 @@ class Objective
       belongs_to :result
       belongs_to :contact
       enum progress: Objective.progresses
-      validates :current_value, :progress, presence: true
       after_commit :update_result, on: :create
 
       protected
 
       def update_result
-        result.update(progress:, current_value:)
+        attributes = { progress:, current_value: }.compact
+
+        result.update(attributes) if hash.present?
       end
     end
   end

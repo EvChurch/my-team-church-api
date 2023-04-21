@@ -11,3 +11,5 @@ Metrics/MethodLength:
     - db/migrate/**/*
 RSpec/MultipleMemoizedHelpers:
   Max: 10
+GraphQL/ExtractType:
+  Enabled: false

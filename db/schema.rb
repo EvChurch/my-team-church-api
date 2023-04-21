@@ -85,8 +85,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_19_121412) do
     t.uuid "account_id", null: false
     t.uuid "result_id", null: false
     t.uuid "contact_id", null: false
-    t.decimal "current_value", default: "0.0", null: false
-    t.string "progress", default: "no_status", null: false
+    t.decimal "current_value"
+    t.string "progress"
     t.string "comment"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

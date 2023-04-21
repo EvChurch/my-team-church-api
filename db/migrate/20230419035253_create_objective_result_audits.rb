@@ -6,8 +6,8 @@ class CreateObjectiveResultAudits < ActiveRecord::Migration[7.0]
       t.belongs_to :account, null: false, foreign_key: { on_delete: :cascade }, type: :uuid
       t.belongs_to :result, null: false, foreign_key: { on_delete: :cascade, to_table: :objective_results }, type: :uuid
       t.belongs_to :contact, null: false, foreign_key: { on_delete: :cascade }, type: :uuid
-      t.decimal :current_value, null: false, default: 0.0
-      t.string :progress, null: false, default: 'no_status'
+      t.decimal :current_value, null: true
+      t.string :progress, null: true
       t.string :comment
 
       t.timestamps

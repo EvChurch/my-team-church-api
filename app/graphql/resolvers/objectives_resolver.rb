@@ -21,11 +21,9 @@ module Resolvers
     protected
 
     def objectives(team_id:)
-      @objectives = if team_id.present?
-                      context[:current_user].teams.friendly.find(team_id).objectives
-                    else
-                      context[:current_user].objectives
-                    end
+      return context[:current_user].teams.friendly.find(team_id).objectives if team_id.present?
+
+      context[:current_user].objectives
     end
   end
 end

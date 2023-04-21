@@ -6,7 +6,7 @@ module Mutations
       graphql_name 'ObjectiveCreateMutation'
       description 'create an objective'
 
-      argument :objective, Types::Inputs::ObjectiveInputType, 'Objective to create', required: true, as: :attributes
+      argument :objective, Types::Inputs::ObjectiveInputType, 'objective to create', required: true, as: :attributes
 
       field :objective, Types::Objects::ObjectiveType, 'created objective', null: true
 
@@ -17,7 +17,8 @@ module Mutations
       end
 
       def authorized?(attributes:)
-        super && context[:current_user].present? && context[:current_user].team_ids.include?(attributes[:team_id])
+        team_id = attributes[:team_id]
+        super && context[:current_user].present? && context[:current_user].team_ids.include?(team_id)
       end
     end
   end
