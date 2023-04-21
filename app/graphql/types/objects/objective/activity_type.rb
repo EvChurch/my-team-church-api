@@ -6,14 +6,14 @@ module Types
       class ActivityType < Types::BaseObject
         description 'activity for an objective'
         field :account, Types::Objects::AccountType, 'account record belongs to', null: false
-        field :comment, String, 'comment on activity', null: false
+        field :comment, String, 'comment on activity', null: true
         field :contact, Types::Objects::ContactType, 'contact activity belongs to', null: false
         field :created_at, GraphQL::Types::ISO8601DateTime, 'time record created', null: false
-        field :current_value, Float, 'current value', null: false
+        field :current_value, Float, 'current value', null: true
         field :id, ID, 'record unique identifier', null: false
         field :kind, Types::Enums::Objective::Activity::KindType, 'kind of activity', null: false
         field :objective, Types::Objects::ObjectiveType, 'objective activity belongs to', null: false
-        field :progress, Types::Enums::Objective::ProgressType, 'current progress', null: false
+        field :progress, Types::Enums::Objective::ProgressType, 'current progress', null: true
         field :result, Types::Objects::Objective::ResultType, 'result activity updated', null: false
         field :updated_at, GraphQL::Types::ISO8601DateTime, 'time record updated', null: false
 
