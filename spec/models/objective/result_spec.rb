@@ -55,6 +55,14 @@ RSpec.describe Objective::Result do
   it { is_expected.to validate_presence_of(:target_value) }
   it { is_expected.to validate_presence_of(:status) }
 
+  describe '#contact_is_member_of_team' do
+    it 'returns validation error' do
+      result.contact = create(:contact)
+      result.save
+      expect(result.errors[:contact_id]).to eq(['contact must be member of team'])
+    end
+  end
+
   describe '#start_value_must_not_equal_target_value' do
     subject(:result) { build(:objective_result, start_value: 10, target_value: 10) }
 

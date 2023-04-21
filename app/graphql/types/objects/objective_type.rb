@@ -12,6 +12,7 @@ module Types
       field :description, String, 'description of objective', null: true
       field :due_at, GraphQL::Types::ISO8601Date, 'date objective due', null: false
       field :id, ID, 'record unique identifier', null: false
+      field :percentage, Int, 'percentage of all results current value', null: false
       field :progress, Types::Enums::Objective::ProgressType, 'current progress', null: false
       field :results, [Types::Objects::Objective::ResultType], 'results contributing to objective', null: false
       field :status, Types::Enums::StatusType, 'record status'

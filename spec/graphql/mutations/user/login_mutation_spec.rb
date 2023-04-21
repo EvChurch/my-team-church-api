@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe Mutations::UserLoginMutation, vcr: {
+RSpec.describe Mutations::User::LoginMutation, vcr: {
   cassette_name: 'mutations/user_login_mutation', match_requests_on: [:body]
 } do
   let!(:account) { create(:account, remote_id: 'remote_account_id') }

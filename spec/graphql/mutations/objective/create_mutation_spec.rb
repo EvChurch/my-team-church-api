@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe Mutations::ObjectiveCreateMutation do
+RSpec.describe Mutations::Objective::CreateMutation do
   let(:account) { create(:account, remote_id: 'remote_account_id') }
   let(:user) { create(:user, remote_id: 'remote_user_id', contacts: [contact]) }
   let!(:team) { create(:team, remote_id: 'remote_user_id', contacts: [contact], visible_members: true) }

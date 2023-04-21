@@ -13,10 +13,19 @@ class Objective
     validates :title, :measurement, :kind, :progress, :start_value, :target_value, :status,
               presence: true
     validate :start_value_must_not_equal_target_value
+    validate :contact_is_member_of_team
     before_save :update_percentage
     after_commit :update_objective_summary
 
     protected
+
+    def contact_is_member_of_team
+      return unless objective.present? && contact.present?
+
+      return if objective.team.contacts.include?(contact)
+
+      errors.add(:contact_id, 'contact must be member of team')
+    end
 
     def start_value_must_not_equal_target_value
       return unless start_value == target_value

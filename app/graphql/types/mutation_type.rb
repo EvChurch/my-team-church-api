@@ -4,7 +4,9 @@ module Types
   class MutationType < Types::BaseObject
     description 'Base Mutation Type'
 
-    field :objective_create, description: 'create a objective', mutation: Mutations::ObjectiveCreateMutation
-    field :user_login, description: 'authenticate a user', mutation: Mutations::UserLoginMutation
+    field :objective_create, description: 'create an objective', mutation: Mutations::Objective::CreateMutation
+    field :objective_result_create, description: 'create a result',
+                                    mutation: Mutations::Objective::Result::CreateMutation
+    field :user_login, description: 'authenticate a user', mutation: Mutations::User::LoginMutation
   end
 end

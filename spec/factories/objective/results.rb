@@ -3,8 +3,8 @@
 FactoryBot.define do
   factory :objective_result, class: 'Objective::Result' do
     objective
-    title { 'MyString' }
-    contact
+    title { Faker::Name.name }
+    contact { objective.contact }
     measurement { Objective::Result.measurements[:numerical] }
     kind { Objective::Result.kinds[:key_result] }
     progress { Objective::Result.progresses[:no_status] }
