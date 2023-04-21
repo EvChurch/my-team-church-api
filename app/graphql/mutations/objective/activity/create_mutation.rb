@@ -19,7 +19,7 @@ module Mutations
         end
 
         def authorized?(attributes:)
-          objective = ::Objective::Objective.find(attributes[:objective_id])
+          objective = ::Objective.find(attributes[:objective_id])
           team_id = objective.team_id
           super && context[:current_user].present? && context[:current_user].team_ids.include?(team_id)
         end

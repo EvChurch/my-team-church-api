@@ -27,10 +27,27 @@ RSpec.describe Objective::Activity do
     ).backed_by_column_of_type(:string)
   }
 
-  describe '#update_result' do
-    subject(:activity) { build(:objective_activity, result:, progress: 'on_track', current_value: 10.0) }
+  describe '#contact_is_member_of_team' do
+    it 'returns validation error' do
+      activity.contact = create(:contact)
+      activity.save
+      expect(activity.errors[:contact_id]).to eq(['contact must be member of team'])
+    end
+  end
 
-    let!(:result) { create(:objective_result, progress: 'off_track', current_value: 5.0) }
+  describe '#result_belongs_to_objective' do
+    it 'returns validation error' do
+      activity.result = create(:objective_result)
+      activity.save
+      expect(activity.errors[:result_id]).to eq(['result must belong to objective'])
+    end
+  end
+
+  describe '#update_result' do
+    subject(:activity) { build(:objective_activity, objective:, result:, progress: 'on_track', current_value: 10.0) }
+
+    let(:objective) { create(:objective) }
+    let!(:result) { create(:objective_result, objective:, progress: 'off_track', current_value: 5.0) }
 
     it 'updates the result' do
       activity.save
@@ -38,7 +55,7 @@ RSpec.describe Objective::Activity do
     end
 
     context 'when progress is nil' do
-      subject(:activity) { build(:objective_activity, result:, current_value: 10.0) }
+      subject(:activity) { build(:objective_activity, objective:, result:, current_value: 10.0) }
 
       it 'updates the result' do
         activity.save
@@ -47,7 +64,7 @@ RSpec.describe Objective::Activity do
     end
 
     context 'when current_value is nil' do
-      subject(:activity) { build(:objective_activity, result:, progress: 'on_track') }
+      subject(:activity) { build(:objective_activity, objective:, result:, progress: 'on_track') }
 
       it 'updates the result' do
         activity.save

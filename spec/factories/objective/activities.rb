@@ -2,8 +2,8 @@
 
 FactoryBot.define do
   factory :objective_activity, class: 'Objective::Activity' do
-    result factory: :objective_result
+    result { create(:objective_result, objective:) }
     objective
-    contact
+    contact { objective.contact }
   end
 end
