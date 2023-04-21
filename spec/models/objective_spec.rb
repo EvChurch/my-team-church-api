@@ -16,7 +16,7 @@ RSpec.describe Objective do
   it { is_expected.to belong_to(:team) }
   it { is_expected.to belong_to(:contact) }
   it { is_expected.to have_many(:results).dependent(:delete_all) }
-  it { is_expected.to have_many(:audits) }
+  it { is_expected.to have_many(:activities) }
 
   it {
     expect(objective).to define_enum_for(:status).with_values(

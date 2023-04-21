@@ -5,7 +5,7 @@ module Types
     class ObjectiveType < Types::BaseObject
       description 'objective for a team'
       field :account, Types::Objects::AccountType, 'account record belongs to', null: false
-      field :audits, [Types::Objects::Objective::Result::AuditType], 'audits connected with results of objective',
+      field :activities, [Types::Objects::Objective::ActivityType], 'activities connected with objective',
             null: false
       field :contact, Types::Objects::ContactType, 'contact objective belongs to', null: false
       field :created_at, GraphQL::Types::ISO8601DateTime, 'time record created', null: false

@@ -5,7 +5,7 @@ class Objective < ApplicationRecord
   belongs_to :team
   belongs_to :contact
   has_many :results, dependent: :delete_all
-  has_many :audits, through: :results, class_name: 'Objective::Result::Audit'
+  has_many :activities, dependent: :delete_all
   enum progress: {
     no_status: 'no_status',
     off_track: 'off_track',

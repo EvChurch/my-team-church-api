@@ -21,7 +21,7 @@ RSpec.describe Objective::Result do
   it { is_expected.to have_db_column(:status).of_type(:string).with_options(null: false, default: 'draft') }
   it { is_expected.to belong_to(:objective) }
   it { is_expected.to belong_to(:contact) }
-  it { is_expected.to have_many(:audits).dependent(:delete_all) }
+  it { is_expected.to have_many(:activities).dependent(:delete_all) }
 
   it {
     expect(result).to define_enum_for(:measurement).with_values(

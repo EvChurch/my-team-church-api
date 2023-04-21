@@ -13,7 +13,7 @@ RSpec.describe Mutations::Objective::Result::CreateMutation do
       objectiveResultCreate(input: $input) {
         result {
           account { id }
-          audits { id }
+          activities { id }
           contact { id }
           createdAt
           currentValue
@@ -59,7 +59,7 @@ RSpec.describe Mutations::Objective::Result::CreateMutation do
         'objectiveResultCreate' => {
           'result' => {
             'account' => { 'id' => account.id },
-            'audits' => [],
+            'activities' => [],
             'contact' => { 'id' => contact.id },
             'createdAt' => objective_result.created_at.iso8601,
             'currentValue' => nil,

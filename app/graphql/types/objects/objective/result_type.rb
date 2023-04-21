@@ -6,7 +6,8 @@ module Types
       class ResultType < Types::BaseObject
         description 'result for a objective'
         field :account, Types::Objects::AccountType, 'account record belongs to', null: false
-        field :audits, [Types::Objects::Objective::Result::AuditType], 'audit records', null: false
+        field :activities, [Types::Objects::Objective::ActivityType], 'activities connected with result',
+              null: false
         field :contact, Types::Objects::ContactType, 'contact result belongs to', null: false
         field :created_at, GraphQL::Types::ISO8601DateTime, 'time record created', null: false
         field :current_value, Float, 'current value', null: true

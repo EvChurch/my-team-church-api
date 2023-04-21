@@ -81,18 +81,21 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_19_121412) do
     t.index ["sluggable_type", "sluggable_id"], name: "index_friendly_id_slugs_on_sluggable_type_and_sluggable_id"
   end
 
-  create_table "objective_result_audits", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+  create_table "objective_activities", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.uuid "account_id", null: false
-    t.uuid "result_id", null: false
+    t.uuid "objective_id", null: false
+    t.uuid "result_id"
     t.uuid "contact_id", null: false
+    t.string "kind", default: "progress_update", null: false
     t.decimal "current_value"
     t.string "progress"
     t.string "comment"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["account_id"], name: "index_objective_result_audits_on_account_id"
-    t.index ["contact_id"], name: "index_objective_result_audits_on_contact_id"
-    t.index ["result_id"], name: "index_objective_result_audits_on_result_id"
+    t.index ["account_id"], name: "index_objective_activities_on_account_id"
+    t.index ["contact_id"], name: "index_objective_activities_on_contact_id"
+    t.index ["objective_id"], name: "index_objective_activities_on_objective_id"
+    t.index ["result_id"], name: "index_objective_activities_on_result_id"
   end
 
   create_table "objective_results", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -217,9 +220,10 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_19_121412) do
   add_foreign_key "contact_connections", "contacts", on_delete: :cascade
   add_foreign_key "contact_connections", "users", on_delete: :cascade
   add_foreign_key "contacts", "accounts", on_delete: :cascade
-  add_foreign_key "objective_result_audits", "accounts", on_delete: :cascade
-  add_foreign_key "objective_result_audits", "contacts", on_delete: :cascade
-  add_foreign_key "objective_result_audits", "objective_results", column: "result_id", on_delete: :cascade
+  add_foreign_key "objective_activities", "accounts", on_delete: :cascade
+  add_foreign_key "objective_activities", "contacts", on_delete: :cascade
+  add_foreign_key "objective_activities", "objective_results", column: "result_id", on_delete: :cascade
+  add_foreign_key "objective_activities", "objectives", on_delete: :cascade
   add_foreign_key "objective_results", "accounts", on_delete: :cascade
   add_foreign_key "objective_results", "contacts", on_delete: :cascade
   add_foreign_key "objective_results", "objectives", on_delete: :cascade

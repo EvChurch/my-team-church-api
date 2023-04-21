@@ -5,7 +5,7 @@ class Objective
     multi_tenant :account
     belongs_to :objective
     belongs_to :contact
-    has_many :audits, dependent: :delete_all
+    has_many :activities, dependent: :delete_all
     enum measurement: { numerical: 'numerical', percentage: 'percentage', currency: 'currency' }
     enum kind: { key_result: 'key_result', initiative: 'initiative' }
     enum progress: Objective.progresses

@@ -13,11 +13,15 @@ RSpec.describe Resolvers::ObjectivesResolver do
       objectives(teamId: $teamId, status: $status) {
         nodes {
           account { id }
+          activities { id }
           contact { id }
           createdAt
           description
           dueAt
           id
+          percentage
+          progress
+          results { id }
           status
           team { id }
           title
@@ -32,11 +36,15 @@ RSpec.describe Resolvers::ObjectivesResolver do
         'objectives' => {
           'nodes' => [{
             'account' => { 'id' => account.id },
+            'activities' => [],
             'contact' => { 'id' => contact.id },
             'createdAt' => objective.created_at.iso8601,
             'description' => nil,
             'dueAt' => objective.due_at.iso8601,
             'id' => objective.id,
+            'percentage' => objective.percentage,
+            'progress' => objective.progress,
+            'results' => [],
             'status' => objective.status,
             'team' => { 'id' => objective.team_id },
             'title' => objective.title,

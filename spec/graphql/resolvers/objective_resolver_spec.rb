@@ -12,6 +12,7 @@ RSpec.describe Resolvers::ObjectiveResolver do
     query($id: ID!) {
       objective(id: $id) {
         account { id }
+        activities { id }
         contact { id }
         createdAt
         description
@@ -19,27 +20,7 @@ RSpec.describe Resolvers::ObjectiveResolver do
         id
         percentage
         progress
-        results {
-          account { id }
-          audits { id }
-          contact { id }
-          createdAt
-          currentValue
-          description
-          dueAt
-          id
-          kind
-          measurement
-          objective { id }
-          percentage
-          progress
-          startAt
-          startValue
-          status
-          targetValue
-          title
-          updatedAt
-        }
+        results { id }
         status
         team { id }
         title
@@ -52,6 +33,7 @@ RSpec.describe Resolvers::ObjectiveResolver do
       'data' => {
         'objective' => {
           'account' => { 'id' => account.id },
+          'activities' => [],
           'contact' => { 'id' => contact.id },
           'createdAt' => objective.created_at.iso8601,
           'description' => nil,
@@ -74,41 +56,6 @@ RSpec.describe Resolvers::ObjectiveResolver do
       query, variables: { id: objective.id }, context: { current_account: account, current_user: user }
     )
     expect(response.to_h).to eq result
-  end
-
-  context 'when results' do
-    let!(:objective_result) { create(:objective_result, objective:, contact:) }
-
-    let(:result) do
-      {
-        'account' => { 'id' => account.id },
-        'audits' => [],
-        'contact' => { 'id' => contact.id },
-        'createdAt' => objective_result.created_at.iso8601,
-        'currentValue' => nil,
-        'description' => nil,
-        'dueAt' => nil,
-        'id' => objective_result.id,
-        'kind' => 'key_result',
-        'measurement' => 'numerical',
-        'objective' => { 'id' => objective.id },
-        'percentage' => 0,
-        'progress' => 'no_status',
-        'startAt' => nil,
-        'startValue' => 0.0,
-        'status' => 'draft',
-        'targetValue' => 100.0,
-        'title' => objective_result.title,
-        'updatedAt' => objective_result.updated_at.iso8601
-      }
-    end
-
-    it 'returns objective with results' do
-      response = MyTeamChurchApiSchema.execute(
-        query, variables: { id: objective.id }, context: { current_account: account, current_user: user }
-      )
-      expect(response.to_h['data']['objective']['results'][0]).to eq result
-    end
   end
 
   context 'when objective is not connected to user' do
