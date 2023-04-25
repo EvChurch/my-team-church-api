@@ -25,7 +25,9 @@ class User < ApplicationRecord
     user = find_or_initialize_by(remote_id: remote['_id'])
     user.update!(remote_attributes(client, remote))
     user.contacts = Contact.where(remote_id: remote['contacts'])
-    { user:, token: JsonWebTokenService.encode(user_id: user.id, account_id: user.account_id) }
+    expires_at = 30.days.from_now
+    { user:, token: JsonWebTokenService.encode({ user_id: user.id, account_id: user.account_id }, expires_at),
+      expires_at: }
   end
 
   def self.remote_attributes(client, remote)

@@ -6,6 +6,7 @@ module Mutations
       graphql_name 'UserLoginMutation'
       description 'authenticate a user'
 
+      field :expires_at, GraphQL::Types::ISO8601DateTime, 'time that token expires at', null: true
       field :token, String, 'token to use as Authorization header as: Bearer \'token\'', null: true
       field :user, Types::Objects::UserType, 'user if credentials are valid', null: true
 

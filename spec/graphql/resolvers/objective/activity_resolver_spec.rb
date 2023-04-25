@@ -56,7 +56,7 @@ RSpec.describe Resolvers::Objective::ActivityResolver do
         'data' => nil,
         'errors' => [{
           'locations' => [{ 'column' => 3, 'line' => 2 }],
-          'message' => 'Activity not found',
+          'message' => 'ObjectiveActivity not found',
           'path' => ['objectiveActivity']
         }]
       }
@@ -76,7 +76,7 @@ RSpec.describe Resolvers::Objective::ActivityResolver do
         'data' => nil,
         'errors' => [{
           'locations' => [{ 'column' => 3, 'line' => 2 }],
-          'message' => 'Activity not found',
+          'message' => 'ObjectiveActivity not found',
           'path' => ['objectiveActivity']
         }]
       }

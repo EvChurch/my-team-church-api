@@ -72,7 +72,7 @@ RSpec.describe Resolvers::Objective::ResultResolver do
         'data' => nil,
         'errors' => [{
           'locations' => [{ 'column' => 3, 'line' => 2 }],
-          'message' => 'Result not found',
+          'message' => 'ObjectiveResult not found',
           'path' => ['objectiveResult']
         }]
       }
@@ -92,7 +92,7 @@ RSpec.describe Resolvers::Objective::ResultResolver do
         'data' => nil,
         'errors' => [{
           'locations' => [{ 'column' => 3, 'line' => 2 }],
-          'message' => 'Result not found',
+          'message' => 'ObjectiveResult not found',
           'path' => ['objectiveResult']
         }]
       }

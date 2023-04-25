@@ -18,6 +18,7 @@ RSpec.describe Mutations::User::LoginMutation, vcr: {
           phoneNumber
           createdAt
         }
+        expiresAt
         token
       }
     }
@@ -27,7 +28,8 @@ RSpec.describe Mutations::User::LoginMutation, vcr: {
     {
       'data' => {
         'userLogin' => {
-          'token' => JsonWebTokenService.encode(user_id: user.id, account_id: account.id),
+          'token' => JsonWebTokenService.encode({ user_id: user.id, account_id: account.id }, 30.days.from_now),
+          'expiresAt' => 30.days.from_now.iso8601,
           'user' => {
             'createdAt' => '2018-12-03T10:30:14Z',
             'email' => 'bob.jones@example.com',

@@ -81,8 +81,13 @@ RSpec.describe User do
     it 'sets token' do
       login = described_class.login(client, remote_attributes)
       expect(JsonWebTokenService.decode(login[:token])).to eq(
-        'user_id' => login[:user].id, 'account_id' => login[:user].account_id, 'exp' => 24.hours.from_now.to_i
+        'user_id' => login[:user].id, 'account_id' => login[:user].account_id, 'exp' => 30.days.from_now.to_i
       )
+    end
+
+    it 'sets expires_at' do
+      login = described_class.login(client, remote_attributes)
+      expect(login[:expires_at]).to eq(30.days.from_now.iso8601)
     end
 
     context 'when avatar' do
