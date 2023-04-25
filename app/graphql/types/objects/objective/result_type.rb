@@ -4,6 +4,7 @@ module Types
   module Objects
     module Objective
       class ResultType < Types::BaseObject
+        graphql_name 'ObjectiveResult'
         description 'result for a objective'
         field :account, Types::Objects::AccountType, 'account record belongs to', null: false
         field :activities, [Types::Objects::Objective::ActivityType], 'activities connected with result',

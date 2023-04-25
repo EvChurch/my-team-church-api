@@ -4,7 +4,7 @@ module Types
   module Inputs
     module Objective
       class ActivityInputType < Types::BaseInputObject
-        graphql_name 'ObjectiveResultactivityInput'
+        graphql_name 'ObjectiveActivityInput'
         description 'activity attributes'
 
         argument :comment, String, 'comment', required: false

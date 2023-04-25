@@ -4,6 +4,7 @@ module Types
   module Objects
     module Objective
       class ActivityType < Types::BaseObject
+        graphql_name 'ObjectiveActivity'
         description 'activity for an objective'
         field :account, Types::Objects::AccountType, 'account record belongs to', null: false
         field :comment, String, 'comment on activity', null: true
