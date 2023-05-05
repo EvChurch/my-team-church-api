@@ -44,3 +44,5 @@ group :test do
   gem 'vcr'
   gem 'webmock'
 end
+
+gem "sidekiq", "~> 7.1"
