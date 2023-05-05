@@ -13,3 +13,6 @@ RSpec/MultipleMemoizedHelpers:
   Max: 10
 GraphQL/ExtractType:
   Enabled: false
+GraphQL/ObjectDescription:
+  Exclude:
+    - app/graphql/types/node_type.rb
