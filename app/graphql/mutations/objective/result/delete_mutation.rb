@@ -9,13 +9,11 @@ module Mutations
 
         argument :id, ID, 'result id to delete', required: true
         field :id, ID, 'id of result after delete', null: true
-        field :objective, ID, 'objective of result after delete', null: true
 
         def resolve(id:)
           result = ::Objective::Result.find(id)
-          objective = result.objective
           result.destroy!
-          { id:, objective: }
+          { id: }
         end
 
         def authorized?(id:)
