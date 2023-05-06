@@ -15,4 +15,8 @@ GraphQL/ExtractType:
   Enabled: false
 GraphQL/ObjectDescription:
   Exclude:
+    - app/graphql/my_team_church_api_schema.rb
     - app/graphql/types/node_type.rb
+    - app/graphql/*/base_*.rb
+Rspec/IndexedLet:
+  Enabled: false

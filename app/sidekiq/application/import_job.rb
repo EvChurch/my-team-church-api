@@ -1,8 +1,9 @@
 # frozen_string_literal: true
 
 class Application
-  class ImportJob < ApplicationJob
-    queue_as :default
+  class ImportJob
+    include Sidekiq::Job
+    sidekiq_options lock: :until_executed
 
     def perform(id)
       Application.find_by(id:)&.import

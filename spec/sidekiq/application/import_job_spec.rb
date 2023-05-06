@@ -3,6 +3,8 @@
 require 'rails_helper'
 
 RSpec.describe Application::ImportJob do
+  subject(:import_job) { described_class.new }
+
   describe '#perform' do
     let!(:application) { create(:application) }
 
@@ -12,12 +14,12 @@ RSpec.describe Application::ImportJob do
     end
 
     it 'calls Application.find_by' do
-      described_class.perform_now(application.id)
+      import_job.perform(application.id)
       expect(Application).to have_received(:find_by).with(id: application.id)
     end
 
     it 'calls Application#import' do
-      described_class.perform_now(application.id)
+      import_job.perform(application.id)
       expect(application).to have_received(:import)
     end
 
@@ -27,7 +29,7 @@ RSpec.describe Application::ImportJob do
       end
 
       it 'does not call Application#import' do
-        described_class.perform_now(application.id)
+        import_job.perform(application.id)
         expect(application).not_to have_received(:import)
       end
     end

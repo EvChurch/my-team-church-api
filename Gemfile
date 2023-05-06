@@ -48,3 +48,7 @@ end
 gem 'sidekiq', '~> 7.1'
 
 gem 'sidekiq-cron', '~> 1.10'
+
+gem 'sidekiq-unique-jobs', '~> 8.0'
+
+gem 'hiredis', '~> 0.6.3'
