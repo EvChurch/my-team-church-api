@@ -9,6 +9,8 @@ gem 'ancestry'
 gem 'bootsnap', require: false
 gem 'friendly_id'
 gem 'graphql', '~> 2.0'
+gem 'hiredis', '~> 0.6.3'
+gem 'hiredis-client', '~> 0.14.1'
 gem 'httparty'
 gem 'jwt'
 gem 'pg'
@@ -18,6 +20,9 @@ gem 'puma'
 gem 'rack-cors'
 gem 'rails', '~> 7.0.4', '>= 7.0.4.2'
 gem 'redis', '~> 4.0'
+gem 'sidekiq', '~> 7.1'
+gem 'sidekiq-cron', '~> 1.10'
+gem 'sidekiq-unique-jobs', '~> 8.0'
 gem 'sprockets-rails'
 gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
 
@@ -44,11 +49,3 @@ group :test do
   gem 'vcr'
   gem 'webmock'
 end
-
-gem 'sidekiq', '~> 7.1'
-
-gem 'sidekiq-cron', '~> 1.10'
-
-gem 'sidekiq-unique-jobs', '~> 8.0'
-
-gem 'hiredis', '~> 0.6.3'
