@@ -1,4 +1,4 @@
-second_job:
+application_import_all_job:
   cron: "0 * * * *" # execute at every 30 minutes
   class: "Application::ImportAllJob"
   queue: default
