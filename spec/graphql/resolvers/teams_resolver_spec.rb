@@ -12,7 +12,11 @@ RSpec.describe Resolvers::TeamsResolver do
       teams(status: $status) {
         nodes {
           account { id }
-          contacts { id }
+          contacts {
+            nodes {
+              id#{' '}
+            }
+          }
           createdAt
           definition
           id
@@ -34,7 +38,9 @@ RSpec.describe Resolvers::TeamsResolver do
         'teams' => {
           'nodes' => [{
             'account' => { 'id' => account.id },
-            'contacts' => team.contacts.map { |contact| { 'id' => contact.id } },
+            'contacts' => {
+              'nodes' => team.contacts.map { |contact| { 'id' => contact.id } }
+            },
             'createdAt' => team.created_at.iso8601,
             'definition' => 'team',
             'id' => team.id,

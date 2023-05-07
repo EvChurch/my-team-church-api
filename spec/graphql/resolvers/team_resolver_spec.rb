@@ -10,7 +10,9 @@ RSpec.describe Resolvers::TeamResolver do
     query($id: ID!) {
       team(id: $id) {
         account { id }
-        contacts { id }
+        contacts {
+          nodes { id }
+        }
         createdAt
         definition
         id
@@ -64,7 +66,9 @@ RSpec.describe Resolvers::TeamResolver do
         'data' => {
           'team' => {
             'account' => { 'id' => account.id },
-            'contacts' => [{ 'id' => team.contacts.first.id }],
+            'contacts' => {
+              'nodes' => [{ 'id' => team.contacts.first.id }]
+            },
             'createdAt' => team.created_at.iso8601,
             'definition' => team.definition,
             'id' => team.id,

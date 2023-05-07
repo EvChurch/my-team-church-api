@@ -6,7 +6,7 @@ module Types
       description 'team with members in positions'
 
       field :account, Types::Objects::AccountType, 'account record belongs to', null: false
-      field :contacts, [Types::Objects::ContactType], 'team members', null: false
+      field :contacts, Types::Objects::ContactType.connection_type, 'team members', null: false
       field :created_at, GraphQL::Types::ISO8601DateTime, 'time record created', null: false
       field :definition, String, 'record sub-type', null: false
       field :id, ID, 'record unique identifier', null: false
