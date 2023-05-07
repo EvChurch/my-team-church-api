@@ -18,5 +18,5 @@ GraphQL/ObjectDescription:
     - app/graphql/my_team_church_api_schema.rb
     - app/graphql/types/node_type.rb
     - app/graphql/*/base_*.rb
-Rspec/IndexedLet:
+RSpec/IndexedLet:
   Enabled: false
