@@ -17,8 +17,16 @@ class Objective < ApplicationRecord
   validates :title, presence: true
   validate :contact_is_member_of_team
   before_save :update_summary
+  after_commit :update_team_summary
 
   protected
+
+  def update_team_summary
+    if saved_change_to_attribute?(:percentage) ||
+       saved_change_to_attribute?(:progress)
+      team.save
+    end
+  end
 
   def contact_is_member_of_team
     return unless team.present? && contact.present?

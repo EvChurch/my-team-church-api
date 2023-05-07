@@ -15,11 +15,34 @@ class Team < ApplicationRecord
            class_name: 'Team::Membership'
   has_many :contacts, through: :memberships
   has_many :objectives, dependent: :delete_all
+  enum progress: Objective.progresses
   enum status: { active: 'active', archived: 'archived', draft: 'draft' }
   validates :title, :definition, presence: true
   validates :remote_id, uniqueness: { scope: :account_id }, allow_nil: true
+  before_save :update_summary
 
   def should_generate_new_friendly_id?
     title_changed?
+  end
+
+  def update_summary
+    active_objectives = objectives.active.to_a
+    update_percentage(active_objectives)
+    update_progress(active_objectives)
+  end
+
+  def update_percentage(objectives)
+    self.percentage = if objectives.empty?
+                        0
+                      else
+                        objectives.sum(&:percentage) / objectives.size
+                      end
+  end
+
+  def update_progress(objectives)
+    self.progress = objectives.pluck(:progress)
+                              .reject { |v| v == Objective.progresses[:no_status] }
+                              .min_by { |v| Objective.progresses.values.find_index(v) } ||
+                    Objective.progresses[:no_status]
   end
 end

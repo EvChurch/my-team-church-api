@@ -12,6 +12,8 @@ module Types
       field :id, ID, 'record unique identifier', null: false
       field :objectives, [Types::Objects::ObjectiveType], 'objectives this team has', null: false
       field :parent, Types::Objects::TeamType, 'optional parent record'
+      field :percentage, Int, 'percentage of all objectives current value', null: false
+      field :progress, Types::Enums::Objective::ProgressType, 'current progress', null: false
       field :realms, [Types::Objects::RealmType], 'realms the team belongs to', null: false
       field :remote_id, String, 'unique identifier in fluro'
       field :slug, String, 'friendly unique identifier', null: false

@@ -18,6 +18,8 @@ RSpec.describe Resolvers::TeamResolver do
         id
         objectives { id }
         parent { id }
+        percentage
+        progress
         realms { id }
         remoteId
         slug
@@ -74,6 +76,8 @@ RSpec.describe Resolvers::TeamResolver do
             'id' => team.id,
             'objectives' => [],
             'parent' => nil,
+            'percentage' => 0,
+            'progress' => 'no_status',
             'realms' => [],
             'remoteId' => 'remote_team_id',
             'slug' => team.slug,
