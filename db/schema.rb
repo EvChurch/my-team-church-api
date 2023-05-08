@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_05_07_212744) do
+ActiveRecord::Schema[7.0].define(version: 2023_05_08_123649) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -68,6 +68,14 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_07_212744) do
     t.index ["account_id", "remote_id"], name: "index_contacts_on_account_id_and_remote_id", unique: true
     t.index ["account_id", "slug"], name: "index_contacts_on_account_id_and_slug", unique: true
     t.index ["account_id"], name: "index_contacts_on_account_id"
+  end
+
+  create_table "early_accesses", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "first_name", null: false
+    t.string "email_address", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["email_address"], name: "index_early_accesses_on_email_address", unique: true
   end
 
   create_table "friendly_id_slugs", force: :cascade do |t|
