@@ -73,5 +73,30 @@ RSpec.describe Fluro::Import::TeamService, vcr: 'fluro/import/team_service' do
         expect(team.contact_ids).to match([contact1.id, contact2.id])
       end
     end
+
+    describe 'positions association' do
+      let!(:contact1) { create(:contact, account_id: application.account_id, remote_id: '5c0d98ef44d30a36d8c5574d') }
+      let!(:contact2) { create(:contact, account_id: application.account_id, remote_id: '5c05049048890574c5395ca5') }
+
+      it 'connects team to positions' do
+        team_service.import_all
+        expect(team.positions.pluck(:remote_id)).to match_array(%w[position1 position2 position3])
+      end
+
+      it 'connects position1 to contacts' do
+        team_service.import_all
+        expect(team.positions.find_by(remote_id: 'position1').contact_ids).to match([contact1.id])
+      end
+
+      it 'connects position2 to contacts' do
+        team_service.import_all
+        expect(team.positions.find_by(remote_id: 'position2').contact_ids).to match([contact2.id])
+      end
+
+      it 'connects position3 to contacts' do
+        team_service.import_all
+        expect(team.positions.find_by(remote_id: 'position3').contact_ids).to contain_exactly(contact1.id, contact2.id)
+      end
+    end
   end
 end

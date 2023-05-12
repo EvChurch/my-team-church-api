@@ -2,7 +2,7 @@
 
 class Team < ApplicationRecord
   extend FriendlyId
-  friendly_id :title, use: :scoped, scope: [:account_id]
+  friendly_id :friendly_id_title, use: :scoped, scope: [:account_id]
   has_ancestry primary_key_format: %r{\A[\w-]+(/[\w-]+)*\z}
   multi_tenant :account
   has_many :realm_connections,
@@ -25,6 +25,13 @@ class Team < ApplicationRecord
 
   def should_generate_new_friendly_id?
     title_changed?
+  end
+
+  def friendly_id_title
+    case title&.parameterize
+    when 'admin' then 'administrator'
+    else title
+    end
   end
 
   def update_summary

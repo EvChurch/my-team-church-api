@@ -49,6 +49,15 @@ RSpec.describe Team do
     end
   end
 
+  describe '#friendly_id_title' do
+    subject(:team) { build(:team, title: 'Admin') }
+
+    it 'changes admin slug to administrator' do
+      team.save
+      expect(team.slug).to eq 'administrator'
+    end
+  end
+
   describe '#update_summary' do
     let(:objective) { create(:objective, team:) }
 

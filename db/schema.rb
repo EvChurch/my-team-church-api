@@ -211,8 +211,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_12_013917) do
     t.boolean "reporter", default: false, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["account_id", "remote_id"], name: "index_team_positions_on_account_id_and_remote_id", unique: true
-    t.index ["account_id", "slug"], name: "index_team_positions_on_account_id_and_slug", unique: true
+    t.index ["account_id", "team_id", "remote_id"], name: "index_team_positions_on_account_id_and_team_id_and_remote_id", unique: true
+    t.index ["account_id", "team_id", "slug"], name: "index_team_positions_on_account_id_and_team_id_and_slug", unique: true
     t.index ["account_id"], name: "index_team_positions_on_account_id"
     t.index ["team_id"], name: "index_team_positions_on_team_id"
   end

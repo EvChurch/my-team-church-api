@@ -12,7 +12,7 @@ class CreateTeamPositions < ActiveRecord::Migration[7.0]
       t.boolean :reporter, null: false, default: false
       t.timestamps
     end
-    add_index :team_positions, %i[account_id slug], unique: true
-    add_index :team_positions, %i[account_id remote_id], unique: true
+    add_index :team_positions, %i[account_id team_id slug], unique: true
+    add_index :team_positions, %i[account_id team_id remote_id], unique: true
   end
 end

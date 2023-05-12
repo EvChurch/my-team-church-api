@@ -20,6 +20,19 @@ module Fluro
 
       def connect_associations(remote, team)
         team.contacts = @account.contacts.where(remote_id: remote['provisionalMembers'].pluck('_id'))
+        remote['assignments'].each do |position|
+          create_or_update_position(position, team)
+        end
+      end
+
+      def create_or_update_position(remote, team)
+        position = team.positions.find_or_initialize_by(remote_id: remote['_id'])
+        position.update!(
+          title: remote['title'],
+          exclude: remote['exclude'] || false,
+          reporter: remote['reporter'] || false
+        )
+        position.contacts = @account.contacts.where(remote_id: remote['contacts'].pluck('_id'))
       end
 
       def remote_fields

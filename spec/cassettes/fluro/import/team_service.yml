@@ -56,6 +56,36 @@ http_interactions:
           {
             "_id": "5c0dd66be6f97b5fa6211998",
             "status": "active",
+            "assignments": [
+              { 
+                "_id": "position1",
+                "title": "Leader",
+                "reporter": true,
+                "exclude": false,
+                "contacts": [
+                  { "_id": "5c0d98ef44d30a36d8c5574d" }
+                ]
+              },
+              { 
+                "_id": "position2",
+                "title": "Admin",
+                "reporter": true,
+                "exclude": true,
+                "contacts": [
+                  { "_id": "5c05049048890574c5395ca5" }
+                ]
+              },
+              { 
+                "_id": "position3",
+                "title": "Worker",
+                "reporter": false,
+                "exclude": false,
+                "contacts": [
+                  { "_id": "5c0d98ef44d30a36d8c5574d" },
+                  { "_id": "5c05049048890574c5395ca5" }
+                ]
+              }
+            ],
             "provisionalMembers": [
               { "_id": "5c0d98ef44d30a36d8c5574d" },
               { "_id": "5c05049048890574c5395ca5" }
@@ -88,6 +118,36 @@ http_interactions:
           {
             "_id": "5c05050b48890574c5395cad",
             "status": "active",
+            "assignments": [
+              { 
+                "_id": "position1",
+                "title": "Leader",
+                "reporter": true,
+                "exclude": false,
+                "contacts": [
+                  { "_id": "5c0d98ef44d30a36d8c5574d" }
+                ]
+              },
+              { 
+                "_id": "position2",
+                "title": "Admin",
+                "reporter": true,
+                "exclude": true,
+                "contacts": [
+                  { "_id": "5c05049048890574c5395ca5" }
+                ]
+              },
+              { 
+                "_id": "position3",
+                "title": "Worker",
+                "reporter": false,
+                "exclude": false,
+                "contacts": [
+                  { "_id": "5c0d98ef44d30a36d8c5574d" },
+                  { "_id": "5c05049048890574c5395ca5" }
+                ]
+              }
+            ],
             "provisionalMembers": [{ "_id": "5c0d98ef44d30a36d8c5574d" }],
             "realms": [
               {
