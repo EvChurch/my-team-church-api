@@ -21,6 +21,8 @@ RSpec.describe Contact do
   it { is_expected.to have_many(:realm_connections).dependent(:delete_all) }
   it { is_expected.to have_many(:realms).through(:realm_connections) }
   it { is_expected.to have_many(:memberships).dependent(:delete_all) }
+  it { is_expected.to have_many(:assignments).dependent(:delete_all) }
+  it { is_expected.to have_many(:positions).through(:assignments) }
   it { is_expected.to have_many(:teams).through(:memberships) }
   it { is_expected.to have_many(:objectives).dependent(:delete_all) }
   it { is_expected.to have_many(:results).dependent(:delete_all) }

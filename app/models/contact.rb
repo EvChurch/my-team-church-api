@@ -12,6 +12,10 @@ class Contact < ApplicationRecord
   has_many :memberships,
            dependent: :delete_all,
            class_name: 'Team::Membership'
+  has_many :assignments,
+           dependent: :delete_all,
+           class_name: 'Team::Assignment'
+  has_many :positions, through: :assignments, class_name: 'Team::Position'
   has_many :teams, -> { where(visible_members: true) }, through: :memberships
   has_many :objectives, dependent: :delete_all
   has_many :results, dependent: :delete_all, class_name: 'Objective::Result'

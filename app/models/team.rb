@@ -15,6 +15,8 @@ class Team < ApplicationRecord
            class_name: 'Team::Membership'
   has_many :contacts, through: :memberships
   has_many :objectives, dependent: :delete_all
+  has_many :positions, dependent: :delete_all
+  has_many :assignments, through: :positions
   enum progress: Objective.progresses
   enum status: { active: 'active', archived: 'archived', draft: 'draft' }
   validates :title, :definition, presence: true

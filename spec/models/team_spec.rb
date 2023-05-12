@@ -22,6 +22,8 @@ RSpec.describe Team do
   it { is_expected.to have_many(:memberships).dependent(:delete_all) }
   it { is_expected.to have_many(:contacts).through(:memberships) }
   it { is_expected.to have_many(:objectives).dependent(:delete_all) }
+  it { is_expected.to have_many(:positions).dependent(:delete_all) }
+  it { is_expected.to have_many(:assignments).through(:positions) }
 
   it {
     expect(team).to define_enum_for(:status).with_values(

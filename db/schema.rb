@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_05_08_123649) do
+ActiveRecord::Schema[7.0].define(version: 2023_05_12_013917) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -177,6 +177,18 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_08_123649) do
     t.index ["ancestry"], name: "index_realms_on_ancestry"
   end
 
+  create_table "team_assignments", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "account_id", null: false
+    t.uuid "position_id", null: false
+    t.uuid "contact_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["account_id"], name: "index_team_assignments_on_account_id"
+    t.index ["contact_id"], name: "index_team_assignments_on_contact_id"
+    t.index ["position_id", "contact_id"], name: "index_team_assignments_on_position_id_and_contact_id", unique: true
+    t.index ["position_id"], name: "index_team_assignments_on_position_id"
+  end
+
   create_table "team_memberships", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.uuid "account_id", null: false
     t.uuid "contact_id", null: false
@@ -187,6 +199,22 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_08_123649) do
     t.index ["contact_id", "team_id"], name: "index_team_memberships_on_contact_id_and_team_id", unique: true
     t.index ["contact_id"], name: "index_team_memberships_on_contact_id"
     t.index ["team_id"], name: "index_team_memberships_on_team_id"
+  end
+
+  create_table "team_positions", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "account_id", null: false
+    t.uuid "team_id", null: false
+    t.string "slug", null: false
+    t.string "title", null: false
+    t.string "remote_id"
+    t.boolean "exclude", default: false, null: false
+    t.boolean "reporter", default: false, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["account_id", "remote_id"], name: "index_team_positions_on_account_id_and_remote_id", unique: true
+    t.index ["account_id", "slug"], name: "index_team_positions_on_account_id_and_slug", unique: true
+    t.index ["account_id"], name: "index_team_positions_on_account_id"
+    t.index ["team_id"], name: "index_team_positions_on_team_id"
   end
 
   create_table "teams", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -243,9 +271,14 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_08_123649) do
   add_foreign_key "realm_connections", "accounts", on_delete: :cascade
   add_foreign_key "realm_connections", "realms", on_delete: :cascade
   add_foreign_key "realms", "accounts", on_delete: :cascade
+  add_foreign_key "team_assignments", "accounts", on_delete: :cascade
+  add_foreign_key "team_assignments", "contacts", on_delete: :cascade
+  add_foreign_key "team_assignments", "team_positions", column: "position_id", on_delete: :cascade
   add_foreign_key "team_memberships", "accounts", on_delete: :cascade
   add_foreign_key "team_memberships", "contacts", on_delete: :cascade
   add_foreign_key "team_memberships", "teams", on_delete: :cascade
+  add_foreign_key "team_positions", "accounts", on_delete: :cascade
+  add_foreign_key "team_positions", "teams", on_delete: :cascade
   add_foreign_key "teams", "accounts", on_delete: :cascade
   add_foreign_key "users", "accounts", on_delete: :cascade
 end
