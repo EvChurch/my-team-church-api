@@ -14,5 +14,7 @@ module Types
     field :objectives, description: 'retrieve objectives', resolver: Resolvers::ObjectivesResolver
     field :team, description: 'retrieve team', resolver: Resolvers::TeamResolver
     field :teams, description: 'retrieve teams', resolver: Resolvers::TeamsResolver
+    field :team_positions, description: 'retrieve positions for a team', resolver: Resolvers::Team::PositionsResolver
+    field :team_position, description: 'retrieve position for a team', resolver: Resolvers::Team::PositionResolver
   end
 end

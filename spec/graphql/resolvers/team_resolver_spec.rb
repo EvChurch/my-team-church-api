@@ -19,6 +19,9 @@ RSpec.describe Resolvers::TeamResolver do
         objectives { id }
         parent { id }
         percentage
+        positions {
+          nodes { id }
+        }
         progress
         realms { id }
         remoteId
@@ -77,6 +80,9 @@ RSpec.describe Resolvers::TeamResolver do
             'objectives' => [],
             'parent' => nil,
             'percentage' => 0,
+            'positions' => {
+              'nodes' => []
+            },
             'progress' => 'no_status',
             'realms' => [],
             'remoteId' => 'remote_team_id',

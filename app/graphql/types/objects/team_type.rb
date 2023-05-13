@@ -13,6 +13,7 @@ module Types
       field :objectives, [Types::Objects::ObjectiveType], 'objectives this team has', null: false
       field :parent, Types::Objects::TeamType, 'optional parent record'
       field :percentage, Int, 'percentage of all objectives current value', null: false
+      field :positions, Types::Objects::Team::PositionType.connection_type, 'positions in a team', null: false
       field :progress, Types::Enums::Objective::ProgressType, 'current progress', null: false
       field :realms, [Types::Objects::RealmType], 'realms the team belongs to', null: false
       field :remote_id, String, 'unique identifier in fluro'
