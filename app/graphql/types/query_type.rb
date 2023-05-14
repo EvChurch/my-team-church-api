@@ -13,8 +13,8 @@ module Types
     field :objective_results, description: 'retrieve results', resolver: Resolvers::Objective::ResultsResolver
     field :objectives, description: 'retrieve objectives', resolver: Resolvers::ObjectivesResolver
     field :team, description: 'retrieve team', resolver: Resolvers::TeamResolver
-    field :teams, description: 'retrieve teams', resolver: Resolvers::TeamsResolver
-    field :team_positions, description: 'retrieve positions for a team', resolver: Resolvers::Team::PositionsResolver
     field :team_position, description: 'retrieve position for a team', resolver: Resolvers::Team::PositionResolver
+    field :team_positions, description: 'retrieve positions for a team', resolver: Resolvers::Team::PositionsResolver
+    field :teams, description: 'retrieve teams', resolver: Resolvers::TeamsResolver
   end
 end

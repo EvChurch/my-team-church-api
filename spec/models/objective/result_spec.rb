@@ -104,4 +104,22 @@ RSpec.describe Objective::Result do
       end
     end
   end
+
+  describe '#update_objective_summary' do
+    it 'updates objective percentage' do
+      result.update(current_value: 40)
+      expect(result.objective.percentage).to eq(40)
+    end
+
+    it 'updates objective progress' do
+      result.update(progress: :off_track)
+      expect(result.objective.progress).to eq('off_track')
+    end
+
+    it 'updates objective when kind changes' do
+      result.update(current_value: 40)
+      result.update(kind: :initiative)
+      expect(result.objective.percentage).to eq(0)
+    end
+  end
 end

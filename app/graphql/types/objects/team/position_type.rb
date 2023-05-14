@@ -10,6 +10,7 @@ module Types
         field :created_at, GraphQL::Types::ISO8601DateTime, 'time record created', null: false
         field :exclude, Boolean, 'contacts in this position will not be considered members of the group', null: false
         field :id, ID, 'record unique identifier', null: false
+        field :progress, Types::Enums::Objective::ProgressType, 'current progress (excludes accomplished)', null: false
         field :remote_id, String, 'unique identifier in fluro'
         field :reporter, Boolean, 'send reporting requests to contacts in this position', null: false
         field :required_assignments_count, Int, 'number of required assignments', null: false

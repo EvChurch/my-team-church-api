@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_05_13_131100) do
+ActiveRecord::Schema[7.0].define(version: 2023_05_14_124132) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -183,10 +183,12 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_13_131100) do
     t.uuid "contact_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "progress", default: "no_status", null: false
     t.index ["account_id"], name: "index_team_assignments_on_account_id"
     t.index ["contact_id"], name: "index_team_assignments_on_contact_id"
     t.index ["position_id", "contact_id"], name: "index_team_assignments_on_position_id_and_contact_id", unique: true
     t.index ["position_id"], name: "index_team_assignments_on_position_id"
+    t.index ["progress"], name: "index_team_assignments_on_progress"
   end
 
   create_table "team_memberships", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -213,9 +215,11 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_13_131100) do
     t.datetime "updated_at", null: false
     t.integer "assignments_count", default: 0, null: false
     t.integer "required_assignments_count", default: 0, null: false
+    t.string "progress", default: "no_status", null: false
     t.index ["account_id", "team_id", "remote_id"], name: "index_team_positions_on_account_id_and_team_id_and_remote_id", unique: true
     t.index ["account_id", "team_id", "slug"], name: "index_team_positions_on_account_id_and_team_id_and_slug", unique: true
     t.index ["account_id"], name: "index_team_positions_on_account_id"
+    t.index ["progress"], name: "index_team_positions_on_progress"
     t.index ["team_id"], name: "index_team_positions_on_team_id"
   end
 

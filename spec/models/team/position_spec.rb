@@ -21,11 +21,18 @@ RSpec.describe Team::Position do
                                                                                                    default: 0)
   }
 
+  it { is_expected.to have_db_column(:progress).of_type(:string).with_options(null: false, default: 'no_status') }
   it { is_expected.to validate_presence_of(:title) }
   it { is_expected.to validate_uniqueness_of(:remote_id).scoped_to(%i[account_id team_id]).allow_nil }
   it { is_expected.to belong_to(:team) }
   it { is_expected.to have_many(:assignments).dependent(:delete_all) }
   it { is_expected.to have_many(:contacts).through(:assignments) }
+
+  it {
+    expect(position).to define_enum_for(:progress).with_values(
+      no_status: 'no_status', off_track: 'off_track', needs_attention: 'needs_attention', on_track: 'on_track'
+    ).backed_by_column_of_type(:string)
+  }
 
   describe '#should_generate_new_friendly_id?' do
     it 'updates slug when title changes' do
@@ -40,6 +47,14 @@ RSpec.describe Team::Position do
     it 'changes admin slug to administrator' do
       position.save
       expect(position.slug).to eq 'administrator'
+    end
+  end
+
+  describe '#update_summary' do
+    it 'updates progress' do
+      create(:team_assignment, position:, progress: :off_track)
+      create(:team_assignment, position:, progress: :on_track)
+      expect(position.progress).to eq('off_track')
     end
   end
 end

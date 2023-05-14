@@ -34,6 +34,18 @@ RSpec.describe Objective do
 
   it { is_expected.to validate_presence_of(:title) }
 
+  describe '#update_team_summary' do
+    it 'updates teams percentage' do
+      create(:objective_result, objective:, start_value: 0, target_value: 100, current_value: 40)
+      expect(objective.team.percentage).to eq(40)
+    end
+
+    it 'updates teams progress' do
+      create(:objective_result, objective:, progress: :off_track)
+      expect(objective.team.progress).to eq('off_track')
+    end
+  end
+
   describe '#contact_is_member_of_team' do
     it 'returns validation error' do
       objective.contact = create(:contact)

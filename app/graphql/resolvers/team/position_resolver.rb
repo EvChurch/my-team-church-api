@@ -15,7 +15,7 @@ module Resolvers
       end
 
       def authorized?(team_id:, id:)
-        super && context[:current_user].present? 
+        super && context[:current_user].present?
       end
     end
   end

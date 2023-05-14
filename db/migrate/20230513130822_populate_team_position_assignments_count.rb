@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class PopulateTeamPositionAssignmentsCount < ActiveRecord::Migration[7.0]
   def up
     Team::Position.find_each do |position|

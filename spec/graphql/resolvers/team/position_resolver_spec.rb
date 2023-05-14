@@ -18,6 +18,7 @@ RSpec.describe Resolvers::Team::PositionResolver do
         createdAt
         exclude
         id
+        progress
         remoteId
         reporter
         requiredAssignmentsCount
@@ -35,6 +36,7 @@ RSpec.describe Resolvers::Team::PositionResolver do
         'createdAt' => position.created_at.iso8601,
         'exclude' => false,
         'id' => position.id,
+        'progress' => 'no_status',
         'remoteId' => 'team_position_id',
         'reporter' => false,
         'requiredAssignmentsCount' => 0,
