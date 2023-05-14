@@ -5,6 +5,8 @@ module Types
     module Team
       class PositionType < Types::BaseObject
         description 'position on a team'
+        field :assignments, Types::Objects::Team::AssignmentType.connection_type, 'assignments in this position',
+              null: false
         field :assignments_count, Int, 'number of assignments', null: false
         field :contacts, Types::Objects::ContactType.connection_type, 'contacts in this position', null: false
         field :created_at, GraphQL::Types::ISO8601DateTime, 'time record created', null: false
@@ -20,6 +22,10 @@ module Types
 
         def contacts
           object.contacts.order(:title)
+        end
+
+        def assignments
+          object.assignments.joins(:contact).order('contacts.title')
         end
       end
     end

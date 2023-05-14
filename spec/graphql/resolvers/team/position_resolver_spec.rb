@@ -8,10 +8,21 @@ RSpec.describe Resolvers::Team::PositionResolver do
   let(:contact) { create(:contact) }
   let(:team) { create(:team, contacts: [contact], visible_members: true) }
   let!(:position) { create(:team_position, team:, remote_id: 'team_position_id') }
+  let!(:assignment) { create(:team_assignment, position:, contact:) }
   let(:query) { <<~GRAPHQL }
     query($teamId: ID!, $id: ID!) {
       teamPosition(teamId: $teamId, id: $id) {
         assignmentsCount
+        assignments {
+          nodes {
+            contact { id }
+            createdAt
+            id
+            position { id }
+            progress
+            updatedAt
+          }
+        }
         contacts {
           nodes { id }
         }
@@ -31,8 +42,16 @@ RSpec.describe Resolvers::Team::PositionResolver do
   let(:result) do
     {
       'data' => { 'teamPosition' => {
-        'assignmentsCount' => 0,
-        'contacts' => { 'nodes' => [] },
+        'assignmentsCount' => 1,
+        'assignments' => { 'nodes' => [{
+          'contact' => { 'id' => contact.id },
+          'createdAt' => assignment.created_at.iso8601,
+          'id' => assignment.id,
+          'position' => { 'id' => position.id },
+          'progress' => 'no_status',
+          'updatedAt' => assignment.updated_at.iso8601
+        }] },
+        'contacts' => { 'nodes' => [{ 'id' => contact.id }] },
         'createdAt' => position.created_at.iso8601,
         'exclude' => false,
         'id' => position.id,
