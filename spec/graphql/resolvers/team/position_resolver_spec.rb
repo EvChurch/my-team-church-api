@@ -11,6 +11,7 @@ RSpec.describe Resolvers::Team::PositionResolver do
   let(:query) { <<~GRAPHQL }
     query($teamId: ID!, $id: ID!) {
       teamPosition(teamId: $teamId, id: $id) {
+        assignmentsCount
         contacts {
           nodes { id }
         }
@@ -19,6 +20,7 @@ RSpec.describe Resolvers::Team::PositionResolver do
         id
         remoteId
         reporter
+        requiredAssignmentsCount
         slug
         title
         updatedAt
@@ -28,12 +30,14 @@ RSpec.describe Resolvers::Team::PositionResolver do
   let(:result) do
     {
       'data' => { 'teamPosition' => {
+        'assignmentsCount' => 0,
         'contacts' => { 'nodes' => [] },
         'createdAt' => position.created_at.iso8601,
         'exclude' => false,
         'id' => position.id,
         'remoteId' => 'team_position_id',
         'reporter' => false,
+        'requiredAssignmentsCount' => 0,
         'slug' => position.slug,
         'title' => position.title,
         'updatedAt' => position.updated_at.iso8601

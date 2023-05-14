@@ -14,6 +14,13 @@ RSpec.describe Team::Position do
   it { is_expected.to have_db_column(:reporter).of_type(:boolean).with_options(null: false, default: false) }
   it { is_expected.to have_db_column(:created_at).of_type(:datetime).with_options(null: false) }
   it { is_expected.to have_db_column(:updated_at).of_type(:datetime).with_options(null: false) }
+  it { is_expected.to have_db_column(:assignments_count).of_type(:integer).with_options(null: false, default: 0) }
+
+  it {
+    expect(position).to have_db_column(:required_assignments_count).of_type(:integer).with_options(null: false,
+                                                                                                   default: 0)
+  }
+
   it { is_expected.to validate_presence_of(:title) }
   it { is_expected.to validate_uniqueness_of(:remote_id).scoped_to(%i[account_id team_id]).allow_nil }
   it { is_expected.to belong_to(:team) }
